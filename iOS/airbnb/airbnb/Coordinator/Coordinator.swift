@@ -23,9 +23,10 @@ class MainCoordinator: Coordinator {
     }
     
     func start() {
-        let mainVC = MainViewController.instantiate()
-        mainVC.coordinator = self
-        navigationController.setViewControllers([mainVC], animated: false)
+//        let mainVC = MainViewController.instantiate()
+//        mainVC.coordinator = self
+//        navigationController.setViewControllers([mainVC], animated: false)
+        showCalendar()
     }
     
     func showSearch() {
@@ -38,6 +39,12 @@ class MainCoordinator: Coordinator {
         let authVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(identifier: MainViewController.className) as! MainViewController //MARK: - 수정 필요
         authVC.coordinator = self
         navigationController.setViewControllers([authVC], animated: true)
+    }
+    
+    func showCalendar() {
+        let calendarVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(identifier: CalendarViewController.className) as! CalendarViewController //MARK: - 팝업이니 수정 필요
+        calendarVC.coordinator = self
+        navigationController.pushViewController(calendarVC, animated: true)
     }
 }
 
