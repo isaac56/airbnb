@@ -34,6 +34,7 @@
 		22DF011E26552F8600CEE483 /* CalendarBusinessCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DF011D26552F8600CEE483 /* CalendarBusinessCenter.swift */; };
 		22DF012326552F9500CEE483 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DF012226552F9500CEE483 /* Date.swift */; };
 		22FA3EA12656949F0073FB47 /* Selected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA3EA02656949F0073FB47 /* Selected.swift */; };
+		22FA3EAC2656A6BD0073FB47 /* UINavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA3EAB2656A6BD0073FB47 /* UINavigationBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		22DF011D26552F8600CEE483 /* CalendarBusinessCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBusinessCenter.swift; sourceTree = "<group>"; };
 		22DF012226552F9500CEE483 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		22FA3EA02656949F0073FB47 /* Selected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selected.swift; sourceTree = "<group>"; };
+		22FA3EAB2656A6BD0073FB47 /* UINavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 			children = (
 				224FF4C026523AFA0051259F /* NSObject+ClassNameProtocol.swift */,
 				22DF012226552F9500CEE483 /* Date.swift */,
+				22FA3EAB2656A6BD0073FB47 /* UINavigationBar.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -419,6 +422,7 @@
 				22DF010D2655225B00CEE483 /* CalendarYearMonthHeader.swift in Sources */,
 				22DF011E26552F8600CEE483 /* CalendarBusinessCenter.swift in Sources */,
 				2299C62D26536BE5007B01EE /* CalendarCell.swift in Sources */,
+				22FA3EAC2656A6BD0073FB47 /* UINavigationBar.swift in Sources */,
 				224FF4CA26523B5C0051259F /* NetworkingCenter.swift in Sources */,
 				22DCA67D2652338000DDEDBE /* SceneDelegate.swift in Sources */,
 			);
