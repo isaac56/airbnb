@@ -10,10 +10,18 @@ import Foundation
 class CalendarBusinessCenter {
     typealias CalendarList = [YearMonthMetadata: [Day]]
     typealias YearMonthDay = (yearMonthMetadata: YearMonthMetadata, day: Day)
-    typealias Selected = (section: Int, row: Int)
     var calendarList: CalendarList
-    var firstSelected: Selected?
-    var secondSelected: Selected?
+    var durationFieldHandler: (() -> ())?
+    var firstSelected: Selected? {
+        didSet {
+            durationFieldHandler?()
+        }
+    }
+    var secondSelected: Selected? {
+        didSet {
+            durationFieldHandler?()
+        }
+    }
     
     init() {
         self.calendarList = CalendarList()
@@ -66,15 +74,7 @@ class CalendarBusinessCenter {
         return year <= currentYear && month <= currentMonth && day < currentDay
     }
     
-    //MARK: - Business Logic
-    
-    
     //MARK: - Selected Business Logic
-    
-    enum WhereSelected {
-        case first
-        case second
-    }
     
     func selectedLogic(selected: Selected) {
         guard let day = findDay(selected: selected) else { return }
@@ -99,6 +99,25 @@ class CalendarBusinessCenter {
             self.assignSelected(selected: selected, whereSelected: .second)
             self.selectMidRange(first: firstSelected, second: selected)
         }
+    }
+    
+    enum WhereSelected {
+        case first
+        case second
+    }
+    
+    var convertCheckInCheckOutText: String {
+        guard let firstSelected = self.firstSelected else { return "" }
+        guard let firstMonth = self.calendarList.first(where: { $0.key.index == firstSelected.section }) else { return "" }
+        let firstDay = firstMonth.value[firstSelected.row]
+        guard let secondSelected = self.secondSelected else { return "\(firstMonth.key.month.rawValue)월 \(firstDay.day)일" }
+        guard let secondMonth = self.calendarList.first(where: { $0.key.index == secondSelected.section }) else { return "" }
+        let secondDay = secondMonth.value[secondSelected.row]
+        return "\(firstMonth.key.month.rawValue)월 \(firstDay.day)일 - \(secondMonth.key.month.rawValue)월 \(secondDay.day)일"
+    }
+    
+    func isFirstSelected() -> Bool {
+        return self.firstSelected != nil
     }
     
     func isBeforeSelected(selected: Selected) -> Bool {

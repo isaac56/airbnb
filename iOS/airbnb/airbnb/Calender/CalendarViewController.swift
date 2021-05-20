@@ -9,6 +9,7 @@ import UIKit
 
 class CalendarViewController: UIViewController {
     @IBOutlet weak var calendarCollectionView: UICollectionView!
+    @IBOutlet weak var bottomSection: UIView!
     var currentDateStartDay: Int!
     var calendarBusinessCenter: CalendarBusinessCenter!
     
@@ -16,6 +17,34 @@ class CalendarViewController: UIViewController {
         super.viewDidLoad()
         self.calendarBusinessCenter = CalendarBusinessCenter()
         collectionViewRegisterNib()
+        bottomViewRegisterNib()
+    }
+    
+    func bottomViewRegisterNib() {
+        let nib = UINib(nibName: BottomInfoView.className, bundle: nil)
+        guard let bottomView = nib.instantiate(withOwner: self, options: nil).first as? BottomInfoView else { return }
+        bottomViewBind(bottomView: bottomView)
+        bottomView.drawTopBorder()
+        self.bottomSection.addSubview(bottomView)
+        bottomView.setAutolayout(to: self.bottomSection)
+    }
+    
+    func bottomViewBind(bottomView: BottomInfoView) {
+        bottomView.clearButton.addAction(UIAction(handler: { (_) in
+            self.calendarBusinessCenter.initSelectedValue()
+            self.calendarCollectionView.reloadData()
+        }), for: .touchUpInside)
+        
+        bottomView.nextButton.addAction(UIAction(handler: { (_) in
+            self.performSegue(withIdentifier: "\(PriceViewController.className)Segue", sender: bottomView)
+        }), for: .touchUpInside)
+        
+        self.calendarBusinessCenter.durationFieldHandler = {
+            bottomView.writePriceLabel(of: self.calendarBusinessCenter.convertCheckInCheckOutText)
+            self.calendarBusinessCenter.firstSelected == nil
+                ? bottomView.SetWhetherEnableButtonOrNot(isWillEnable: false)
+                : bottomView.SetWhetherEnableButtonOrNot(isWillEnable: true)
+        }
     }
     
     func collectionViewRegisterNib() {
@@ -34,7 +63,7 @@ extension CalendarViewController: UICollectionViewDelegateFlowLayout {
 
 extension CalendarViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.calendarBusinessCenter.selectedLogic(selected: (indexPath.section, indexPath.row))
+        self.calendarBusinessCenter.selectedLogic(selected: Selected(section: indexPath.section, row: indexPath.row))
         collectionView.reloadData()
     }
     

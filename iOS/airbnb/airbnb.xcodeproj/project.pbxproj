@@ -13,6 +13,9 @@
 		224FF4E1265240820051259F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224FF4E0265240820051259F /* SearchViewController.swift */; };
 		224FF51126525B9E0051259F /* NetworkElements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 224FF51026525B9E0051259F /* NetworkElements.plist */; };
 		224FF51726525C7E0051259F /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 224FF51626525C7E0051259F /* Alamofire */; };
+		227E48DF2656490F00603EB2 /* BottomInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227E48DE2656490F00603EB2 /* BottomInfoView.swift */; };
+		227E48E42656491B00603EB2 /* BottomInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 227E48E32656491B00603EB2 /* BottomInfoView.xib */; };
+		227E48EA2656668000603EB2 /* PriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227E48E92656668000603EB2 /* PriceViewController.swift */; };
 		2299C62D26536BE5007B01EE /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2299C62B26536BE5007B01EE /* CalendarCell.swift */; };
 		2299C62E26536BE5007B01EE /* CalendarCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2299C62C26536BE5007B01EE /* CalendarCell.xib */; };
 		22B90732265360A400F6A0B0 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B90731265360A400F6A0B0 /* CalendarViewController.swift */; };
@@ -30,6 +33,7 @@
 		22DF011926552F5E00CEE483 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DF011826552F5E00CEE483 /* Day.swift */; };
 		22DF011E26552F8600CEE483 /* CalendarBusinessCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DF011D26552F8600CEE483 /* CalendarBusinessCenter.swift */; };
 		22DF012326552F9500CEE483 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DF012226552F9500CEE483 /* Date.swift */; };
+		22FA3EA12656949F0073FB47 /* Selected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA3EA02656949F0073FB47 /* Selected.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +59,9 @@
 		224FF4D126523B7D0051259F /* AirbnbRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirbnbRouter.swift; sourceTree = "<group>"; };
 		224FF4E0265240820051259F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		224FF51026525B9E0051259F /* NetworkElements.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = NetworkElements.plist; sourceTree = "<group>"; };
+		227E48DE2656490F00603EB2 /* BottomInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomInfoView.swift; sourceTree = "<group>"; };
+		227E48E32656491B00603EB2 /* BottomInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomInfoView.xib; sourceTree = "<group>"; };
+		227E48E92656668000603EB2 /* PriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceViewController.swift; sourceTree = "<group>"; };
 		2299C62B26536BE5007B01EE /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		2299C62C26536BE5007B01EE /* CalendarCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarCell.xib; sourceTree = "<group>"; };
 		22B90731265360A400F6A0B0 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +85,7 @@
 		22DF011826552F5E00CEE483 /* Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
 		22DF011D26552F8600CEE483 /* CalendarBusinessCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarBusinessCenter.swift; sourceTree = "<group>"; };
 		22DF012226552F9500CEE483 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		22FA3EA02656949F0073FB47 /* Selected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selected.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +148,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		227E48E82656666500603EB2 /* Price */ = {
+			isa = PBXGroup;
+			children = (
+				227E48E92656668000603EB2 /* PriceViewController.swift */,
+			);
+			path = Price;
+			sourceTree = "<group>";
+		};
 		22B9072F2653607D00F6A0B0 /* Calender */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +174,8 @@
 				2299C62C26536BE5007B01EE /* CalendarCell.xib */,
 				22DF010B2655225B00CEE483 /* CalendarYearMonthHeader.swift */,
 				22DF010C2655225B00CEE483 /* CalendarYearMonthHeader.xib */,
+				227E48DE2656490F00603EB2 /* BottomInfoView.swift */,
+				227E48E32656491B00603EB2 /* BottomInfoView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -189,6 +207,7 @@
 				22DCA6B12652375900DDEDBE /* Main */,
 				224FF4DF265240710051259F /* Search */,
 				22B9072F2653607D00F6A0B0 /* Calender */,
+				227E48E82656666500603EB2 /* Price */,
 				224FF4C826523B400051259F /* Network */,
 				224FF4BF26523ADF0051259F /* extension */,
 				22DCA6802652338000DDEDBE /* Main.storyboard */,
@@ -239,6 +258,7 @@
 			isa = PBXGroup;
 			children = (
 				22DF011326552F4800CEE483 /* YearMonthMetadata.swift */,
+				22FA3EA02656949F0073FB47 /* Selected.swift */,
 				22DF011826552F5E00CEE483 /* Day.swift */,
 			);
 			path = Model;
@@ -358,6 +378,7 @@
 				22DF010E2655225B00CEE483 /* CalendarYearMonthHeader.xib in Resources */,
 				224FF51126525B9E0051259F /* NetworkElements.plist in Resources */,
 				22DCA6822652338000DDEDBE /* Main.storyboard in Resources */,
+				227E48E42656491B00603EB2 /* BottomInfoView.xib in Resources */,
 				2299C62E26536BE5007B01EE /* CalendarCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -387,9 +408,12 @@
 				22B90732265360A400F6A0B0 /* CalendarViewController.swift in Sources */,
 				224FF4D226523B7D0051259F /* AirbnbRouter.swift in Sources */,
 				22DF012326552F9500CEE483 /* Date.swift in Sources */,
+				227E48DF2656490F00603EB2 /* BottomInfoView.swift in Sources */,
 				22DCA67F2652338000DDEDBE /* MainViewController.swift in Sources */,
+				227E48EA2656668000603EB2 /* PriceViewController.swift in Sources */,
 				22DF011426552F4800CEE483 /* YearMonthMetadata.swift in Sources */,
 				224FF4E1265240820051259F /* SearchViewController.swift in Sources */,
+				22FA3EA12656949F0073FB47 /* Selected.swift in Sources */,
 				22DCA67B2652338000DDEDBE /* AppDelegate.swift in Sources */,
 				224FF4C126523AFA0051259F /* NSObject+ClassNameProtocol.swift in Sources */,
 				22DF010D2655225B00CEE483 /* CalendarYearMonthHeader.swift in Sources */,
