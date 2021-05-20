@@ -32,6 +32,7 @@ class CalendarViewController: UIViewController {
     func bottomViewBind(bottomView: BottomInfoView) {
         bottomView.clearButton.addAction(UIAction(handler: { (_) in
             self.calendarBusinessCenter.initSelectedValue()
+            bottomView.setWhetherEnableButtonOrNot(isWillEnable: false)
             self.calendarCollectionView.reloadData()
         }), for: .touchUpInside)
         
@@ -42,8 +43,8 @@ class CalendarViewController: UIViewController {
         self.calendarBusinessCenter.durationFieldHandler = {
             bottomView.writePriceLabel(of: self.calendarBusinessCenter.convertCheckInCheckOutText)
             self.calendarBusinessCenter.firstSelected == nil
-                ? bottomView.SetWhetherEnableButtonOrNot(isWillEnable: false)
-                : bottomView.SetWhetherEnableButtonOrNot(isWillEnable: true)
+                ? bottomView.setWhetherEnableButtonOrNot(isWillEnable: false)
+                : bottomView.setWhetherEnableButtonOrNot(isWillEnable: true)
         }
     }
     

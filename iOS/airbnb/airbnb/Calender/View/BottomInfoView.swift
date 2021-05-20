@@ -35,16 +35,16 @@ class BottomInfoView: UIView {
         clearButton.removeTarget(nil, action: nil, for: .allEvents)
     }
     
-    func SetWhetherEnableButtonOrNot(isWillEnable: Bool) {
+    func setWhetherEnableButtonOrNot(isWillEnable: Bool) {
         self.nextButton.isEnabled = isWillEnable
         self.clearButton.isEnabled = isWillEnable
-        
         if isWillEnable {
             self.nextButton.alpha = 1
             self.clearButton.alpha = 1
         } else {
             self.nextButton.alpha = 0.5
             self.clearButton.alpha = 0.5
+            self.duration.text = ""
         }
     }
     
