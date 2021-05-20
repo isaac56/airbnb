@@ -37,7 +37,8 @@ class CalendarViewController: UIViewController {
         }), for: .touchUpInside)
         
         bottomView.nextButton.addAction(UIAction(handler: { (_) in
-            self.performSegue(withIdentifier: "\(PriceViewController.className)Segue", sender: bottomView)
+            guard let vc = self.storyboard?.instantiateViewController(identifier: PriceViewController.className) as? PriceViewController else { return }
+            self.navigationController?.pushViewController(vc, animated: true)
         }), for: .touchUpInside)
         
         self.calendarBusinessCenter.durationFieldHandler = {

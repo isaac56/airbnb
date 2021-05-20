@@ -17,25 +17,51 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X0o-Kh-7WE">
-                                <rect key="frame" x="164" y="360" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <segue destination="BIp-4u-ilw" kind="show" id="ICp-as-wyD"/>
-                                </connections>
-                            </button>
+                            <searchBar clipsSubviews="YES" contentMode="redraw" placeholder="어디로 여행가세요?" translatesAutoresizingMaskIntoConstraints="NO" id="AUa-4l-iQn">
+                                <rect key="frame" x="0.0" y="44" width="414" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="qGT-IZ-9Tx"/>
+                                </constraints>
+                                <color key="barTintColor" systemColor="systemGray6Color"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                        <color key="value" systemColor="systemGray6Color"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </searchBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aDA-LM-0BT">
+                                <rect key="frame" x="0.0" y="114" width="414" height="782"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemYellowColor"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                        <constraints>
+                            <constraint firstItem="AUa-4l-iQn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9IH-sE-9kw"/>
+                            <constraint firstItem="aDA-LM-0BT" firstAttribute="top" secondItem="AUa-4l-iQn" secondAttribute="bottom" id="E3Z-ED-7Ex"/>
+                            <constraint firstItem="AUa-4l-iQn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Mt8-MX-cD4"/>
+                            <constraint firstItem="aDA-LM-0BT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="TD4-rv-gcy"/>
+                            <constraint firstAttribute="bottom" secondItem="aDA-LM-0BT" secondAttribute="bottom" id="Utb-I1-y4q"/>
+                            <constraint firstItem="AUa-4l-iQn" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ab1-pP-zzF"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="aDA-LM-0BT" secondAttribute="trailing" id="k5M-Hh-Njs"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="AUE-sQ-1ao"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="searchBar" destination="AUa-4l-iQn" id="8I0-A1-lZQ"/>
+                        <segue destination="BIp-4u-ilw" kind="show" identifier="SearchViewControllerSegue" id="lG7-rx-hm2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1050.7246376811595" y="118.52678571428571"/>
         </scene>
-        <!--Search View Controller-->
+        <!--숙소 찾기-->
         <scene sceneID="4Tb-H8-Ada">
             <objects>
                 <viewController restorationIdentifier="SearchViewController" storyboardIdentifier="SearchViewController" id="BIp-4u-ilw" customClass="SearchViewController" customModule="airbnb" customModuleProvider="target" sceneMemberID="viewController">
@@ -51,11 +77,28 @@
                                     <segue destination="K6L-sW-ZbD" kind="show" id="O1M-Nh-Ja2"/>
                                 </connections>
                             </button>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="CBn-rI-pTb">
+                                <rect key="frame" x="0.0" y="88" width="414" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="U6Y-S9-N5R"/>
+                                </constraints>
+                                <color key="barTintColor" systemColor="systemGray6Color"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="HI3-tJ-i8x"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="CBn-rI-pTb" firstAttribute="leading" secondItem="HI3-tJ-i8x" secondAttribute="leading" id="Y9U-K2-Un0"/>
+                            <constraint firstItem="CBn-rI-pTb" firstAttribute="top" secondItem="HI3-tJ-i8x" secondAttribute="top" id="Yaa-9G-j66"/>
+                            <constraint firstItem="HI3-tJ-i8x" firstAttribute="trailing" secondItem="CBn-rI-pTb" secondAttribute="trailing" id="cva-9R-2Ty"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Pp4-Ir-axs"/>
+                    <navigationItem key="navigationItem" title="숙소 찾기" id="Pp4-Ir-axs"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="searchBar" destination="CBn-rI-pTb" id="Jho-qP-mH6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cP8-RA-BXg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -180,7 +223,6 @@
                     <connections>
                         <outlet property="bottomSection" destination="u3w-dV-v7r" id="hho-eq-1Iw"/>
                         <outlet property="calendarCollectionView" destination="QJE-ny-9yc" id="Laf-EZ-Ihe"/>
-                        <segue destination="hUm-ws-Rez" kind="show" identifier="PriceViewControllerSegue" id="bpl-QY-hV4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ysU-4q-N19" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -190,7 +232,7 @@
         <!--Price View Controller-->
         <scene sceneID="M67-IE-g0E">
             <objects>
-                <viewController storyboardIdentifier="PriceViewController" id="hUm-ws-Rez" customClass="PriceViewController" customModule="airbnb" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="PriceViewController" storyboardIdentifier="PriceViewController" id="hUm-ws-Rez" customClass="PriceViewController" customModule="airbnb" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aZG-kN-ti7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -229,11 +271,11 @@
         <systemColor name="systemGray2Color">
             <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemIndigoColor">
             <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemYellowColor">
-            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
