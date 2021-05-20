@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,6 +16,14 @@
                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F1A-yI-Tz8">
+                        <rect key="frame" x="0.0" y="0.0" width="25" height="50"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PhB-Bc-sc9">
+                        <rect key="frame" x="25" y="0.0" width="25" height="50"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90K-Oa-hAU">
                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -26,15 +35,30 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstAttribute="top" secondItem="PhB-Bc-sc9" secondAttribute="top" id="9wf-Hi-udq"/>
+                <constraint firstAttribute="centerX" secondItem="PhB-Bc-sc9" secondAttribute="leading" id="F3m-vu-V5E"/>
+                <constraint firstItem="PhB-Bc-sc9" firstAttribute="trailing" secondItem="gTV-IL-0wX" secondAttribute="trailing" id="Vqp-hz-RFo"/>
                 <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="90K-Oa-hAU" secondAttribute="trailing" id="WEU-U7-Cen"/>
+                <constraint firstItem="PhB-Bc-sc9" firstAttribute="bottom" secondItem="gTV-IL-0wX" secondAttribute="bottom" id="WSY-3t-NlB"/>
+                <constraint firstItem="F1A-yI-Tz8" firstAttribute="bottom" secondItem="gTV-IL-0wX" secondAttribute="bottom" id="awq-4N-lB6"/>
+                <constraint firstAttribute="top" secondItem="F1A-yI-Tz8" secondAttribute="top" id="gaj-un-7MR"/>
+                <constraint firstAttribute="leading" secondItem="F1A-yI-Tz8" secondAttribute="leading" id="jQL-ec-DEg"/>
+                <constraint firstItem="F1A-yI-Tz8" firstAttribute="trailing" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="saH-m6-T4Q"/>
                 <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" secondItem="90K-Oa-hAU" secondAttribute="bottom" id="x8K-Gl-1xK"/>
                 <constraint firstItem="90K-Oa-hAU" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="xWp-TT-ZNE"/>
                 <constraint firstItem="90K-Oa-hAU" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="yDG-JK-Nf4"/>
             </constraints>
             <connections>
                 <outlet property="dayLabel" destination="90K-Oa-hAU" id="2yN-JA-tY5"/>
+                <outlet property="leftHalfView" destination="F1A-yI-Tz8" id="3Hq-V0-sqd"/>
+                <outlet property="rightHalfView" destination="PhB-Bc-sc9" id="Fie-0R-zKE"/>
             </connections>
             <point key="canvasLocation" x="-30.434782608695656" y="-21.428571428571427"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

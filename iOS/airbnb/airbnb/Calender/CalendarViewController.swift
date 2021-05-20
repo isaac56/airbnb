@@ -7,9 +7,8 @@
 
 import UIKit
 
-class CalendarViewController: UIViewController, Storyboarded {
+class CalendarViewController: UIViewController {
     @IBOutlet weak var calendarCollectionView: UICollectionView!
-    var coordinator: MainCoordinator!
     var currentDateStartDay: Int!
     var calendarBusinessCenter: CalendarBusinessCenter!
     
@@ -29,13 +28,14 @@ class CalendarViewController: UIViewController, Storyboarded {
 
 extension CalendarViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.view.frame.width / 8.0, height: 50)
+        return CGSize(width: self.view.frame.width / 7.0, height: self.view.frame.width / 7.0)
     }
 }
 
 extension CalendarViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //MARK: - selected
+        self.calendarBusinessCenter.selectedLogic(selected: (indexPath.section, indexPath.row))
+        collectionView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

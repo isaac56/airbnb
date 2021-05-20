@@ -8,11 +8,8 @@
 import UIKit
 
 class SearchViewController: UIViewController {
-    var coordinator: MainCoordinator?
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 }
-
-extension SearchViewController: Storyboarded { }

@@ -11,8 +11,6 @@
 		224FF4CA26523B5C0051259F /* NetworkingCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224FF4C926523B5C0051259F /* NetworkingCenter.swift */; };
 		224FF4D226523B7D0051259F /* AirbnbRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224FF4D126523B7D0051259F /* AirbnbRouter.swift */; };
 		224FF4E1265240820051259F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224FF4E0265240820051259F /* SearchViewController.swift */; };
-		224FF4E7265241E60051259F /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224FF4E6265241E60051259F /* Coordinator.swift */; };
-		224FF5012652511A0051259F /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224FF5002652511A0051259F /* Storyboarded.swift */; };
 		224FF51126525B9E0051259F /* NetworkElements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 224FF51026525B9E0051259F /* NetworkElements.plist */; };
 		224FF51726525C7E0051259F /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 224FF51626525C7E0051259F /* Alamofire */; };
 		2299C62D26536BE5007B01EE /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2299C62B26536BE5007B01EE /* CalendarCell.swift */; };
@@ -56,8 +54,6 @@
 		224FF4C926523B5C0051259F /* NetworkingCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingCenter.swift; sourceTree = "<group>"; };
 		224FF4D126523B7D0051259F /* AirbnbRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirbnbRouter.swift; sourceTree = "<group>"; };
 		224FF4E0265240820051259F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		224FF4E6265241E60051259F /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		224FF5002652511A0051259F /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		224FF51026525B9E0051259F /* NetworkElements.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = NetworkElements.plist; sourceTree = "<group>"; };
 		2299C62B26536BE5007B01EE /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		2299C62C26536BE5007B01EE /* CalendarCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CalendarCell.xib; sourceTree = "<group>"; };
@@ -136,15 +132,6 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
-		224FF4E5265241D60051259F /* Coordinator */ = {
-			isa = PBXGroup;
-			children = (
-				224FF4E6265241E60051259F /* Coordinator.swift */,
-				224FF5002652511A0051259F /* Storyboarded.swift */,
-			);
-			path = Coordinator;
-			sourceTree = "<group>";
-		};
 		226200B32653CB7C009041FE /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,7 +186,6 @@
 			isa = PBXGroup;
 			children = (
 				22DCA6B02652370D00DDEDBE /* AppCycle */,
-				224FF4E5265241D60051259F /* Coordinator */,
 				22DCA6B12652375900DDEDBE /* Main */,
 				224FF4DF265240710051259F /* Search */,
 				22B9072F2653607D00F6A0B0 /* Calender */,
@@ -410,9 +396,7 @@
 				22DF011E26552F8600CEE483 /* CalendarBusinessCenter.swift in Sources */,
 				2299C62D26536BE5007B01EE /* CalendarCell.swift in Sources */,
 				224FF4CA26523B5C0051259F /* NetworkingCenter.swift in Sources */,
-				224FF5012652511A0051259F /* Storyboarded.swift in Sources */,
 				22DCA67D2652338000DDEDBE /* SceneDelegate.swift in Sources */,
-				224FF4E7265241E60051259F /* Coordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
