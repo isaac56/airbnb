@@ -17,11 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar clipsSubviews="YES" contentMode="redraw" placeholder="어디로 여행가세요?" translatesAutoresizingMaskIntoConstraints="NO" id="AUa-4l-iQn">
+                            <searchBar clipsSubviews="YES" contentMode="redraw" misplaced="YES" placeholder="어디로 여행가세요?" translatesAutoresizingMaskIntoConstraints="NO" id="AUa-4l-iQn">
                                 <rect key="frame" x="0.0" y="44" width="414" height="70"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="qGT-IZ-9Tx"/>
-                                </constraints>
                                 <color key="barTintColor" systemColor="systemGray6Color"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <userDefinedRuntimeAttributes>
@@ -38,19 +35,66 @@
                             </searchBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aDA-LM-0BT">
                                 <rect key="frame" x="0.0" y="114" width="414" height="782"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="room" translatesAutoresizingMaskIntoConstraints="NO" id="t9Y-hQ-X3g">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="420"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="420" id="vop-j6-ras"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="슬기로운자연생활" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uLG-8D-S3P">
+                                        <rect key="frame" x="17" y="36" width="140" height="90"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="90" id="H4U-oV-Wfs"/>
+                                            <constraint firstAttribute="width" constant="140" id="Qau-dh-Svi"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L4c-GN-Mxl">
+                                        <rect key="frame" x="17" y="144" width="140" height="35"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="3Zh-8C-wbj"/>
+                                            <constraint firstAttribute="width" constant="140" id="DwB-wz-Zl7"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                        <state key="normal" title="지금 여행 떠나기">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="7"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <segue destination="BIp-4u-ilw" kind="show" id="MlV-SY-ozy"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="uLG-8D-S3P" firstAttribute="leading" secondItem="aDA-LM-0BT" secondAttribute="leading" constant="17" id="1iz-cP-ja4"/>
+                                    <constraint firstItem="L4c-GN-Mxl" firstAttribute="leading" secondItem="uLG-8D-S3P" secondAttribute="leading" id="OcX-Tz-bVd"/>
+                                    <constraint firstAttribute="trailing" secondItem="t9Y-hQ-X3g" secondAttribute="trailing" id="QfY-YZ-YfP"/>
+                                    <constraint firstItem="t9Y-hQ-X3g" firstAttribute="top" secondItem="aDA-LM-0BT" secondAttribute="top" id="dSU-SR-9P4"/>
+                                    <constraint firstItem="uLG-8D-S3P" firstAttribute="top" secondItem="aDA-LM-0BT" secondAttribute="top" constant="36" id="gwM-9L-b2A"/>
+                                    <constraint firstItem="t9Y-hQ-X3g" firstAttribute="leading" secondItem="aDA-LM-0BT" secondAttribute="leading" id="qb5-GE-aW7"/>
+                                    <constraint firstItem="L4c-GN-Mxl" firstAttribute="top" secondItem="uLG-8D-S3P" secondAttribute="bottom" constant="18" id="x3F-Lf-HsF"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
-                            <constraint firstItem="AUa-4l-iQn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9IH-sE-9kw"/>
-                            <constraint firstItem="aDA-LM-0BT" firstAttribute="top" secondItem="AUa-4l-iQn" secondAttribute="bottom" id="E3Z-ED-7Ex"/>
-                            <constraint firstItem="AUa-4l-iQn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Mt8-MX-cD4"/>
-                            <constraint firstItem="aDA-LM-0BT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="TD4-rv-gcy"/>
-                            <constraint firstAttribute="bottom" secondItem="aDA-LM-0BT" secondAttribute="bottom" id="Utb-I1-y4q"/>
-                            <constraint firstItem="AUa-4l-iQn" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ab1-pP-zzF"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="aDA-LM-0BT" secondAttribute="trailing" id="k5M-Hh-Njs"/>
+                            <constraint firstAttribute="bottom" secondItem="aDA-LM-0BT" secondAttribute="bottom" id="LAG-Xi-jBs"/>
+                            <constraint firstAttribute="trailing" secondItem="aDA-LM-0BT" secondAttribute="trailing" id="THN-Xa-w3j"/>
+                            <constraint firstItem="aDA-LM-0BT" firstAttribute="trailing" secondItem="AUa-4l-iQn" secondAttribute="trailing" id="UVl-z5-epP"/>
+                            <constraint firstItem="aDA-LM-0BT" firstAttribute="top" secondItem="AUa-4l-iQn" secondAttribute="bottom" id="Uac-qJ-Bjh"/>
+                            <constraint firstItem="aDA-LM-0BT" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="114" id="oLX-my-EuR"/>
+                            <constraint firstItem="aDA-LM-0BT" firstAttribute="leading" secondItem="AUa-4l-iQn" secondAttribute="leading" id="oXK-oZ-zE3"/>
+                            <constraint firstItem="aDA-LM-0BT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="tUh-oc-u7c"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="AUE-sQ-1ao"/>
@@ -71,14 +115,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h1B-ml-ZwA">
-                                <rect key="frame" x="234" y="360" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <segue destination="K6L-sW-ZbD" kind="show" id="O1M-Nh-Ja2"/>
-                                </connections>
-                            </button>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="CBn-rI-pTb">
                                 <rect key="frame" x="0.0" y="88" width="414" height="70"/>
                                 <constraints>
@@ -87,18 +123,54 @@
                                 <color key="barTintColor" systemColor="systemGray6Color"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VtW-5E-qDv">
+                                <rect key="frame" x="0.0" y="158" width="414" height="704"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="81a-3n-rLc">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="ubF-Eu-fc3">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="hpI-Zb-qta">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="HI3-tJ-i8x"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="HI3-tJ-i8x" firstAttribute="bottom" secondItem="VtW-5E-qDv" secondAttribute="bottom" id="02c-r5-prs"/>
+                            <constraint firstItem="VtW-5E-qDv" firstAttribute="leading" secondItem="HI3-tJ-i8x" secondAttribute="leading" id="7ze-jH-j1Y"/>
+                            <constraint firstItem="VtW-5E-qDv" firstAttribute="top" secondItem="CBn-rI-pTb" secondAttribute="bottom" id="JdN-nF-Nz1"/>
+                            <constraint firstItem="HI3-tJ-i8x" firstAttribute="trailing" secondItem="VtW-5E-qDv" secondAttribute="trailing" id="Ras-oI-2ru"/>
                             <constraint firstItem="CBn-rI-pTb" firstAttribute="leading" secondItem="HI3-tJ-i8x" secondAttribute="leading" id="Y9U-K2-Un0"/>
                             <constraint firstItem="CBn-rI-pTb" firstAttribute="top" secondItem="HI3-tJ-i8x" secondAttribute="top" id="Yaa-9G-j66"/>
                             <constraint firstItem="HI3-tJ-i8x" firstAttribute="trailing" secondItem="CBn-rI-pTb" secondAttribute="trailing" id="cva-9R-2Ty"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="숙소 찾기" id="Pp4-Ir-axs"/>
+                    <navigationItem key="navigationItem" title="숙소 찾기" id="Pp4-Ir-axs">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="ZYz-La-bFV">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="h1B-ml-ZwA">
+                                <rect key="frame" x="348" y="7" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="K6L-sW-ZbD" kind="show" id="O1M-Nh-Ja2"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="resultCollectionView" destination="VtW-5E-qDv" id="AV5-fK-NAH"/>
                         <outlet property="searchBar" destination="CBn-rI-pTb" id="Jho-qP-mH6"/>
                     </connections>
                 </viewController>
@@ -267,6 +339,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="room" width="640" height="960"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
