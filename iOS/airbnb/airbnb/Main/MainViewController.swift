@@ -28,6 +28,7 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
         guard let vc = self.storyboard?.instantiateViewController(identifier: SearchViewController.className) as? SearchViewController else { return }
         self.navigationController?.pushViewController(vc, animated: true)
     }

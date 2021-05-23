@@ -10,14 +10,18 @@ import UIKit
 class CalendarViewController: UIViewController {
     @IBOutlet weak var calendarCollectionView: UICollectionView!
     @IBOutlet weak var bottomSection: UIView!
-    var currentDateStartDay: Int!
     var calendarBusinessCenter: CalendarBusinessCenter!
+    var selectInfo: SelectInfo!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.calendarBusinessCenter = CalendarBusinessCenter()
         collectionViewRegisterNib()
         bottomViewRegisterNib()
+    }
+    
+    func setSelectInfo(_ info: SelectInfo) {
+        self.selectInfo = info
     }
     
     func bottomViewRegisterNib() {

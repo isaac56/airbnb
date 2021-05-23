@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2247996A26574FB6005EDCE5 /* ResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2247996826574FB6005EDCE5 /* ResultCell.swift */; };
+		2247996B26574FB6005EDCE5 /* ResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2247996926574FB6005EDCE5 /* ResultCell.xib */; };
+		22479971265757CD005EDCE5 /* SelectInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22479970265757CD005EDCE5 /* SelectInfo.swift */; };
+		2247997A26575803005EDCE5 /* SearchDataCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2247997926575803005EDCE5 /* SearchDataCenter.swift */; };
 		224FF4C126523AFA0051259F /* NSObject+ClassNameProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224FF4C026523AFA0051259F /* NSObject+ClassNameProtocol.swift */; };
 		224FF4CA26523B5C0051259F /* NetworkingCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224FF4C926523B5C0051259F /* NetworkingCenter.swift */; };
 		224FF4D226523B7D0051259F /* AirbnbRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224FF4D126523B7D0051259F /* AirbnbRouter.swift */; };
@@ -55,6 +59,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2247996826574FB6005EDCE5 /* ResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCell.swift; sourceTree = "<group>"; };
+		2247996926574FB6005EDCE5 /* ResultCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultCell.xib; sourceTree = "<group>"; };
+		22479970265757CD005EDCE5 /* SelectInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectInfo.swift; sourceTree = "<group>"; };
+		2247997926575803005EDCE5 /* SearchDataCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDataCenter.swift; sourceTree = "<group>"; };
 		224FF4C026523AFA0051259F /* NSObject+ClassNameProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+ClassNameProtocol.swift"; sourceTree = "<group>"; };
 		224FF4C926523B5C0051259F /* NetworkingCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingCenter.swift; sourceTree = "<group>"; };
 		224FF4D126523B7D0051259F /* AirbnbRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirbnbRouter.swift; sourceTree = "<group>"; };
@@ -116,6 +124,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2247996726574F92005EDCE5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2247996826574FB6005EDCE5 /* ResultCell.swift */,
+				2247996926574FB6005EDCE5 /* ResultCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2247996F265757B5005EDCE5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				22479970265757CD005EDCE5 /* SelectInfo.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		22479978265757D7005EDCE5 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2247997926575803005EDCE5 /* SearchDataCenter.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		224FF4BF26523ADF0051259F /* extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +172,9 @@
 			isa = PBXGroup;
 			children = (
 				224FF4E0265240820051259F /* SearchViewController.swift */,
+				2247996726574F92005EDCE5 /* View */,
+				2247996F265757B5005EDCE5 /* Model */,
+				22479978265757D7005EDCE5 /* ViewModel */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -382,6 +418,7 @@
 				224FF51126525B9E0051259F /* NetworkElements.plist in Resources */,
 				22DCA6822652338000DDEDBE /* Main.storyboard in Resources */,
 				227E48E42656491B00603EB2 /* BottomInfoView.xib in Resources */,
+				2247996B26574FB6005EDCE5 /* ResultCell.xib in Resources */,
 				2299C62E26536BE5007B01EE /* CalendarCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -407,12 +444,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2247997A26575803005EDCE5 /* SearchDataCenter.swift in Sources */,
 				22DF011926552F5E00CEE483 /* Day.swift in Sources */,
 				22B90732265360A400F6A0B0 /* CalendarViewController.swift in Sources */,
 				224FF4D226523B7D0051259F /* AirbnbRouter.swift in Sources */,
 				22DF012326552F9500CEE483 /* Date.swift in Sources */,
 				227E48DF2656490F00603EB2 /* BottomInfoView.swift in Sources */,
 				22DCA67F2652338000DDEDBE /* MainViewController.swift in Sources */,
+				2247996A26574FB6005EDCE5 /* ResultCell.swift in Sources */,
 				227E48EA2656668000603EB2 /* PriceViewController.swift in Sources */,
 				22DF011426552F4800CEE483 /* YearMonthMetadata.swift in Sources */,
 				224FF4E1265240820051259F /* SearchViewController.swift in Sources */,
@@ -420,6 +459,7 @@
 				22DCA67B2652338000DDEDBE /* AppDelegate.swift in Sources */,
 				224FF4C126523AFA0051259F /* NSObject+ClassNameProtocol.swift in Sources */,
 				22DF010D2655225B00CEE483 /* CalendarYearMonthHeader.swift in Sources */,
+				22479971265757CD005EDCE5 /* SelectInfo.swift in Sources */,
 				22DF011E26552F8600CEE483 /* CalendarBusinessCenter.swift in Sources */,
 				2299C62D26536BE5007B01EE /* CalendarCell.swift in Sources */,
 				22FA3EAC2656A6BD0073FB47 /* UINavigationBar.swift in Sources */,
