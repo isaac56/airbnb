@@ -10,8 +10,8 @@ import Foundation
 class CalendarBusinessCenter {
     typealias CalendarList = [YearMonthMetadata: [Day]]
     typealias YearMonthDay = (yearMonthMetadata: YearMonthMetadata, day: Day)
-    private(set) var calendarList: CalendarList
     var durationFieldHandler: (() -> ())?
+    private(set) var calendarList: CalendarList
     private(set) var firstSelected: Selected? {
         didSet {
             durationFieldHandler?()
@@ -106,14 +106,19 @@ class CalendarBusinessCenter {
         case second
     }
     
-    var convertCheckInCheckOutText: String {
-        guard let firstSelected = self.firstSelected else { return "" }
-        guard let firstMonth = self.calendarList.first(where: { $0.key.index == firstSelected.section }) else { return "" }
-        let firstDay = firstMonth.value[firstSelected.row]
-        guard let secondSelected = self.secondSelected else { return "\(firstMonth.key.month.rawValue)월 \(firstDay.day)일" }
-        guard let secondMonth = self.calendarList.first(where: { $0.key.index == secondSelected.section }) else { return "" }
-        let secondDay = secondMonth.value[secondSelected.row]
-        return "\(firstMonth.key.month.rawValue)월 \(firstDay.day)일 - \(secondMonth.key.month.rawValue)월 \(secondDay.day)일"
+    func convertDateToSelected(whereSelected: WhereSelected) -> Date? {
+        switch whereSelected {
+        case .first:
+            guard let firstSelected = self.firstSelected else { return nil }
+            guard let firstMonth = self.calendarList.first(where: { $0.key.index == firstSelected.section }) else { return nil }
+            let firstDay = firstMonth.value[firstSelected.row]
+            return "\(firstMonth.key.year)-\(firstMonth.key.month)-\(firstDay.day)".getDate(format: "yyyy-MM-dd")
+        case .second:
+            guard let secondSelected = self.secondSelected else { return nil }
+            guard let secondMonth = self.calendarList.first(where: { $0.key.index == secondSelected.section }) else { return nil }
+            let secondDay = secondMonth.value[secondSelected.row]
+            return "\(secondMonth.key.year)-\(secondMonth.key.month)-\(secondDay.day)".getDate(format: "yyyy-MM-dd")
+        }
     }
     
     func initSelectedValue() {

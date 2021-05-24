@@ -18,42 +18,64 @@ class CalendarViewController: UIViewController {
         self.navigationItem.title = "숙소 찾기"
         self.calendarBusinessCenter = CalendarBusinessCenter()
         collectionViewRegisterNib()
-        bottomViewRegisterNib()
+        passingSearchInfoToChildViewController()
+        defineHandlerOfSearchInfoViewController()
+    }
+    
+    private func passingSearchInfoToChildViewController() {
+        guard let bottomSearchInfoVC = self.children[0] as? BottomSearchInfoViewController else { return }
+        bottomSearchInfoVC.configureSearchInfo(self.selectInfo)
+    }
+    
+    private func defineHandlerOfSearchInfoViewController() {
+        guard let bottomSearchInfoVC = self.children[0] as? BottomSearchInfoViewController else { return }
+        bottomSearchInfoVC.clearHandler = {
+            self.calendarBusinessCenter.initSelectedValue()
+            bottomSearchInfoVC.setWhetherEnableButtonOrNot(isWillEnable: false)
+            self.calendarCollectionView.reloadData()
+        }
+        
+        bottomSearchInfoVC.nextHandler = {
+            guard let vc = self.storyboard?.instantiateViewController(identifier: PriceViewController.className) as? PriceViewController else { return }
+            vc.setSelectInfo(self.selectInfo)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
+        self.calendarBusinessCenter.durationFieldHandler = {
+            let startDate = self.calendarBusinessCenter.convertDateToSelected(whereSelected: .first)
+            let endDate = self.calendarBusinessCenter.convertDateToSelected(whereSelected: .second)
+            self.selectInfo.setDate(startDate: startDate, endDate: endDate)
+            bottomSearchInfoVC.writePriceLabel(of: self.selectInfo.displayDuration)
+            self.calendarBusinessCenter.firstSelected == nil
+                ? bottomSearchInfoVC.setWhetherEnableButtonOrNot(isWillEnable: false)
+                : bottomSearchInfoVC.setWhetherEnableButtonOrNot(isWillEnable: true)
+        }
     }
     
     func setSelectInfo(_ info: SelectInfo) {
         self.selectInfo = info
     }
-    
-    private func bottomViewRegisterNib() {
-        let nib = UINib(nibName: BottomInfoView.className, bundle: nil)
-        guard let bottomView = nib.instantiate(withOwner: self, options: nil).first as? BottomInfoView else { return }
-        bottomViewBind(bottomView: bottomView)
-        bottomView.drawTopBorder()
-        self.bottomSection.addSubview(bottomView)
-        bottomView.setAutolayout(to: self.bottomSection)
-    }
-    
-    private func bottomViewBind(bottomView: BottomInfoView) {
-        bottomView.clearButton.addAction(UIAction(handler: { (_) in
-            self.calendarBusinessCenter.initSelectedValue()
-            bottomView.setWhetherEnableButtonOrNot(isWillEnable: false)
-            self.calendarCollectionView.reloadData()
-        }), for: .touchUpInside)
-        
-        bottomView.nextButton.addAction(UIAction(handler: { (_) in
-            guard let vc = self.storyboard?.instantiateViewController(identifier: PriceViewController.className) as? PriceViewController else { return }
-            self.navigationController?.pushViewController(vc, animated: true)
-        }), for: .touchUpInside)
-        
-        self.calendarBusinessCenter.durationFieldHandler = {
-            bottomView.writePriceLabel(of: self.calendarBusinessCenter.convertCheckInCheckOutText)
-            self.calendarBusinessCenter.firstSelected == nil
-                ? bottomView.setWhetherEnableButtonOrNot(isWillEnable: false)
-                : bottomView.setWhetherEnableButtonOrNot(isWillEnable: true)
-        }
-    }
-    
+//    
+//    private func bottomViewBind(bottomView: BottomInfoView) {
+//        bottomView.clearButton.addAction(UIAction(handler: { (_) in
+//            self.calendarBusinessCenter.initSelectedValue()
+//            bottomView.setWhetherEnableButtonOrNot(isWillEnable: false)
+//            self.calendarCollectionView.reloadData()
+//        }), for: .touchUpInside)
+//        
+//        bottomView.nextButton.addAction(UIAction(handler: { (_) in
+//            guard let vc = self.storyboard?.instantiateViewController(identifier: PriceViewController.className) as? PriceViewController else { return }
+//            self.navigationController?.pushViewController(vc, animated: true)
+//        }), for: .touchUpInside)
+//        
+//        self.calendarBusinessCenter.durationFieldHandler = {
+//            bottomView.writePriceLabel(of: self.calendarBusinessCenter.convertCheckInCheckOutText)
+//            self.calendarBusinessCenter.firstSelected == nil
+//                ? bottomView.setWhetherEnableButtonOrNot(isWillEnable: false)
+//                : bottomView.setWhetherEnableButtonOrNot(isWillEnable: true)
+//        }
+//    }
+//    
     private func collectionViewRegisterNib() {
         let nib = UINib(nibName: CalendarCell.className, bundle: nil)
         self.calendarCollectionView.register(nib, forCellWithReuseIdentifier: CalendarCell.className)
