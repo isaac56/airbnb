@@ -8,12 +8,18 @@
 import Foundation
 
 class Day {
-    let day: Int
-    let index: Int
-    let invisible: Bool
-    var isFirstSelected: Bool
-    var isSecondSelected: Bool
-    var midRange: Bool
+    enum SelectedPosition {
+        case first
+        case second
+        case mid
+    }
+    
+    private(set) var day: Int
+    private(set) var index: Int
+    private(set) var invisible: Bool
+    private(set) var isFirstSelected: Bool
+    private(set) var isSecondSelected: Bool
+    private(set) var midRange: Bool
     
     init(day: Int, index: Int, invisible: Bool, isFirstSelected: Bool, isSecondSelected: Bool, midRange: Bool) {
         self.day = day
@@ -28,5 +34,13 @@ class Day {
         self.isFirstSelected = false
         self.isSecondSelected = false
         self.midRange = false
+    }
+    
+    func setSelectedDay(position: SelectedPosition, isSelect: Bool) {
+        switch position {
+        case .first: self.isFirstSelected = isSelect
+        case .second: self.isSecondSelected = isSelect
+        case .mid: self.midRange = isSelect
+        }
     }
 }

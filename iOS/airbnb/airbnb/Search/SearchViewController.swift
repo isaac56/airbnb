@@ -12,19 +12,26 @@ class SearchViewController: UIViewController {
         case main
     }
     
-    @IBOutlet weak var resultCollectionView: UICollectionView!
-    var searchDataCenter = SearchDataCenter()
-    lazy var dataSource = makeDataSource()
+    @IBOutlet private weak var resultCollectionView: UICollectionView!
+    private var searchDataCenter = SearchDataCenter()
+    private lazy var dataSource = makeDataSource()
     private var searchController = UISearchController(searchResultsController: nil)
     typealias DataSource = UICollectionViewDiffableDataSource<Section, SelectInfo>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, SelectInfo>
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.searchDataCenter.addressBook = self.searchDataCenter.makeDummyAddressBook()
+        self.searchDataCenter.makeDummyAddressBook()
         self.registerCell()
         self.setupSearchController()
         self.applySnapshot(query: nil)
+        self.focusSearchBarWhenViewDidLoad()
+    }
+    
+    private func focusSearchBarWhenViewDidLoad() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            self.navigationItem.searchController?.searchBar.becomeFirstResponder()
+        }
     }
     
     private func setupSearchController() {
@@ -33,13 +40,12 @@ class SearchViewController: UIViewController {
         self.navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
         self.navigationItem.title = "숙소 찾기"
         self.navigationItem.hidesSearchBarWhenScrolling = false
-        self.navigationItem.searchController?.becomeFirstResponder()
     }
     
     private func makeDataSource() -> DataSource {
         DataSource.init(collectionView: self.resultCollectionView) { (collectionView, indexPath, address) -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ResultCell.className, for: indexPath) as? ResultCell
-            cell?.addressLabel.text = address.address
+            cell?.configure(address: address.address)
             return cell
         }
     }

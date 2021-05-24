@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar clipsSubviews="YES" contentMode="redraw" misplaced="YES" placeholder="어디로 여행가세요?" translatesAutoresizingMaskIntoConstraints="NO" id="AUa-4l-iQn">
-                                <rect key="frame" x="0.0" y="44" width="414" height="70"/>
+                            <searchBar clipsSubviews="YES" contentMode="redraw" placeholder="어디로 여행가세요?" translatesAutoresizingMaskIntoConstraints="NO" id="AUa-4l-iQn">
+                                <rect key="frame" x="0.0" y="58" width="414" height="56"/>
                                 <color key="barTintColor" systemColor="systemGray6Color"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <userDefinedRuntimeAttributes>
@@ -36,10 +36,10 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aDA-LM-0BT">
                                 <rect key="frame" x="0.0" y="114" width="414" height="782"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="room" translatesAutoresizingMaskIntoConstraints="NO" id="t9Y-hQ-X3g">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="420"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heroImage" translatesAutoresizingMaskIntoConstraints="NO" id="t9Y-hQ-X3g">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="517.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="420" id="vop-j6-ras"/>
+                                            <constraint firstAttribute="width" secondItem="t9Y-hQ-X3g" secondAttribute="height" multiplier="0.8:1" id="odB-9v-9W5"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="슬기로운자연생활" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uLG-8D-S3P">
@@ -53,7 +53,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L4c-GN-Mxl">
-                                        <rect key="frame" x="17" y="144" width="140" height="35"/>
+                                        <rect key="frame" x="17" y="211" width="140" height="35"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="3Zh-8C-wbj"/>
@@ -72,16 +72,28 @@
                                             <segue destination="BIp-4u-ilw" kind="show" id="bbK-0P-Onm"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="에어비앤비가 엄선한 위시리스트를 만나보세요" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O3d-Kd-PTT">
+                                        <rect key="frame" x="19" y="136" width="260" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="260" id="2eM-L0-89G"/>
+                                            <constraint firstAttribute="height" constant="60" id="BNK-DY-rHA"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="uLG-8D-S3P" firstAttribute="leading" secondItem="aDA-LM-0BT" secondAttribute="leading" constant="17" id="1iz-cP-ja4"/>
+                                    <constraint firstItem="L4c-GN-Mxl" firstAttribute="top" secondItem="O3d-Kd-PTT" secondAttribute="bottom" constant="15" id="81s-aT-snO"/>
+                                    <constraint firstItem="O3d-Kd-PTT" firstAttribute="top" secondItem="uLG-8D-S3P" secondAttribute="bottom" constant="10" id="IEk-eT-4r1"/>
                                     <constraint firstItem="L4c-GN-Mxl" firstAttribute="leading" secondItem="uLG-8D-S3P" secondAttribute="leading" id="OcX-Tz-bVd"/>
                                     <constraint firstAttribute="trailing" secondItem="t9Y-hQ-X3g" secondAttribute="trailing" id="QfY-YZ-YfP"/>
+                                    <constraint firstItem="O3d-Kd-PTT" firstAttribute="leading" secondItem="uLG-8D-S3P" secondAttribute="leading" constant="2" id="Xpn-rs-klm"/>
                                     <constraint firstItem="t9Y-hQ-X3g" firstAttribute="top" secondItem="aDA-LM-0BT" secondAttribute="top" id="dSU-SR-9P4"/>
                                     <constraint firstItem="uLG-8D-S3P" firstAttribute="top" secondItem="aDA-LM-0BT" secondAttribute="top" constant="36" id="gwM-9L-b2A"/>
                                     <constraint firstItem="t9Y-hQ-X3g" firstAttribute="leading" secondItem="aDA-LM-0BT" secondAttribute="leading" id="qb5-GE-aW7"/>
-                                    <constraint firstItem="L4c-GN-Mxl" firstAttribute="top" secondItem="uLG-8D-S3P" secondAttribute="bottom" constant="18" id="x3F-Lf-HsF"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -330,7 +342,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="room" width="640" height="960"/>
+        <image name="heroImage" width="375" height="488"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

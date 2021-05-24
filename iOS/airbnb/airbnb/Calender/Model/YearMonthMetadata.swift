@@ -30,8 +30,8 @@ struct YearMonthMetadata: Hashable {
             }
         }
     }
-    let index: Int
-    let year: Int
-    let month: Month
-    let startDay: Int
+    private(set) var index: Int
+    private(set) var year: Int
+    private(set) var month: Month
+    private(set) var startDay: Int
 }

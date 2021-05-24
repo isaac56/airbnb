@@ -8,7 +8,7 @@
 import UIKit
 
 class MainViewController: UIViewController {
-    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet private weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,6 +17,7 @@ class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationItem.title = "메인 화면"
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     

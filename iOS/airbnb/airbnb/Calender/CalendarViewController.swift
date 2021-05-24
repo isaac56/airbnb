@@ -8,13 +8,14 @@
 import UIKit
 
 class CalendarViewController: UIViewController {
-    @IBOutlet weak var calendarCollectionView: UICollectionView!
-    @IBOutlet weak var bottomSection: UIView!
-    var calendarBusinessCenter: CalendarBusinessCenter!
-    var selectInfo: SelectInfo!
+    @IBOutlet private weak var calendarCollectionView: UICollectionView!
+    @IBOutlet private weak var bottomSection: UIView!
+    private var calendarBusinessCenter: CalendarBusinessCenter!
+    private var selectInfo: SelectInfo!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "숙소 찾기"
         self.calendarBusinessCenter = CalendarBusinessCenter()
         collectionViewRegisterNib()
         bottomViewRegisterNib()
@@ -24,7 +25,7 @@ class CalendarViewController: UIViewController {
         self.selectInfo = info
     }
     
-    func bottomViewRegisterNib() {
+    private func bottomViewRegisterNib() {
         let nib = UINib(nibName: BottomInfoView.className, bundle: nil)
         guard let bottomView = nib.instantiate(withOwner: self, options: nil).first as? BottomInfoView else { return }
         bottomViewBind(bottomView: bottomView)
@@ -33,7 +34,7 @@ class CalendarViewController: UIViewController {
         bottomView.setAutolayout(to: self.bottomSection)
     }
     
-    func bottomViewBind(bottomView: BottomInfoView) {
+    private func bottomViewBind(bottomView: BottomInfoView) {
         bottomView.clearButton.addAction(UIAction(handler: { (_) in
             self.calendarBusinessCenter.initSelectedValue()
             bottomView.setWhetherEnableButtonOrNot(isWillEnable: false)
@@ -53,7 +54,7 @@ class CalendarViewController: UIViewController {
         }
     }
     
-    func collectionViewRegisterNib() {
+    private func collectionViewRegisterNib() {
         let nib = UINib(nibName: CalendarCell.className, bundle: nil)
         self.calendarCollectionView.register(nib, forCellWithReuseIdentifier: CalendarCell.className)
         let headerNib = UINib(nibName: CalendarYearMonthHeader.className, bundle: nil)

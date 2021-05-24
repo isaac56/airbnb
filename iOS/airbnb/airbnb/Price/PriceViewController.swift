@@ -11,6 +11,6 @@ class PriceViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.navigationItem.title = "숙소 찾기"
     }
 }

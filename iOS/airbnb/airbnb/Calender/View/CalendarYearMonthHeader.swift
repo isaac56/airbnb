@@ -9,7 +9,7 @@ import UIKit
 
 class CalendarYearMonthHeader: UICollectionViewCell {
 
-    @IBOutlet weak var yearMonthLabel: UILabel!
+    @IBOutlet private(set) weak var yearMonthLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
     }

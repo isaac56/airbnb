@@ -8,12 +8,12 @@
 import UIKit
 
 class BottomInfoView: UIView {
-    @IBOutlet weak var location: UILabel!
-    @IBOutlet weak var duration: UILabel!
-    @IBOutlet weak var price: UILabel!
-    @IBOutlet weak var persons: UILabel!
-    @IBOutlet weak var nextButton: UIButton!
-    @IBOutlet weak var clearButton: UIButton!
+    @IBOutlet private weak var location: UILabel!
+    @IBOutlet private weak var duration: UILabel!
+    @IBOutlet private weak var price: UILabel!
+    @IBOutlet private weak var persons: UILabel!
+    @IBOutlet private(set) weak var nextButton: UIButton!
+    @IBOutlet private(set) weak var clearButton: UIButton!
     
     func setAutolayout(to view: UIView) {
         self.translatesAutoresizingMaskIntoConstraints = false

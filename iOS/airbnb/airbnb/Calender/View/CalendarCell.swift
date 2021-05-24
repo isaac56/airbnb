@@ -8,9 +8,9 @@
 import UIKit
 
 class CalendarCell: UICollectionViewCell {
-    @IBOutlet weak var dayLabel: UILabel!
-    @IBOutlet weak var leftHalfView: UIView!
-    @IBOutlet weak var rightHalfView: UIView!
+    @IBOutlet private weak var dayLabel: UILabel!
+    @IBOutlet private weak var leftHalfView: UIView!
+    @IBOutlet private weak var rightHalfView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
     }

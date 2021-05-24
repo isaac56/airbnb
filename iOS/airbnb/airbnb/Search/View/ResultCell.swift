@@ -8,12 +8,16 @@
 import UIKit
 
 class ResultCell: UICollectionViewCell {
-    @IBOutlet weak var pinImage: UIImageView!
-    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet private weak var pinImage: UIImageView!
+    @IBOutlet private weak var addressLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.setPinImage()
+    }
+    
+    func configure(address: String) {
+        self.addressLabel.text = address
     }
     
     private func setPinImage() {
