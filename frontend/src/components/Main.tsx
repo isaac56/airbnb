@@ -25,15 +25,6 @@ const HeroImage = styled.div`
   img {
     min-width: 100%;
     min-height: 100%;
-    //sm
-    /* height: 488px;
-    width: 375px; */
-    //md
-    /* height: 588px;
-    width: 744px; */
-    //lg
-    /* height: 564px;
-    width: 1128px; */
   }
 `;
 

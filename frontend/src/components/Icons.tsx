@@ -1,0 +1,207 @@
+import React from 'react';
+import styled from 'styled-components';
+import theme from '../styles/theme';
+import { ReactComponent as check } from '../icons/check.svg';
+import { ReactComponent as chevronLeft } from '../icons/chevron-left.svg';
+import { ReactComponent as chevronRight } from '../icons/chevron-right.svg';
+import { ReactComponent as heart } from '../icons/heart.svg';
+import { ReactComponent as logo } from '../icons/logo.svg';
+import { ReactComponent as menu } from '../icons/menu.svg';
+import { ReactComponent as minus } from '../icons/minus.svg';
+import { ReactComponent as pauseCircle } from '../icons/pause-circle.svg';
+import { ReactComponent as plusCircle } from '../icons/plus-circle.svg';
+import { ReactComponent as plus } from '../icons/plus.svg';
+import { ReactComponent as search } from '../icons/search.svg';
+import { ReactComponent as user } from '../icons/user.svg';
+import { ReactComponent as xCircle } from '../icons/x-circle.svg';
+
+interface Prop {
+  [key: string]: string;
+}
+
+const Icon = (props: Prop) => {
+  if (props.type === 'basicSearch') {
+    return (
+      <RoundIconWrapper>
+        <BasicSearch />
+      </RoundIconWrapper>
+    );
+  } else if (props.type === 'completedSearch') {
+    return (
+      <RoundIconWrapper className="longer">
+        <BasicSearch />
+        <SearchLabel>검색</SearchLabel>
+      </RoundIconWrapper>
+    );
+  }
+
+  const IconSvg = () => {
+    const defaultSetting = `
+  width: ${props.width};
+  height: ${props.height};
+  stroke: ${props.color};
+  position:${props.position};
+  right:${props.right};
+  top:${props.top};
+  margin:${props.margin};
+  `;
+
+    switch (props.type) {
+      case 'check':
+        const Check = styled(check)`
+          ${defaultSetting}
+        `;
+        return (
+          <>
+            <Check />
+          </>
+        );
+      case 'chevronLeft':
+        const ChevronLeft = styled(chevronLeft)`
+          ${defaultSetting}
+        `;
+        return (
+          <>
+            <ChevronLeft />
+          </>
+        );
+      case 'chevronRight':
+        const ChevronRight = styled(chevronRight)`
+          ${defaultSetting}
+        `;
+        return (
+          <ChevronRight>
+            <ChevronRight />
+          </ChevronRight>
+        );
+      case 'heart':
+        const Heart = styled(heart)`
+          ${defaultSetting}
+        `;
+        return (
+          <>
+            <Heart />
+          </>
+        );
+      case 'logo':
+        const Logo = styled(logo)`
+          ${defaultSetting}
+        `;
+        return (
+          <>
+            <Logo />
+          </>
+        );
+      case 'menu':
+        const Menu = styled(menu)`
+          ${defaultSetting}
+        `;
+        return (
+          <>
+            <Menu />
+          </>
+        );
+      case 'minus':
+        const Minus = styled(minus)`
+          ${defaultSetting}
+        `;
+        return (
+          <>
+            <Minus />
+          </>
+        );
+      case 'pauseCircle':
+        const PauseCircle = styled(pauseCircle)`
+          ${defaultSetting}
+        `;
+        return (
+          <>
+            <PauseCircle />
+          </>
+        );
+      case 'plusCircle':
+        const PlusCircle = styled(plusCircle)`
+          ${defaultSetting}
+        `;
+        return (
+          <>
+            <PlusCircle />
+          </>
+        );
+      case 'plus':
+        const Plus = styled(plus)`
+          ${defaultSetting}
+        `;
+        return (
+          <>
+            <Plus />
+          </>
+        );
+      case 'search':
+        const Search = styled(search)`
+          ${defaultSetting}
+        `;
+        return (
+          <>
+            <Search />
+          </>
+        );
+      case 'user':
+        const User = styled(user)`
+          ${defaultSetting}
+        `;
+        return (
+          <>
+            <User />
+          </>
+        );
+      case 'xCircle':
+        const XCircle = styled(xCircle)`
+          ${defaultSetting}
+        `;
+        return (
+          <>
+            <XCircle />
+          </>
+        );
+      default:
+        return <></>;
+    }
+  };
+
+  return (
+    <IconWrapper>
+      <IconSvg />
+    </IconWrapper>
+  );
+};
+
+const IconWrapper = styled.div`
+  cursor: pointer;
+`;
+
+const RoundIconWrapper = styled.div`
+  width: 45px;
+  height: 43px;
+  background-color: ${theme.colors.primary};
+  border-radius: 25px;
+  padding: 6px;
+  cursor: pointer;
+  ${theme.alignCenter}
+  &.longer {
+    width: 90px;
+  }
+`;
+
+const BasicSearch = styled(search)`
+  width: 30px;
+`;
+
+const SearchLabel = styled.span`
+  color: ${theme.colors.white};
+  font-weight: bold;
+  font-size: 18px;
+  margin-left: 6px;
+`;
+
+export default Icon;

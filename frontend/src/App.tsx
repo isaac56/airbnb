@@ -1,12 +1,14 @@
 import Main from './components/Main';
-import GlobalStyle from './styles/GlobalStyles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 function App() {
   return (
-    <div className="App">
-      <GlobalStyle />
-      <Main />
-    </div>
+    <>
+      <CssBaseline />
+      <div className="App">
+        <Main />
+      </div>
+    </>
   );
 }
 

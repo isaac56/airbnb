@@ -1,26 +1,31 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Icon, AppBar, Toolbar, Button } from '@material-ui/core';
-import { ReactComponent as Logo } from '../icons/logo.svg';
-import { ReactComponent as Menu } from '../icons/menu.svg';
-import { ReactComponent as User } from '../icons/user.svg';
+import { AppBar, Toolbar, Button } from '@material-ui/core';
+import Icons from './Icons';
 
 const Navbar = () => {
   const classes = useStyles();
+  const menus: string[] = ['숙소', '체험', '온라인'];
 
   return (
     <>
       <AppBar elevation={0} color="transparent" position="sticky">
         <Toolbar className={classes.toolBar}>
-          <Logo className={classes.logo} />
+          <Icons type="logo" height="32px" width="102px" margin="10px" />
           <div>
-            <Button className={classes.centerMenu}>숙소</Button>
-            <Button className={classes.centerMenu}>체험</Button>
-            <Button className={classes.centerMenu}>온라인</Button>
+            {menus.map((menu, i) => {
+              return (
+                <Button key={i} className={classes.centerMenu}>
+                  {menu}
+                </Button>
+              );
+            })}
           </div>
           <div className={classes.account}>
-            <Menu className={classes.icon} />
-            <User className={(classes.icon, classes.iconBackground)} />
+            <Icons type="menu" width="30px" margin="3px 5px" />
+            <div className={classes.iconBackground}>
+              <Icons type="user" width="30px" />
+            </div>
           </div>
         </Toolbar>
       </AppBar>
@@ -32,12 +37,6 @@ const useStyles = makeStyles(theme => ({
   toolBar: {
     minHeight: '100px',
     justifyContent: 'space-between',
-  },
-  logo: {
-    height: '32px',
-    width: '102px',
-    margin: '10px',
-    cursor: 'pointer',
   },
   centerMenu: {
     fontSize: '16px',
@@ -53,18 +52,19 @@ const useStyles = makeStyles(theme => ({
     cursor: 'pointer',
   },
   iconBackground: {
-    width: '30px',
-    padding: '2px',
-    borderRadius: '13px',
+    width: '35px',
+    padding: '3px',
+    borderRadius: '17px',
     backgroundColor: 'grey',
     cursor: 'pointer',
   },
   account: {
-    borderRadius: '20px',
+    display: 'flex',
+    width: '95px',
+    borderRadius: '25px',
     backgroundColor: 'white',
-    margin: '10px',
-    padding: '5px',
-    border: '1px solid #BDBDBD',
+    padding: '6px 3px 3px 8px',
+    border: '0.1px solid #BDBDBD',
   },
 }));
 
