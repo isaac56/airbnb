@@ -39,7 +39,7 @@ const SearchBar: React.FC = () => {
     인원: '게스트 추가',
   };
 
-  const changeIsOpen = (className: string) => {
+  const changeIsOpen = (className: string): void => {
     const CopiedIsOpen = isOpen;
     CopiedIsOpen[`${className}`] = !CopiedIsOpen[`${className}`];
     setisOpen({

@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Button } from '@material-ui/core';
 import Icons from './Icons';
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   const classes = useStyles();
   const menus: string[] = ['숙소', '체험', '온라인'];
 

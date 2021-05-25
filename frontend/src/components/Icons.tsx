@@ -15,11 +15,11 @@ import { ReactComponent as search } from '../icons/search.svg';
 import { ReactComponent as user } from '../icons/user.svg';
 import { ReactComponent as xCircle } from '../icons/x-circle.svg';
 
-interface Prop {
+interface Iicon {
   [key: string]: string;
 }
 
-const Icon = (props: Prop) => {
+const Icon: React.FC<Iicon> = props => {
   if (props.type === 'basicSearch') {
     return (
       <RoundIconWrapper>
@@ -56,7 +56,7 @@ const Icon = (props: Prop) => {
             <Check />
           </>
         );
-      case 'chevronLeft':
+      case 'chevron-left':
         const ChevronLeft = styled(chevronLeft)`
           ${defaultSetting}
         `;
@@ -65,14 +65,14 @@ const Icon = (props: Prop) => {
             <ChevronLeft />
           </>
         );
-      case 'chevronRight':
+      case 'chevron-right':
         const ChevronRight = styled(chevronRight)`
           ${defaultSetting}
         `;
         return (
-          <ChevronRight>
+          <>
             <ChevronRight />
-          </ChevronRight>
+          </>
         );
       case 'heart':
         const Heart = styled(heart)`

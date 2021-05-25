@@ -2,13 +2,13 @@ import React from 'react';
 import theme from '../styles/theme';
 import styled from 'styled-components';
 
-interface Prop {
+interface Ispan {
   label: string;
   text: string;
   onClick(className: string): void;
 }
 
-const SearchBarFilterStyle = (props: Prop) => {
+const SearchBarFilterStyle: React.FC<Ispan> = props => {
   return (
     <Div
       className={props.label}

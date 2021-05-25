@@ -1,73 +1,108 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
-import theme from '../styles/theme';
+import SingleCalendar from './SingleCalendar';
+import Icons from './Icons';
 
-const CalendarModal = () => {
-  return (
-    <CalenadrWrapper className="calendar">
+const CalendarModal: React.FC = () => {
+  const directionRef = React.useRef<HTMLDivElement>(null);
+  const [baseMonth, setBaseMonth] = useState(0);
+  let currentType: string | null = null;
+
+  const Calendars: React.FC = () => {
+    const slideCountsArr: undefined[] = [...Array(6)];
+    return (
       <>
-        <SingleWrapper>
-          <Month>2021년 5월</Month>
-          <Week>
-            <p>일</p>
-            <p>월</p>
-            <p>화</p>
-            <p>수</p>
-            <p>목</p>
-            <p>금</p>
-            <p>토</p>
-          </Week>
-        </SingleWrapper>
-        <SingleWrapper></SingleWrapper>
+        {slideCountsArr.map((v, i) => {
+          return <SingleCalendar key={i} month={baseMonth + i - 2} />;
+        })}
       </>
-    </CalenadrWrapper>
+    );
+  };
+
+  const setStyle = (duration: string, move: string): void => {
+    const myRef: HTMLDivElement | null = directionRef.current;
+    if (myRef) {
+      myRef.style.transition = duration;
+      myRef.style.transform = move;
+    }
+  };
+
+  const moveSlide = (type: string): void => {
+    if (type === 'right') {
+      setStyle('all 0.7s', `translate(-872px)`);
+    } else {
+      setStyle('all 0.7s', `translate(872px)`);
+    }
+    currentType = type;
+  };
+
+  const onTransitionEnd = type => {
+    const myRef: HTMLDivElement | null = directionRef.current;
+
+    if (myRef) {
+      myRef.style.transition = 'none';
+      myRef.style.transform = 'translate(0)';
+    }
+
+    if (currentType === 'right') {
+      setBaseMonth(baseMonth + 2);
+    } else if (currentType === 'left') {
+      setBaseMonth(baseMonth - 2);
+    }
+  };
+
+  return (
+    <CalenaderWrapper className="calendar">
+      <ArrowWrapper>
+        <div
+          onClick={() => {
+            moveSlide('left');
+          }}>
+          <Icons type="chevron-left" />
+        </div>
+        <div
+          onClick={() => {
+            moveSlide('right');
+          }}>
+          <Icons type="chevron-right" />
+        </div>
+      </ArrowWrapper>
+      <CarouselWrapper
+        onTransitionEnd={onTransitionEnd}
+        ref={directionRef as any}>
+        <Calendars />
+      </CarouselWrapper>
+    </CalenaderWrapper>
   );
 };
 
-const SingleWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin: 40px 25px 50px 50px;
-
-  width: 336px;
-  height: 336px;
-  border: 1px solid black;
-  background-color: ${theme.colors.white};
-`;
-
-const CalenadrWrapper = styled.div`
+const CalenaderWrapper = styled.div`
+  position: relative;
   width: 916px;
   height: 512px;
   margin: 10px;
-  padding: 50px;
+  padding: 40px 50px;
   background: #ffffff;
   box-shadow: 0px 4px 10px rgba(51, 51, 51, 0.1),
     0px 0px 4px rgba(51, 51, 51, 0.05);
   border-radius: 40px;
   display: flex;
-`;
-
-const Month = styled.div`
-  width: 100%;
-  text-align: center;
-
-  font-style: normal;
-  font-weight: bold;
-  font-size: 16px;
-
-  color: ${theme.colors.black};
-`;
-
-const Week = styled.div`
-  width: 100%;
-  display: flex;
   justify-content: center;
-  p {
-    padding: 0 15px;
-    font-size: 12px;
-    color: #828282;
-  }
+  overflow: hidden;
+`;
+
+const ArrowWrapper = styled.div`
+  position: absolute;
+  top: 80px;
+  width: 816px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 3;
+`;
+
+const CarouselWrapper = styled.div`
+  display: flex;
+  /* transform: translate(-100px); */
 `;
 
 export default CalendarModal;

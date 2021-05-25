@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import NavBar from './NavBar';
 import SearchBar from './SearchBar';
 
-const Main = () => {
+const Main: React.FC = () => {
   return (
     <>
       <HeroImage>
