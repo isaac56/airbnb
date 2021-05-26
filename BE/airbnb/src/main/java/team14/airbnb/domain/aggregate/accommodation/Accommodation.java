@@ -5,8 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.HashSet;
+import java.util.Set;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -28,4 +34,7 @@ public class Accommodation {
     private String description;
 
     private Long hostId;
+
+    @OneToMany(mappedBy = "accommodation_id")
+    private Set<AccommodationOption> accommodationOptions = new HashSet<>();
 }

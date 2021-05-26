@@ -1,9 +1,6 @@
-package team14.airbnb.domain.aggregate.user;
+package team14.airbnb.domain.aggregate.accommodation;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,10 +10,11 @@ import javax.persistence.Id;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+@EqualsAndHashCode(of = {"name"})
+public class AccommodationOption {
     @Id
     @GeneratedValue
     private Long id;
 
-    private String email;
+    private String name;
 }
