@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box } from '@material-ui/core';
+import { useRecoilValue } from 'recoil';
+import { filterAtom } from '../recoil/atom';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import Icons from './Icons';
@@ -25,6 +27,9 @@ const SearchBar: React.FC = () => {
     isOpen.체크인 &&
       !(target as HTMLInputElement).closest('.calendar, .체크인') &&
       changeIsOpen('체크인');
+    isOpen.체크아웃 &&
+      !(target as HTMLInputElement).closest('.calendar, .체크아웃') &&
+      changeIsOpen('체크아웃');
   };
 
   useEffect(() => {
@@ -32,12 +37,7 @@ const SearchBar: React.FC = () => {
     return () => document.removeEventListener('mousedown', detectListener);
   });
 
-  const contents = {
-    체크인: '입력 날짜',
-    체크아웃: '입력 날짜',
-    요금: '금액대 설정',
-    인원: '게스트 추가',
-  };
+  const contents = useRecoilValue(filterAtom);
 
   const changeIsOpen = (className: string): void => {
     const CopiedIsOpen = isOpen;
@@ -77,7 +77,7 @@ const SearchBar: React.FC = () => {
           {/* <Icons type="completedSearch" /> */}
         </SearchIconWrapper>
       </SearchBarWrapper>
-      {isOpen.체크인 && <CalendarModal />}
+      {(isOpen.체크인 || isOpen.체크아웃) && <CalendarModal />}
     </Box>
   );
 };

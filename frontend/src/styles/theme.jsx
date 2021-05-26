@@ -1,8 +1,5 @@
-import styled from 'styled-components/';
-
 const theme = {
   colors: {
-    //grey 6 -> 1 순으로 진해짐
     white: '#FFFFFF',
     grey6: '#F5F5F7;',
     grey5: '#E0E0E0',

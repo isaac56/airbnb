@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from '../styles/theme';
+import { useRecoilState } from 'recoil';
+import { filterAtom } from '../recoil/atom';
 
 interface Idate {
   month: number;
@@ -22,8 +24,6 @@ const SingleCalendar: React.FC<Idate> = props => {
     0
   );
 
-  const lastDayIndex = baseMonthLastDay.getDay();
-
   const lastDayOfMonth: number = baseMonthLastDay.getDate();
 
   const calendarTitle: string = `${baseDate.getFullYear()}년 ${
@@ -31,6 +31,15 @@ const SingleCalendar: React.FC<Idate> = props => {
   }월`;
 
   const weekdays: string[] = ['일', '월', '화', '수', '목', '금', '토'];
+
+  const [filter, setFilterContents] = useRecoilState(filterAtom);
+
+  const onClick = event => {
+    setFilterContents({
+      ...filter,
+      체크인: `${baseDate.getMonth() + 1}월 ${event.target.innerText}일`,
+    });
+  };
 
   return (
     <SingleWrapper>
@@ -45,7 +54,9 @@ const SingleCalendar: React.FC<Idate> = props => {
           <p key={i}>&nbsp;</p>
         ))}
         {Array.from({ length: lastDayOfMonth }, (day, i) => (
-          <p key={i}>{i + 1}</p>
+          <p onClick={onClick} key={i}>
+            {i + 1}
+          </p>
         ))}
       </Day>
     </SingleWrapper>
@@ -98,6 +109,14 @@ const Day = styled.div`
     cursor: pointer;
     color: ${theme.colors.black};
     font-weight: bold;
+    &.checkIn,
+    &.checkOut {
+      background-color: ${theme.colors.black};
+      color: ${theme.colors.white};
+    }
+    &.staying {
+      background-color: ${theme.colors.grey2};
+    }
   }
 `;
 

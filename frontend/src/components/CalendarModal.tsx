@@ -1,11 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, useReducer } from 'react';
 import styled from 'styled-components';
 import SingleCalendar from './SingleCalendar';
 import Icons from './Icons';
 
 const CalendarModal: React.FC = () => {
   const directionRef = React.useRef<HTMLDivElement>(null);
-  const [baseMonth, setBaseMonth] = useState(0);
+
   let currentType: string | null = null;
 
   const Calendars: React.FC = () => {
@@ -13,7 +13,7 @@ const CalendarModal: React.FC = () => {
     return (
       <>
         {slideCountsArr.map((v, i) => {
-          return <SingleCalendar key={i} month={baseMonth + i - 2} />;
+          return <SingleCalendar key={i} month={number + i - 2} />;
         })}
       </>
     );
@@ -36,19 +36,28 @@ const CalendarModal: React.FC = () => {
     currentType = type;
   };
 
+  const reducer = (state: number, action: { type: string }) => {
+    switch (action.type) {
+      case 'INCREMENT':
+        return state + 2;
+      case 'DECREMENT':
+        return state - 2;
+      default:
+        return state;
+    }
+  };
+
+  const [number, dispatch] = useReducer(reducer, 0);
+
   const onTransitionEnd = type => {
     const myRef: HTMLDivElement | null = directionRef.current;
-
     if (myRef) {
       myRef.style.transition = 'none';
       myRef.style.transform = 'translate(0)';
     }
 
-    if (currentType === 'right') {
-      setBaseMonth(baseMonth + 2);
-    } else if (currentType === 'left') {
-      setBaseMonth(baseMonth - 2);
-    }
+    currentType === 'right' && dispatch({ type: 'INCREMENT' });
+    currentType === 'left' && dispatch({ type: 'DECREMENT' });
   };
 
   return (
@@ -102,7 +111,6 @@ const ArrowWrapper = styled.div`
 
 const CarouselWrapper = styled.div`
   display: flex;
-  /* transform: translate(-100px); */
 `;
 
 export default CalendarModal;
