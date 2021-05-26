@@ -17,17 +17,18 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.removeBorderOfSearchBar()
         self.mainSceneViewModel = MainSceneViewModel()
         self.setLivingNowCollectionViewDelegate()
         self.registerNib()
         self.setDecelerationRate()
         self.setScrollViewHeight()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.title = "메인 화면"
+        self.navigationController?.navigationItem.searchController?.hidesNavigationBarDuringPresentation = true
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
@@ -51,11 +52,6 @@ class MainViewController: UIViewController {
         self.arroundSectionCollectionView.register(arroundSectionNib, forCellWithReuseIdentifier: ArroundSectionCell.className)
         let livingNowSectionNib = UINib(nibName: LivingNowSectionCell.className, bundle: nil)
         self.livingNowCollectionView.register(livingNowSectionNib, forCellWithReuseIdentifier: LivingNowSectionCell.className)
-    }
-    
-    private func removeBorderOfSearchBar() {
-        self.searchBar.layer.borderWidth = 1
-        self.searchBar.layer.borderColor = UIColor.systemGray6.cgColor
     }
 }
 
