@@ -13,13 +13,14 @@ class MainViewController: UIViewController {
     @IBOutlet private weak var searchBar: UISearchBar!
     @IBOutlet weak var scrollviewHeight: NSLayoutConstraint!
     private var mainSceneViewModel: MainSceneViewModel!
+    private var livingNowDelegate: LivingNowDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.removeBorderOfSearchBar()
-        self.registerNib()
         self.mainSceneViewModel = MainSceneViewModel()
         self.setLivingNowCollectionViewDelegate()
+        self.registerNib()
         self.setDecelerationRate()
         self.setScrollViewHeight()
     }
@@ -35,20 +36,21 @@ class MainViewController: UIViewController {
     }
     
     private func setLivingNowCollectionViewDelegate() {
-        let livingNowDelegate = LivingNowDelegate(mainSceneViewModel: self.mainSceneViewModel, livingNowCollectionView: self.livingNowCollectionView)
-        self.livingNowCollectionView.delegate = livingNowDelegate
-        self.livingNowCollectionView.dataSource = livingNowDelegate
+        self.livingNowDelegate = LivingNowDelegate(mainSceneViewModel: self.mainSceneViewModel, livingNowCollectionView: self.livingNowCollectionView)
+        self.livingNowCollectionView.delegate = self.livingNowDelegate
+        self.livingNowCollectionView.dataSource = self.livingNowDelegate
     }
     
     private func setDecelerationRate() {
         self.arroundSectionCollectionView.decelerationRate = .fast
+        self.livingNowCollectionView.decelerationRate = .fast
     }
     
     private func registerNib() {
         let arroundSectionNib = UINib(nibName: ArroundSectionCell.className, bundle: nil)
         self.arroundSectionCollectionView.register(arroundSectionNib, forCellWithReuseIdentifier: ArroundSectionCell.className)
         let livingNowSectionNib = UINib(nibName: LivingNowSectionCell.className, bundle: nil)
-        self.arroundSectionCollectionView.register(livingNowSectionNib, forCellWithReuseIdentifier: LivingNowSectionCell.className)
+        self.livingNowCollectionView.register(livingNowSectionNib, forCellWithReuseIdentifier: LivingNowSectionCell.className)
     }
     
     private func removeBorderOfSearchBar() {

@@ -47,11 +47,11 @@ class MainSceneViewModel {
     }
     
     private func makeDummyLivingNowImageNames() -> [String] {
-        return ["livingNowImage0", "livingNowImage1"]
+        return ["livingNowImage0", "livingNowImage1", "livingNowImage2"]
     }
     
     private func makeDummyLivingNowDescrptionBook() -> [String] {
-        return ["자연생활을 만끽할 수 있는 숙소", "독특한 공간"]
+        return ["자연생활을 만끽할 수 있는 숙소", "독특한 공간", "여기는 어디일까요?"]
     }
     
 }

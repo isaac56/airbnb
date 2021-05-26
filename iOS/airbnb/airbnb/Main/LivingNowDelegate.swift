@@ -19,14 +19,14 @@ class LivingNowDelegate: NSObject {
 
 extension LivingNowDelegate: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 250, height: 350)
+        return CGSize(width: 290, height: 350)
     }
 }
 
 extension LivingNowDelegate: UICollectionViewDelegate {
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         guard let collectionViewFlowLayout = self.livingNowCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
-        let cellWidth = 250 + collectionViewFlowLayout.minimumLineSpacing
+        let cellWidth = 290 + collectionViewFlowLayout.minimumLineSpacing
         
         var offset = targetContentOffset.pointee
         
@@ -46,7 +46,7 @@ extension LivingNowDelegate: UICollectionViewDelegate {
 
 extension LivingNowDelegate: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.mainSceneViewModel.cityNames.count
+        return self.mainSceneViewModel.livingNowImageNames.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
