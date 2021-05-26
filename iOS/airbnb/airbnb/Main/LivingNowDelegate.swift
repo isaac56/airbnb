@@ -8,11 +8,11 @@
 import UIKit
 
 class LivingNowDelegate: NSObject {
-    private let mainSceneViewModel: MainSceneViewModel
+    private let mainSceneViewModel: LivingNowViewModel
     private let livingNowCollectionView: UICollectionView
     
-    init(mainSceneViewModel: MainSceneViewModel, livingNowCollectionView: UICollectionView) {
-        self.mainSceneViewModel = mainSceneViewModel
+    init(livingNowViewModel: LivingNowViewModel, livingNowCollectionView: UICollectionView) {
+        self.mainSceneViewModel = livingNowViewModel
         self.livingNowCollectionView = livingNowCollectionView
     }
 }

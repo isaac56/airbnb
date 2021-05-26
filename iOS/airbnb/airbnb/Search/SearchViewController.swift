@@ -13,7 +13,8 @@ class SearchViewController: UIViewController {
     }
     
     @IBOutlet private weak var resultCollectionView: UICollectionView!
-    private var searchDataCenter = SearchDataCenter()
+    private var searchDataCenter: SearchDataCenter!
+    private var cityInfoViewModel: CityInfoViewModel!
     private lazy var dataSource = makeDataSource()
     private var searchController = UISearchController(searchResultsController: nil)
     typealias DataSource = UICollectionViewDiffableDataSource<Section, SelectInfo>
@@ -28,6 +29,10 @@ class SearchViewController: UIViewController {
         self.focusSearchBarWhenViewDidLoad()
     }
     
+    func setCityInfoViewModel(cityInfoViewModel: CityInfoViewModel) {
+        self.cityInfoViewModel = cityInfoViewModel
+    }
+    
     private func focusSearchBarWhenViewDidLoad() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
             self.navigationItem.searchController?.searchBar.becomeFirstResponder()
@@ -37,6 +42,7 @@ class SearchViewController: UIViewController {
     private func setupSearchController() {
         self.navigationItem.searchController = self.searchController
         self.navigationItem.searchController?.searchResultsUpdater = self
+        self.navigationItem.searchController?.delegate = self
         self.navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
         self.navigationItem.title = "숙소 찾기"
         self.navigationItem.hidesSearchBarWhenScrolling = false
@@ -77,6 +83,16 @@ extension SearchViewController: UICollectionViewDelegate {
         guard let vc = self.storyboard?.instantiateViewController(identifier: CalendarViewController.className) as? CalendarViewController else { return }
         vc.setSelectInfo(selectInfo)
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension SearchViewController: UISearchControllerDelegate {
+    func didPresentSearchController(_ searchController: UISearchController) {
+        //MARK: - 누르기 전과 후의 데이터를 다르게
+    }
+    
+    func didDismissSearchController(_ searchController: UISearchController) {
+        
     }
 }
 

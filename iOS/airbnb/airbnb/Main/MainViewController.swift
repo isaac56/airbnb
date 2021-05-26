@@ -12,12 +12,14 @@ class MainViewController: UIViewController {
     @IBOutlet weak var livingNowCollectionView: UICollectionView!
     @IBOutlet private weak var searchBar: UISearchBar!
     @IBOutlet weak var scrollviewHeight: NSLayoutConstraint!
-    private var mainSceneViewModel: MainSceneViewModel!
+    private var livingNowViewModel: LivingNowViewModel!
+    private var cityInfoViewModel: CityInfoViewModel!
     private var livingNowDelegate: LivingNowDelegate!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.mainSceneViewModel = MainSceneViewModel()
+        self.livingNowViewModel = LivingNowViewModel()
+        self.cityInfoViewModel = CityInfoViewModel()
         self.setLivingNowCollectionViewDelegate()
         self.registerNib()
         self.setDecelerationRate()
@@ -37,7 +39,7 @@ class MainViewController: UIViewController {
     }
     
     private func setLivingNowCollectionViewDelegate() {
-        self.livingNowDelegate = LivingNowDelegate(mainSceneViewModel: self.mainSceneViewModel, livingNowCollectionView: self.livingNowCollectionView)
+        self.livingNowDelegate = LivingNowDelegate(livingNowViewModel: self.livingNowViewModel, livingNowCollectionView: self.livingNowCollectionView)
         self.livingNowCollectionView.delegate = self.livingNowDelegate
         self.livingNowCollectionView.dataSource = self.livingNowDelegate
     }
@@ -59,6 +61,7 @@ extension MainViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         guard let vc = self.storyboard?.instantiateViewController(identifier: SearchViewController.className) as? SearchViewController else { return }
+        vc.setCityInfoViewModel(cityInfoViewModel: self.cityInfoViewModel)
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -97,14 +100,14 @@ extension MainViewController: UICollectionViewDelegate {
 
 extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.mainSceneViewModel.cityNames.count
+        return self.cityInfoViewModel.cityNames.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ArroundSectionCell.className, for: indexPath) as? ArroundSectionCell else { return UICollectionViewCell() }
-        let imageName = self.mainSceneViewModel.cityImageNames[indexPath.row]
-        let cityName = self.mainSceneViewModel.cityNames[indexPath.row]
-        let time = self.mainSceneViewModel.distanceDescriptionBook[indexPath.row]
+        let imageName = self.cityInfoViewModel.cityImageNames[indexPath.row]
+        let cityName = self.cityInfoViewModel.cityNames[indexPath.row]
+        let time = self.cityInfoViewModel.distanceDescriptionBook[indexPath.row]
         cell.configure(cityImageName: imageName, cityName: cityName, distance: time)
         return cell
     }

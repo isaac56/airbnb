@@ -20,8 +20,8 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lFR-RF-k3v">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="1400"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="etL-GL-HTw">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1400"/>
+                                    <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="etL-GL-HTw">
+                                        <rect key="frame" x="0.0" y="-44" width="414" height="1400"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="35g-Ip-Uvk">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="517.5"/>
@@ -192,7 +192,7 @@
                                     <constraint firstAttribute="trailing" secondItem="etL-GL-HTw" secondAttribute="trailing" id="SJy-rZ-uTy"/>
                                     <constraint firstItem="etL-GL-HTw" firstAttribute="width" secondItem="lFR-RF-k3v" secondAttribute="width" id="VXN-1z-tYX"/>
                                     <constraint firstItem="etL-GL-HTw" firstAttribute="leading" secondItem="lFR-RF-k3v" secondAttribute="leading" id="cdN-ze-LN9"/>
-                                    <constraint firstAttribute="top" secondItem="etL-GL-HTw" secondAttribute="top" id="thC-tJ-mY3"/>
+                                    <constraint firstItem="aRT-Ii-TCn" firstAttribute="top" secondItem="etL-GL-HTw" secondAttribute="top" constant="44" id="thC-tJ-mY3"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="aRT-Ii-TCn"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="k8I-xO-fja"/>
