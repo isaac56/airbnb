@@ -1,4 +1,4 @@
-package team14.airbnb.entity;
+package team14.airbnb.domain.aggregate.user;
 
 import lombok.AccessLevel;
 import lombok.Getter;
