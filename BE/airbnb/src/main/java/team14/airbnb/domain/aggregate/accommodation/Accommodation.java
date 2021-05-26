@@ -35,6 +35,6 @@ public class Accommodation {
 
     private Long hostId;
 
-    @OneToMany(mappedBy = "accommodation_id")
+    @OneToMany(mappedBy = "accommodationId")
     private Set<AccommodationOption> accommodationOptions = new HashSet<>();
 }

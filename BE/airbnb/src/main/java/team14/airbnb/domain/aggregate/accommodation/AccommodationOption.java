@@ -17,4 +17,6 @@ public class AccommodationOption {
     private Long id;
 
     private String name;
+
+    private Long accommodationId;
 }
