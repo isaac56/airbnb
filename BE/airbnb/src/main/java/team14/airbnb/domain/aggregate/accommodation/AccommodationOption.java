@@ -2,7 +2,10 @@ package team14.airbnb.domain.aggregate.accommodation;
 
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 @Getter
@@ -15,11 +18,7 @@ public class AccommodationOption {
     private Long id;
 
     private String name;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "accommodation_id")
-    private Accommodation accommodation;
-
+    
     public AccommodationOption(String name) {
         this.name = name;
     }

@@ -32,7 +32,8 @@ public class Accommodation {
 
     private Long hostId;
 
-    @OneToMany(mappedBy = "accommodation")
+    @OneToMany
+    @JoinColumn(name = "accommodation_id")
     private Set<AccommodationOption> accommodationOptions = new HashSet<>();
 
     public Accommodation(String name, int basicFee, Integer weekendFee, Integer cleaningFee, String titleImageUrl, String description, Long hostId) {
@@ -47,7 +48,6 @@ public class Accommodation {
 
     public void addAccommodationOption(String optionName) {
         AccommodationOption accommodationOption = new AccommodationOption(optionName);
-        accommodationOption.setAccommodation(this);
         this.accommodationOptions.add(accommodationOption);
     }
 }
