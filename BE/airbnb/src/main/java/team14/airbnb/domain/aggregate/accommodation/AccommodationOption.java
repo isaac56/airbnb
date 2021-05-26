@@ -2,9 +2,7 @@ package team14.airbnb.domain.aggregate.accommodation;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -13,10 +11,16 @@ import javax.persistence.Id;
 @EqualsAndHashCode(of = {"name"})
 public class AccommodationOption {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    private Long accommodationId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "accommodation_id")
+    private Accommodation accommodation;
+
+    public AccommodationOption(String name) {
+        this.name = name;
+    }
 }
