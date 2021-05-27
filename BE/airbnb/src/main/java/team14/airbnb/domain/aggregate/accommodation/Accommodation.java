@@ -54,6 +54,10 @@ public class Accommodation {
     @OrderBy("startDate asc")
     private List<SpecialFee> specialFees = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "accommodation_id", nullable = false)
+    private List<AccommodationImage> accommodationImages = new ArrayList<>();
+
     public Accommodation(String name, int basicFee, Integer weekendFee, Integer cleaningFee, String titleImageUrl, String description, Long hostId
             , DetailCondition detailCondition, AccommodationAddress accommodationAddress) {
         this.name = name;
@@ -76,5 +80,9 @@ public class Accommodation {
             throw new RuntimeException("이미 설정된 특별가격과 기간이 겹칩니다.");
         }
         this.specialFees.add(getIndexToInsert(specialFees, specialFee), specialFee);
+    }
+
+    public void addAccommodationImage(String imageUrl) {
+        this.accommodationImages.add(new AccommodationImage(imageUrl));
     }
 }
