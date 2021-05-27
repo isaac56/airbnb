@@ -39,6 +39,9 @@ public class Accommodation {
     @OneToOne(mappedBy = "accommodation", cascade = CascadeType.ALL)
     private DetailCondition detailCondition;
 
+    @OneToOne(mappedBy = "accommodation", cascade = CascadeType.ALL)
+    private AccommodationAddress accommodationAddress;
+
     public Accommodation(String name, int basicFee, Integer weekendFee, Integer cleaningFee, String titleImageUrl, String description, Long hostId) {
         this.name = name;
         this.basicFee = basicFee;
@@ -57,5 +60,10 @@ public class Accommodation {
     public void setDetailCondition(DetailCondition detailCondition) {
         detailCondition.setAccommodation(this);
         this.detailCondition = detailCondition;
+    }
+
+    public void setAccommodationAddress(AccommodationAddress accommodationAddress) {
+        accommodationAddress.setAccommodation(this);
+        this.accommodationAddress = accommodationAddress;
     }
 }
