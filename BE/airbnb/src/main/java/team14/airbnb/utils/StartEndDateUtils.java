@@ -9,6 +9,15 @@ public class StartEndDateUtils {
     private StartEndDateUtils() {
     }
 
+    public static int getIndexToInsert(List<? extends StartEndDateAble> listOrderByStartDate, StartEndDateAble startEndDate) {
+        int index = Collections.binarySearch(listOrderByStartDate, startEndDate, Comparator.comparing(StartEndDateAble::getStartDate));
+        if (index >= 0) {
+            return -1;
+        }
+
+        return -(index + 1);
+    }
+
     public static boolean isOverlapped(List<? extends StartEndDateAble> listOrderByStartDate, StartEndDateAble startEndDate) {
         if (startEndDate.getStartDate() == null || startEndDate.getEndDate() == null) {
             return true;
