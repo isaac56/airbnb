@@ -6,7 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -44,6 +47,11 @@ public class Accommodation {
     @JoinColumn(name = "accommodation_address_id", nullable = false)
     private AccommodationAddress accommodationAddress;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "accommodation_id", nullable = false)
+    @OrderBy("startDate asc")
+    private List<SpecialFee> specialFees = new ArrayList<>();
+
     public Accommodation(String name, int basicFee, Integer weekendFee, Integer cleaningFee, String titleImageUrl, String description, Long hostId
             , DetailCondition detailCondition, AccommodationAddress accommodationAddress) {
         this.name = name;
@@ -58,7 +66,10 @@ public class Accommodation {
     }
 
     public void addAccommodationOption(String optionName) {
-        AccommodationOption accommodationOption = new AccommodationOption(optionName);
-        this.accommodationOptions.add(accommodationOption);
+        this.accommodationOptions.add(new AccommodationOption(optionName));
+    }
+
+    public void addSpecialFee(LocalDate startDate, LocalDate endDate, int basicFee, Integer weekendFee) {
+        this.specialFees.add(new SpecialFee(startDate, endDate, basicFee, weekendFee));
     }
 }
