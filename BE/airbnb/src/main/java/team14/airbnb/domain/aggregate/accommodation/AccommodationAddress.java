@@ -34,10 +34,6 @@ public class AccommodationAddress {
 
     private Point location;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "accommodation_id")
-    private Accommodation accommodation;
-
     public AccommodationAddress(String addressName, String roadAddressName, String region1DepthName, String region2DepthName, String region3DepthName,
                                 double x, double y) {
         this.addressName = addressName;

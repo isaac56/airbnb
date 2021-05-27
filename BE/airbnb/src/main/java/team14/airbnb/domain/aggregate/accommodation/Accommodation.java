@@ -36,13 +36,16 @@ public class Accommodation {
     @JoinColumn(name = "accommodation_id", nullable = false)
     private Set<AccommodationOption> accommodationOptions = new HashSet<>();
 
-    @OneToOne(mappedBy = "accommodation", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "detail_condition_id", nullable = false)
     private DetailCondition detailCondition;
 
-    @OneToOne(mappedBy = "accommodation", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "accommodation_address_id", nullable = false)
     private AccommodationAddress accommodationAddress;
 
-    public Accommodation(String name, int basicFee, Integer weekendFee, Integer cleaningFee, String titleImageUrl, String description, Long hostId) {
+    public Accommodation(String name, int basicFee, Integer weekendFee, Integer cleaningFee, String titleImageUrl, String description, Long hostId
+            , DetailCondition detailCondition, AccommodationAddress accommodationAddress) {
         this.name = name;
         this.basicFee = basicFee;
         this.weekendFee = weekendFee;
@@ -50,20 +53,12 @@ public class Accommodation {
         this.titleImageUrl = titleImageUrl;
         this.description = description;
         this.hostId = hostId;
+        this.detailCondition = detailCondition;
+        this.accommodationAddress = accommodationAddress;
     }
 
     public void addAccommodationOption(String optionName) {
         AccommodationOption accommodationOption = new AccommodationOption(optionName);
         this.accommodationOptions.add(accommodationOption);
-    }
-
-    public void setDetailCondition(DetailCondition detailCondition) {
-        detailCondition.setAccommodation(this);
-        this.detailCondition = detailCondition;
-    }
-
-    public void setAccommodationAddress(AccommodationAddress accommodationAddress) {
-        accommodationAddress.setAccommodation(this);
-        this.accommodationAddress = accommodationAddress;
     }
 }

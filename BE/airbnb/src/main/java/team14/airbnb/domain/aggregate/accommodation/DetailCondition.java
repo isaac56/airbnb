@@ -5,7 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 @Getter
@@ -23,10 +26,6 @@ public class DetailCondition {
     private int numberOfToilet;
 
     private int numberOfRooms;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "accommodation_id")
-    private Accommodation accommodation;
 
     public DetailCondition(RoomType roomType, int maxOfPeople, int numberOfToilet, int numberOfRooms) {
         this.roomType = roomType;
