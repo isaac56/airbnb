@@ -58,6 +58,10 @@ public class Accommodation {
     @JoinColumn(name = "accommodation_id", nullable = false)
     private List<AccommodationImage> accommodationImages = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "accommodation_id", nullable = false)
+    private Set<HashTag> hashTags = new HashSet<>();
+
     public Accommodation(String name, int basicFee, Integer weekendFee, Integer cleaningFee, String titleImageUrl, String description, Long hostId
             , DetailCondition detailCondition, AccommodationAddress accommodationAddress) {
         this.name = name;
@@ -84,5 +88,9 @@ public class Accommodation {
 
     public void addAccommodationImage(String imageUrl) {
         this.accommodationImages.add(new AccommodationImage(imageUrl));
+    }
+
+    public void addHashTag(String name) {
+        this.hashTags.add(new HashTag(name));
     }
 }
