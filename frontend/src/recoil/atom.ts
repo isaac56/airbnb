@@ -1,4 +1,4 @@
-import { atom } from 'recoil';
+import { atom, RecoilState } from 'recoil';
 
 const filterAtom = atom({
   key: 'filters',
@@ -10,20 +10,20 @@ const filterAtom = atom({
   },
 });
 
-const datesAtom = atom({
+// interface IdateAtom {
+//   key: string;
+//   default: {
+//     checkIn: Date | null;
+//     checkOut: Date | null;
+//   };
+// }
+
+const datesAtom: RecoilState<any> = atom({
   key: 'dates',
   default: {
-    checkIn: {
-      year: 0,
-      month: 0,
-      day: 0,
-    },
-    checkOut: {
-      year: 0,
-      month: 0,
-      day: 0,
-    },
+    checkIn: null,
+    checkOut: null,
   },
 });
 
-export { filterAtom };
+export { filterAtom, datesAtom };

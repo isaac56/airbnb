@@ -155,7 +155,7 @@ const Icon: React.FC<Iicon> = props => {
             <User />
           </>
         );
-      case 'xCircle':
+      case 'x-circle':
         const XCircle = styled(xCircle)`
           ${defaultSetting}
         `;

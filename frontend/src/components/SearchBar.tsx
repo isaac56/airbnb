@@ -92,7 +92,7 @@ const SearchBarWrapper = styled.div`
   & > :not(:last-child, :first-child, :hover):after {
     content: '';
     position: absolute;
-    transform: translate(-60px, 15px);
+    transform: translate(-55px, 15px);
     width: 1px;
     height: 50px;
     background-color: ${theme.colors.grey5};

@@ -8,17 +8,6 @@ const CalendarModal: React.FC = () => {
 
   let currentType: string | null = null;
 
-  const Calendars: React.FC = () => {
-    const slideCountsArr: undefined[] = [...Array(6)];
-    return (
-      <>
-        {slideCountsArr.map((v, i) => {
-          return <SingleCalendar key={i} month={number + i - 2} />;
-        })}
-      </>
-    );
-  };
-
   const setStyle = (duration: string, move: string): void => {
     const myRef: HTMLDivElement | null = directionRef.current;
     if (myRef) {
@@ -47,7 +36,7 @@ const CalendarModal: React.FC = () => {
     }
   };
 
-  const [number, dispatch] = useReducer(reducer, 0);
+  const [monthCount, dispatch] = useReducer(reducer, 0);
 
   const onTransitionEnd = type => {
     const myRef: HTMLDivElement | null = directionRef.current;
@@ -58,6 +47,17 @@ const CalendarModal: React.FC = () => {
 
     currentType === 'right' && dispatch({ type: 'INCREMENT' });
     currentType === 'left' && dispatch({ type: 'DECREMENT' });
+  };
+
+  const Calendars: React.FC = () => {
+    const slideCountsArr: undefined[] = [...Array(6)];
+    return (
+      <>
+        {slideCountsArr.map((v, i) => {
+          return <SingleCalendar key={i} month={monthCount + i - 2} />;
+        })}
+      </>
+    );
   };
 
   return (
