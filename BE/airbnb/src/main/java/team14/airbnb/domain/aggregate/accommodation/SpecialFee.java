@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import team14.airbnb.utils.StartEndDateAble;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +16,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SpecialFee {
+public class SpecialFee implements StartEndDateAble {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

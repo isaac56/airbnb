@@ -6,11 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static team14.airbnb.utils.StartEndDateUtils.getIndexToInsert;
+import static team14.airbnb.utils.StartEndDateUtils.isOverlapped;
 
 @Entity
 @Getter
@@ -69,7 +71,10 @@ public class Accommodation {
         this.accommodationOptions.add(new AccommodationOption(optionName));
     }
 
-    public void addSpecialFee(LocalDate startDate, LocalDate endDate, int basicFee, Integer weekendFee) {
-        this.specialFees.add(new SpecialFee(startDate, endDate, basicFee, weekendFee));
+    public void addSpecialFee(SpecialFee specialFee) {
+        if (isOverlapped(specialFees, specialFee)) {
+            throw new RuntimeException("이미 설정된 특별가격과 기간이 겹칩니다.");
+        }
+        this.specialFees.add(getIndexToInsert(specialFees, specialFee), specialFee);
     }
 }
