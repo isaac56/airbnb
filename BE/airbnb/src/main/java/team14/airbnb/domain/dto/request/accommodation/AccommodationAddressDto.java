@@ -27,10 +27,10 @@ public class AccommodationAddressDto {
     private String region3DepthName;
 
     @NotNull(message = "주소의 경도값은 필수입니다.")
-    private Long x;
+    private Double x;
 
     @NotNull(message = "주소의 위도값은 필수입니다.")
-    private Long y;
+    private Double y;
 
     public AccommodationAddress toEntity() {
         return new AccommodationAddress(
