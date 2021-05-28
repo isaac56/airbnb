@@ -10,11 +10,13 @@ import UIKit
 class MainViewController: UIViewController {
     @IBOutlet weak var arroundSectionCollectionView: UICollectionView!
     @IBOutlet weak var livingNowCollectionView: UICollectionView!
-    @IBOutlet private weak var searchBar: UISearchBar!
     @IBOutlet weak var scrollviewHeight: NSLayoutConstraint!
+    @IBOutlet weak var arroundTextLabel: CustomTitleLabel!
+    @IBOutlet weak var livingNowTextLabel: CustomTitleLabel!
     private var livingNowViewModel: LivingNowViewModel!
     private var cityInfoViewModel: CityInfoViewModel!
     private var livingNowDelegate: LivingNowDelegate!
+    private let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,15 +56,6 @@ class MainViewController: UIViewController {
         self.arroundSectionCollectionView.register(arroundSectionNib, forCellWithReuseIdentifier: ArroundSectionCell.className)
         let livingNowSectionNib = UINib(nibName: LivingNowSectionCell.className, bundle: nil)
         self.livingNowCollectionView.register(livingNowSectionNib, forCellWithReuseIdentifier: LivingNowSectionCell.className)
-    }
-}
-
-extension MainViewController: UISearchBarDelegate {
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
-        guard let vc = self.storyboard?.instantiateViewController(identifier: SearchViewController.className) as? SearchViewController else { return }
-        vc.setCityInfoViewModel(cityInfoViewModel: self.cityInfoViewModel)
-        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
