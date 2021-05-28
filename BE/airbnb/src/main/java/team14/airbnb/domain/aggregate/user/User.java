@@ -15,6 +15,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
+    public static final String NOT_FOUND_MESSAGE = "사용자 정보를 찾을 수 없습니다";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
