@@ -26,11 +26,11 @@ public class AccommodationAddressDto {
     @JsonProperty(value = "region3_depth_name")
     private String region3DepthName;
 
-    @NotNull
-    private long x;
+    @NotNull(message = "주소의 경도값은 필수입니다.")
+    private Long x;
 
-    @NotNull
-    private long y;
+    @NotNull(message = "주소의 위도값은 필수입니다.")
+    private Long y;
 
     public AccommodationAddress toEntity() {
         return new AccommodationAddress(
