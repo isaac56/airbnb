@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import team14.airbnb.domain.aggregate.accommodation.*;
 import team14.airbnb.domain.aggregate.user.User;
 
@@ -31,7 +32,7 @@ class AccommodationRepositoryTest {
     void setUp() {
         User user = userRepository.save(new User("test@test.com"));
         Accommodation accommodation = new Accommodation("테스트 숙소", 65000, 85000, 10000,
-                null, "테스트용 숙소입니다.", user.getId(),
+                null, "테스트용 숙소입니다.", user,
                 new DetailCondition(RoomType.ONE_ROOM, 4, 1, 1),
                 new AccommodationAddress(
                         "충남 천안시 서북구 불당동 994",
@@ -56,6 +57,7 @@ class AccommodationRepositoryTest {
     }
 
     @Test
+    @Rollback(false)
     void findTest() {
         Accommodation accommodation = accommodationRepository.findById(savedAccommodation.getId()).orElseThrow(RuntimeException::new);
         Assertions.assertThat(accommodation.getAccommodationOptions().size()).isEqualTo(1);
@@ -77,5 +79,7 @@ class AccommodationRepositoryTest {
 
         Set<HashTag> hashTags = accommodation.getHashTags();
         Assertions.assertThat(hashTags.size()).isEqualTo(2);
+
+        Assertions.assertThat(accommodation.getHost().getEmail()).isEqualTo("test@test.com");
     }
 }

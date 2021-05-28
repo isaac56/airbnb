@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import team14.airbnb.domain.aggregate.user.User;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -35,7 +36,9 @@ public class Accommodation {
 
     private String description;
 
-    private Long hostId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "host_id", nullable = false)
+    private User host;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "accommodation_id", nullable = false)
@@ -62,7 +65,7 @@ public class Accommodation {
     @JoinColumn(name = "accommodation_id", nullable = false)
     private Set<HashTag> hashTags = new HashSet<>();
 
-    public Accommodation(String name, int basicFee, Integer weekendFee, Integer cleaningFee, String titleImageUrl, String description, Long hostId
+    public Accommodation(String name, int basicFee, Integer weekendFee, Integer cleaningFee, String titleImageUrl, String description, User host
             , DetailCondition detailCondition, AccommodationAddress accommodationAddress) {
         this.name = name;
         this.basicFee = basicFee;
@@ -70,7 +73,7 @@ public class Accommodation {
         this.cleaningFee = cleaningFee;
         this.titleImageUrl = titleImageUrl;
         this.description = description;
-        this.hostId = hostId;
+        this.host = host;
         this.detailCondition = detailCondition;
         this.accommodationAddress = accommodationAddress;
     }
