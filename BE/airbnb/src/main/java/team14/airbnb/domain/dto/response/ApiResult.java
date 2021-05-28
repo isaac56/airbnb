@@ -1,4 +1,4 @@
-package team14.airbnb.dto.response;
+package team14.airbnb.domain.dto.response;
 
 import lombok.Getter;
 
