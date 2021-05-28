@@ -43,7 +43,7 @@ public class AccommodationCreateDto {
     private List<String> hashTags;
 
     public Accommodation toEntity(User host) {
-        return new Accommodation(
+        Accommodation accommodation = new Accommodation(
                 name,
                 basicFee,
                 weekendFee,
@@ -54,5 +54,16 @@ public class AccommodationCreateDto {
                 detailCondition.toEntity(),
                 address.toEntity()
         );
+        if (options != null) {
+            options.stream().forEach(option -> accommodation.addAccommodationOption(option));
+        }
+        if (imageUrls != null) {
+            imageUrls.stream().forEach(url -> accommodation.addAccommodationImage(url));
+        }
+        if (hashTags != null) {
+            hashTags.stream().forEach(hashTag -> accommodation.addHashTag(hashTag));
+        }
+
+        return accommodation;
     }
 }
