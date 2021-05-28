@@ -27,10 +27,7 @@
                                                 <rect key="frame" x="0.0" y="-44" width="414" height="517.5"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heroImage" translatesAutoresizingMaskIntoConstraints="NO" id="AzW-Ye-P2I">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="517.5"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" secondItem="AzW-Ye-P2I" secondAttribute="height" multiplier="0.8:1" id="tcG-pG-sTO"/>
-                                                        </constraints>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="488"/>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="슬기로운자연생활" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5bR-LH-LXt">
                                                         <rect key="frame" x="17" y="70" width="140" height="90"/>
@@ -82,12 +79,11 @@
                                                     <constraint firstItem="SrD-Cm-Xc9" firstAttribute="top" secondItem="5bR-LH-LXt" secondAttribute="bottom" constant="10" id="BcD-mq-Ekr"/>
                                                     <constraint firstItem="dCd-CU-Tv0" firstAttribute="leading" secondItem="5bR-LH-LXt" secondAttribute="leading" id="Vds-W6-FFW"/>
                                                     <constraint firstItem="AzW-Ye-P2I" firstAttribute="leading" secondItem="35g-Ip-Uvk" secondAttribute="leading" id="gth-jg-Ppf"/>
-                                                    <constraint firstItem="AzW-Ye-P2I" firstAttribute="top" secondItem="5bR-LH-LXt" secondAttribute="bottom" constant="-160" id="iAR-UW-XB3"/>
                                                     <constraint firstItem="dCd-CU-Tv0" firstAttribute="top" secondItem="SrD-Cm-Xc9" secondAttribute="bottom" constant="15" id="qAS-tR-dQ7"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="가까운 여행지 둘러보기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lal-dM-1By" customClass="CustomTitleLabel" customModule="airbnb" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="473.5" width="414" height="60"/>
+                                                <rect key="frame" x="0.0" y="444" width="414" height="60"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="NdU-7h-J73"/>
@@ -97,7 +93,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="orr-Nx-GjN">
-                                                <rect key="frame" x="0.0" y="533.5" width="414" height="200"/>
+                                                <rect key="frame" x="0.0" y="504" width="414" height="200"/>
                                                 <subviews>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ZgY-1N-apa">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
@@ -134,7 +130,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="어디에서나, 여행은 살아보는거야!" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0QU-gr-dFt" customClass="CustomTitleLabel" customModule="airbnb" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="733.5" width="414" height="80"/>
+                                                <rect key="frame" x="0.0" y="704" width="414" height="80"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="80" id="kaB-d3-wdl"/>
@@ -144,7 +140,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ZO1-Qy-4nn">
-                                                <rect key="frame" x="0.0" y="813.5" width="414" height="360"/>
+                                                <rect key="frame" x="0.0" y="784" width="414" height="360"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="360" id="oko-zT-ZhJ"/>
@@ -177,7 +173,7 @@
                                             <constraint firstItem="ZO1-Qy-4nn" firstAttribute="top" secondItem="0QU-gr-dFt" secondAttribute="bottom" id="Ajh-nT-PWA"/>
                                             <constraint firstAttribute="trailing" secondItem="ZO1-Qy-4nn" secondAttribute="trailing" id="EGA-du-oJz"/>
                                             <constraint firstAttribute="trailing" secondItem="Lal-dM-1By" secondAttribute="trailing" id="OkU-R0-gmR"/>
-                                            <constraint firstItem="Lal-dM-1By" firstAttribute="top" secondItem="etL-GL-HTw" secondAttribute="top" constant="473.5" id="QhP-g0-heh"/>
+                                            <constraint firstItem="Lal-dM-1By" firstAttribute="top" relation="lessThanOrEqual" secondItem="etL-GL-HTw" secondAttribute="top" constant="473.5" id="QhP-g0-heh"/>
                                             <constraint firstItem="orr-Nx-GjN" firstAttribute="leading" secondItem="etL-GL-HTw" secondAttribute="leading" id="Rkr-cA-lGi"/>
                                             <constraint firstAttribute="trailing" secondItem="35g-Ip-Uvk" secondAttribute="trailing" id="Zzw-Pp-5cg"/>
                                             <constraint firstAttribute="width" constant="414" id="a8v-Rf-bEc"/>
@@ -190,6 +186,7 @@
                                     </view>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="5bR-LH-LXt" firstAttribute="top" secondItem="k8I-xO-fja" secondAttribute="top" constant="70" id="1WJ-en-xWH"/>
                                     <constraint firstAttribute="bottom" secondItem="etL-GL-HTw" secondAttribute="bottom" id="NLS-xs-9pB"/>
                                     <constraint firstItem="AzW-Ye-P2I" firstAttribute="top" secondItem="35g-Ip-Uvk" secondAttribute="top" id="OUE-pY-a46"/>
                                     <constraint firstAttribute="trailing" secondItem="etL-GL-HTw" secondAttribute="trailing" id="SJy-rZ-uTy"/>
@@ -200,6 +197,9 @@
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="aRT-Ii-TCn"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="k8I-xO-fja"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="xuM-s7-l2c"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -218,6 +218,7 @@
                     <connections>
                         <outlet property="arroundSectionCollectionView" destination="ZgY-1N-apa" id="Gho-Ly-qtJ"/>
                         <outlet property="arroundTextLabel" destination="Lal-dM-1By" id="Ckz-lB-DE2"/>
+                        <outlet property="heroImageContentView" destination="35g-Ip-Uvk" id="49D-SR-40A"/>
                         <outlet property="livingNowCollectionView" destination="ZO1-Qy-4nn" id="Ba5-JX-eTL"/>
                         <outlet property="livingNowTextLabel" destination="0QU-gr-dFt" id="Mjt-rh-jyQ"/>
                         <outlet property="scrollviewHeight" destination="65y-9L-Pbk" id="yYl-u6-e1S"/>

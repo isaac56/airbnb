@@ -13,6 +13,7 @@ class MainViewController: UIViewController {
     @IBOutlet weak var scrollviewHeight: NSLayoutConstraint!
     @IBOutlet weak var arroundTextLabel: CustomTitleLabel!
     @IBOutlet weak var livingNowTextLabel: CustomTitleLabel!
+    @IBOutlet weak var heroImageContentView: UIView!
     private var livingNowViewModel: LivingNowViewModel!
     private var cityInfoViewModel: CityInfoViewModel!
     private var livingNowDelegate: LivingNowDelegate!
@@ -37,7 +38,7 @@ class MainViewController: UIViewController {
     }
     
     private func setScrollViewHeight() {
-        self.scrollviewHeight.constant = self.livingNowCollectionView.frame.maxY + 20
+//        self.scrollviewHeight.constant = self.livingNowCollectionView.frame.maxY + 20
     }
     
     private func setLivingNowCollectionViewDelegate() {
@@ -106,4 +107,16 @@ extension MainViewController: UICollectionViewDataSource {
     }
     
     
+}
+
+extension MainViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y > 0 {
+            let percent = (1 - scrollView.contentOffset.y * 1.5 / self.heroImageContentView.frame.height)
+            self.heroImageContentView.alpha = percent
+        } else if scrollView.contentOffset.y == 0 {
+            self.heroImageContentView.alpha = 1
+        }
+    }
+    //MARK: - 레이아웃에 문제가 있는듯 합니다.
 }
