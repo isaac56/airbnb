@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import team14.airbnb.domain.aggregate.accommodation.Accommodation;
 
 @Repository
-public interface AccommodationRepository extends JpaRepository<Accommodation, Long> {
+public interface AccommodationRepository extends JpaRepository<Accommodation, Long>, AccommodationRepositoryCustom {
 }
