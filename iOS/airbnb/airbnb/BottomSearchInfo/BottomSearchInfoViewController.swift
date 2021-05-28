@@ -35,7 +35,7 @@ class BottomSearchInfoViewController: UIViewController {
     func configureSearchInfo(_ info: SelectInfo) {
         self.location.text = info.address
         self.duration.text = info.displayDuration
-        self.price.text = info.price == nil ? "" : "\(info.price ?? 0)원"
+        self.price.text = info.priceText == nil ? "" : info.priceText
         self.persons.text = info.persons == nil ? "" : "\(info.persons ?? 0)명"
     }
     
@@ -63,8 +63,13 @@ class BottomSearchInfoViewController: UIViewController {
             self.duration.text = ""
         }
     }
-
+    
     func writePriceLabel(of string: String) {
+        self.clearButton.isEnabled = true
+        self.price.text = string
+    }
+
+    func writeDurationLabel(of string: String) {
         self.duration.text = string
     }
 }

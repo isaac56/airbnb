@@ -11,14 +11,18 @@ class SelectInfo: Hashable {
     private(set) var address: String
     private(set) var startDate: Date?
     private(set) var endDate: Date?
-    private(set) var price: Int?
+    private(set) var minPrice: Int?
+    private(set) var maxPrice: Int?
+    private(set) var priceText: String?
     private(set) var persons: Int?
     
-    init(name: String, startDate: Date? = nil, endDate: Date? = nil, price: Int? = nil, persons: Int? = nil) {
+    init(name: String, startDate: Date? = nil, endDate: Date? = nil, minPrice: Int? = nil, maxPrice: Int? = nil, priceText: String? = nil, persons: Int? = nil) {
         self.address = name
         self.startDate = startDate
         self.endDate = endDate
-        self.price = price
+        self.minPrice = minPrice
+        self.maxPrice = maxPrice
+        self.priceText = priceText
         self.persons = persons
     }
     
@@ -43,5 +47,11 @@ class SelectInfo: Hashable {
     func setDate(startDate: Date?, endDate: Date?) {
         self.startDate = startDate
         self.endDate = endDate
+    }
+    
+    func setPrice(min: Int, max: Int, text: String) {
+        self.minPrice = min
+        self.maxPrice = max
+        self.priceText = text
     }
 }

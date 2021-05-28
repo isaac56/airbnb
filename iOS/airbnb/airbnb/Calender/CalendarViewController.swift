@@ -45,7 +45,7 @@ class CalendarViewController: UIViewController {
             let startDate = self.calendarBusinessCenter.convertDateToSelected(whereSelected: .first)
             let endDate = self.calendarBusinessCenter.convertDateToSelected(whereSelected: .second)
             self.selectInfo.setDate(startDate: startDate, endDate: endDate)
-            bottomSearchInfoVC.writePriceLabel(of: self.selectInfo.displayDuration)
+            bottomSearchInfoVC.writeDurationLabel(of: self.selectInfo.displayDuration)
             self.calendarBusinessCenter.firstSelected == nil
                 ? bottomSearchInfoVC.setWhetherEnableButtonOrNot(isWillEnable: false)
                 : bottomSearchInfoVC.setWhetherEnableButtonOrNot(isWillEnable: true)
@@ -55,27 +55,7 @@ class CalendarViewController: UIViewController {
     func setSelectInfo(_ info: SelectInfo) {
         self.selectInfo = info
     }
-//    
-//    private func bottomViewBind(bottomView: BottomInfoView) {
-//        bottomView.clearButton.addAction(UIAction(handler: { (_) in
-//            self.calendarBusinessCenter.initSelectedValue()
-//            bottomView.setWhetherEnableButtonOrNot(isWillEnable: false)
-//            self.calendarCollectionView.reloadData()
-//        }), for: .touchUpInside)
-//        
-//        bottomView.nextButton.addAction(UIAction(handler: { (_) in
-//            guard let vc = self.storyboard?.instantiateViewController(identifier: PriceViewController.className) as? PriceViewController else { return }
-//            self.navigationController?.pushViewController(vc, animated: true)
-//        }), for: .touchUpInside)
-//        
-//        self.calendarBusinessCenter.durationFieldHandler = {
-//            bottomView.writePriceLabel(of: self.calendarBusinessCenter.convertCheckInCheckOutText)
-//            self.calendarBusinessCenter.firstSelected == nil
-//                ? bottomView.setWhetherEnableButtonOrNot(isWillEnable: false)
-//                : bottomView.setWhetherEnableButtonOrNot(isWillEnable: true)
-//        }
-//    }
-//    
+    
     private func collectionViewRegisterNib() {
         let nib = UINib(nibName: CalendarCell.className, bundle: nil)
         self.calendarCollectionView.register(nib, forCellWithReuseIdentifier: CalendarCell.className)

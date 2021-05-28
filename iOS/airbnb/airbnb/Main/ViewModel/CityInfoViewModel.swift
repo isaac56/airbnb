@@ -16,6 +16,7 @@ class CityInfoViewModel {
         self.cityImageNames = [String]()
         self.cityNames = [String]()
         self.distanceDescriptionBook = [String]()
+        self.makeDummyModel()
     }
     
     private func makeDummyModel() {

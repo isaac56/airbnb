@@ -12,6 +12,7 @@ class SearchDataCenter {
     
     init() {
         self.addressBook = [SelectInfo]()
+        self.makeDummyAddressBook()
     }
     
     func makeDummyAddressBook() {

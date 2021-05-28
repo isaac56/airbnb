@@ -22,7 +22,7 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.searchDataCenter.makeDummyAddressBook()
+        self.searchDataCenter = SearchDataCenter()
         self.registerCell()
         self.setupSearchController()
         self.applySnapshot(query: nil)
