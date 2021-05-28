@@ -30,6 +30,9 @@ class AccommodationRepositoryTest {
 
     @BeforeEach
     void setUp() {
+        userRepository.deleteAll();
+        accommodationRepository.deleteAll();
+
         User user = userRepository.save(new User("test@test.com"));
         Accommodation accommodation = new Accommodation("테스트 숙소", 65000, 85000, 10000,
                 null, "테스트용 숙소입니다.", user,
@@ -81,5 +84,16 @@ class AccommodationRepositoryTest {
         Assertions.assertThat(hashTags.size()).isEqualTo(2);
 
         Assertions.assertThat(accommodation.getHost().getEmail()).isEqualTo("test@test.com");
+    }
+
+    @Test
+    @DisplayName("region_depth_name으로 검색하는 custom Query 테스트")
+    void customFindByRegion() {
+        Assertions.assertThat(accommodationRepository.findByRegionsCustom("충남", "천안시 서북구", "불당").size()).isEqualTo(1);
+        Assertions.assertThat(accommodationRepository.findByRegionsCustom("충남", "천안시 서북구", "불당동").size()).isEqualTo(0);
+        Assertions.assertThat(accommodationRepository.findByRegionsCustom("충남", null, null).size()).isEqualTo(1);
+        Assertions.assertThat(accommodationRepository.findByRegionsCustom(null, "천안시 서북구", null).size()).isEqualTo(1);
+        Assertions.assertThat(accommodationRepository.findByRegionsCustom(null, "천안시서북구", null).size()).isEqualTo(0);
+        Assertions.assertThat(accommodationRepository.findByRegionsCustom(null, null, "불당").size()).isEqualTo(1);
     }
 }
