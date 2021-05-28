@@ -2,10 +2,10 @@ package team14.airbnb.repository;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import team14.airbnb.domain.aggregate.accommodation.*;
 import team14.airbnb.domain.aggregate.user.User;
 
@@ -57,7 +57,7 @@ class AccommodationRepositoryTest {
     }
 
     @Test
-    @Rollback(false)
+    @DisplayName("Accommodation과 연관 엔티티가 모두 정상적으로 저장되는지 확인")
     void findTest() {
         Accommodation accommodation = accommodationRepository.findById(savedAccommodation.getId()).orElseThrow(RuntimeException::new);
         Assertions.assertThat(accommodation.getAccommodationOptions().size()).isEqualTo(1);
