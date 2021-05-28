@@ -60,12 +60,12 @@ class BottomSearchInfoViewController: UIViewController {
         } else {
             self.nextButton.alpha = 0.5
             self.clearButton.alpha = 0.5
-            self.duration.text = ""
         }
     }
     
     func writePriceLabel(of string: String) {
         self.clearButton.isEnabled = true
+        self.nextButton.isEnabled = true
         self.price.text = string
     }
 

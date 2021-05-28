@@ -29,6 +29,10 @@ class SearchViewController: UIViewController {
         self.focusSearchBarWhenViewDidLoad()
     }
     
+    func isFiltering() {
+        //MARK: - 필터 적용
+    }
+    
     func setCityInfoViewModel(cityInfoViewModel: CityInfoViewModel) {
         self.cityInfoViewModel = cityInfoViewModel
     }

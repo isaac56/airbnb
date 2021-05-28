@@ -32,6 +32,7 @@ class CalendarViewController: UIViewController {
         bottomSearchInfoVC.clearHandler = {
             self.calendarBusinessCenter.initSelectedValue()
             bottomSearchInfoVC.setWhetherEnableButtonOrNot(isWillEnable: false)
+            bottomSearchInfoVC.writeDurationLabel(of: "")
             self.calendarCollectionView.reloadData()
         }
         
