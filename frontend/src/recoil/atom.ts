@@ -1,7 +1,7 @@
 import { atom, RecoilState } from 'recoil';
 
-const filterAtom = atom({
-  key: 'filters',
+const filterDisplayAtom = atom({
+  key: 'display',
   default: {
     체크인: '입력 날짜',
     체크아웃: '입력 날짜',
@@ -10,20 +10,22 @@ const filterAtom = atom({
   },
 });
 
-// interface IdateAtom {
-//   key: string;
-//   default: {
-//     checkIn: Date | null;
-//     checkOut: Date | null;
-//   };
-// }
-
-const datesAtom: RecoilState<any> = atom({
-  key: 'dates',
+const filterDataAtom: RecoilState<any> = atom({
+  key: 'datas',
   default: {
-    checkIn: null,
-    checkOut: null,
+    체크인: null,
+    체크아웃: null,
+    요금: null,
   },
 });
 
-export { filterAtom, datesAtom };
+const guestsDataAtom: RecoilState<any> = atom({
+  key: 'guests',
+  default: {
+    성인: 0,
+    어린이: 0,
+    유아: 0,
+  },
+});
+
+export { filterDisplayAtom, filterDataAtom, guestsDataAtom };

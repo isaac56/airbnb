@@ -1,6 +1,7 @@
 import React, { useRef, useReducer } from 'react';
 import styled from 'styled-components';
-import SingleCalendar from './SingleCalendar';
+import theme from '../styles/theme';
+import CalendarDiv from './CalendarDiv';
 import Icons from './Icons';
 
 const CalendarModal: React.FC = () => {
@@ -54,7 +55,7 @@ const CalendarModal: React.FC = () => {
     return (
       <>
         {slideCountsArr.map((v, i) => {
-          return <SingleCalendar key={i} month={monthCount + i - 2} />;
+          return <CalendarDiv key={i} month={monthCount + i - 2} />;
         })}
       </>
     );
@@ -89,9 +90,8 @@ const CalenaderWrapper = styled.div`
   position: relative;
   width: 916px;
   height: 512px;
-  margin: 10px;
   padding: 40px 50px;
-  background: #ffffff;
+  background: ${theme.colors.white};
   box-shadow: 0px 4px 10px rgba(51, 51, 51, 0.1),
     0px 0px 4px rgba(51, 51, 51, 0.05);
   border-radius: 40px;

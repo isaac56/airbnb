@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Box } from '@material-ui/core';
 import { useRecoilValue } from 'recoil';
-import { filterAtom } from '../recoil/atom';
+import { filterDisplayAtom } from '../recoil/atom';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import Icons from './Icons';
-import SearchBarFilterStyle from './SearchBarFilterStyle';
+import SearchBarFilterDiv from './SearchBarFilterDiv';
 import CalendarModal from './CalendarModal';
+import PriceModal from './PriceModal';
+import GuestModal from './GuestModal';
 
 interface IisOpen {
   체크인: boolean;
@@ -14,7 +16,7 @@ interface IisOpen {
   요금: boolean;
   인원: boolean;
 }
-
+//object의 property를 동적으로 접근하는 법 확인해서 중복 코드 삭제 필요
 const SearchBar: React.FC = () => {
   const [isOpen, setisOpen] = useState<IisOpen>({
     체크인: false,
@@ -22,7 +24,7 @@ const SearchBar: React.FC = () => {
     요금: false,
     인원: false,
   });
-
+  //duplicated code 1
   const detectListener = ({ target }: Event) => {
     isOpen.체크인 &&
       !(target as HTMLInputElement).closest('.calendar, .체크인') &&
@@ -30,6 +32,12 @@ const SearchBar: React.FC = () => {
     isOpen.체크아웃 &&
       !(target as HTMLInputElement).closest('.calendar, .체크아웃') &&
       changeIsOpen('체크아웃');
+    isOpen.요금 &&
+      !(target as HTMLInputElement).closest('.price, .요금') &&
+      changeIsOpen('요금');
+    isOpen.인원 &&
+      !(target as HTMLInputElement).closest('.guests, .인원') &&
+      changeIsOpen('인원');
   };
 
   useEffect(() => {
@@ -37,9 +45,10 @@ const SearchBar: React.FC = () => {
     return () => document.removeEventListener('mousedown', detectListener);
   });
 
-  const contents = useRecoilValue(filterAtom);
+  const contents = useRecoilValue(filterDisplayAtom);
 
   const changeIsOpen = (className: string): void => {
+    //duplicated code 2
     const CopiedIsOpen = isOpen;
     CopiedIsOpen[`${className}`] = !CopiedIsOpen[`${className}`];
     setisOpen({
@@ -64,7 +73,7 @@ const SearchBar: React.FC = () => {
       <SearchBarWrapper>
         {Object.entries(contents).map(([key, value], i) => {
           return (
-            <SearchBarFilterStyle
+            <SearchBarFilterDiv
               key={i}
               label={key}
               text={value}
@@ -77,14 +86,20 @@ const SearchBar: React.FC = () => {
           {/* <Icons type="completedSearch" /> */}
         </SearchIconWrapper>
       </SearchBarWrapper>
-      {(isOpen.체크인 || isOpen.체크아웃) && <CalendarModal />}
+      <ModalWrapper>
+        {(isOpen.체크인 || isOpen.체크아웃) && <CalendarModal />}
+        {isOpen.요금 && <PriceModal />}
+        {isOpen.인원 && <GuestModal />}
+      </ModalWrapper>
     </Box>
   );
 };
 
 const SearchBarWrapper = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
+  margin-bottom: 10px;
   border-radius: 60px;
   background-color: ${theme.colors.white};
   align-content: stretch;
@@ -107,7 +122,11 @@ const SearchIconWrapper = styled.div`
   width: 100px;
   display: flex;
   justify-content: flex-end;
-  padding-right: 30px;
+  padding-right: 20px;
+`;
+
+const ModalWrapper = styled.div`
+  position: relative;
 `;
 
 export default SearchBar;

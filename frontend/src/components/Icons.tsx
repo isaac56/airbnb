@@ -10,6 +10,7 @@ import { ReactComponent as menu } from '../icons/menu.svg';
 import { ReactComponent as minus } from '../icons/minus.svg';
 import { ReactComponent as pauseCircle } from '../icons/pause-circle.svg';
 import { ReactComponent as plusCircle } from '../icons/plus-circle.svg';
+import { ReactComponent as minusCircle } from '../icons/minus-circle.svg';
 import { ReactComponent as plus } from '../icons/plus.svg';
 import { ReactComponent as search } from '../icons/search.svg';
 import { ReactComponent as user } from '../icons/user.svg';
@@ -110,7 +111,7 @@ const Icon: React.FC<Iicon> = props => {
             <Minus />
           </>
         );
-      case 'pauseCircle':
+      case 'pause-circle':
         const PauseCircle = styled(pauseCircle)`
           ${defaultSetting}
         `;
@@ -119,13 +120,22 @@ const Icon: React.FC<Iicon> = props => {
             <PauseCircle />
           </>
         );
-      case 'plusCircle':
+      case 'plus-circle':
         const PlusCircle = styled(plusCircle)`
           ${defaultSetting}
         `;
         return (
           <>
             <PlusCircle />
+          </>
+        );
+      case 'minus-circle':
+        const MinusCircle = styled(minusCircle)`
+          ${defaultSetting}
+        `;
+        return (
+          <>
+            <MinusCircle />
           </>
         );
       case 'plus':

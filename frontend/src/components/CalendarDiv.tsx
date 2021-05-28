@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import { useRecoilState } from 'recoil';
-import { filterAtom, datesAtom } from '../recoil/atom';
+import { filterDisplayAtom, filterDataAtom } from '../recoil/atom';
 
 interface Idate {
   month: number;
 }
 
-const SingleCalendar: React.FC<Idate> = props => {
+const CalendarDiv: React.FC<Idate> = props => {
   const baseDate: Date = new Date();
   baseDate.setMonth(baseDate.getMonth() + props.month);
   const firstDayIndex: number = new Date(
@@ -31,35 +31,36 @@ const SingleCalendar: React.FC<Idate> = props => {
 
   const weekdays: string[] = ['일', '월', '화', '수', '목', '금', '토'];
 
-  const [filter, setFilterContents] = useRecoilState(filterAtom);
-  const [dates, setDates] = useRecoilState(datesAtom);
+  const [filterDisplay, setFilterDisplay] =
+    useRecoilState<any>(filterDisplayAtom);
+  const [filterData, setFilterData] = useRecoilState<any>(filterDataAtom);
 
   const onClick = event => {
     const today = parseInt(event.target.innerText);
     const todayString = `${baseDate.getMonth() + 1}월 ${today}일`;
     if (
-      dates.checkIn &&
+      filterData.체크인 &&
       new Date(baseDate.getFullYear(), baseDate.getMonth(), today) >=
-        dates.checkIn
+        filterData.체크인
     ) {
-      setFilterContents({
-        ...filter,
+      setFilterDisplay({
+        ...filterDisplay,
         체크아웃: todayString,
       });
-      setDates({
-        ...dates,
-        checkOut: new Date(baseDate.getFullYear(), baseDate.getMonth(), today),
+      setFilterData({
+        ...filterData,
+        체크아웃: new Date(baseDate.getFullYear(), baseDate.getMonth(), today),
       });
       return;
     }
 
-    setFilterContents({
-      ...filter,
+    setFilterDisplay({
+      ...filterDisplay,
       체크인: todayString,
     });
-    setDates({
-      ...dates,
-      checkIn: new Date(baseDate.getFullYear(), baseDate.getMonth(), today),
+    setFilterData({
+      ...filterData,
+      체크인: new Date(baseDate.getFullYear(), baseDate.getMonth(), today),
     });
   };
 
@@ -77,24 +78,20 @@ const SingleCalendar: React.FC<Idate> = props => {
         ))}
         {Array.from({ length: lastDayOfMonth }, (day, i) => {
           let className: null | string = '';
-
-          new Date(
+          const currentDay = new Date(
             baseDate.getFullYear(),
             baseDate.getMonth(),
             i + 1
-          ).valueOf() === dates?.checkIn?.valueOf() && (className = 'checkIn');
+          );
 
-          new Date(
-            baseDate.getFullYear(),
-            baseDate.getMonth(),
-            i + 1
-          ).valueOf() === dates?.checkOut?.valueOf() &&
+          currentDay.valueOf() === filterData?.체크인?.valueOf() &&
+            (className = 'checkIn');
+
+          currentDay.valueOf() === filterData?.체크아웃?.valueOf() &&
             (className = 'checkOut');
 
-          new Date(baseDate.getFullYear(), baseDate.getMonth(), i + 1) >
-            dates.checkIn &&
-            new Date(baseDate.getFullYear(), baseDate.getMonth(), i + 1) <
-              dates.checkOut &&
+          currentDay > filterData.체크인 &&
+            currentDay < filterData.체크아웃 &&
             (className = 'staying');
 
           return (
@@ -166,4 +163,4 @@ const Day = styled.div`
   }
 `;
 
-export default SingleCalendar;
+export default CalendarDiv;
