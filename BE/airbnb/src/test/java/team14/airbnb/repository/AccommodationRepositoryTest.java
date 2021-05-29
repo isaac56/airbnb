@@ -100,23 +100,30 @@ class AccommodationRepositoryTest {
         LocalDate startDate = LocalDate.of(2020, 01, 10);
         LocalDate endDate = LocalDate.of(2020, 01, 20);
         Assertions.assertThat(accommodationRepository.
-                findByRegionsCustom("충남", "천안시 서북구", "불당", startDate, endDate)).isNotEmpty();
+                findByRegionsCustom("충남", "천안시 서북구", "불당", startDate, endDate, 3)).isNotEmpty();
         Assertions.assertThat(accommodationRepository.
-                findByRegionsCustom("충남", "천안시 서북구", "??", startDate, endDate)).isEmpty();
+                findByRegionsCustom("충남", "천안시 서북구", "??", startDate, endDate, 3)).isEmpty();
         Assertions.assertThat(accommodationRepository.
-                findByRegionsCustom("충남", null, null, startDate, endDate)).isNotEmpty();
+                findByRegionsCustom("충남", null, null, startDate, endDate, 3)).isNotEmpty();
         Assertions.assertThat(accommodationRepository.
-                findByRegionsCustom(null, "천안시 서북구", null, startDate, endDate)).isNotEmpty();
+                findByRegionsCustom(null, "천안시 서북구", null, startDate, endDate, 3)).isNotEmpty();
         Assertions.assertThat(accommodationRepository.
-                findByRegionsCustom(null, "??", null, startDate, endDate)).isEmpty();
+                findByRegionsCustom(null, "??", null, startDate, endDate, 3)).isEmpty();
         Assertions.assertThat(accommodationRepository.
-                findByRegionsCustom(null, null, "불당", startDate, endDate)).isNotEmpty();
+                findByRegionsCustom(null, null, "불당", startDate, endDate, 3)).isNotEmpty();
+
+        //숙박 가능 인원이 4명이므로, 5인부터는 검색에서 제외되는지 확인
+        Assertions.assertThat(accommodationRepository.
+                findByRegionsCustom(null, null, "불당", startDate, endDate, 5)).isEmpty();
+        //숙박 인원이 null일 때 검색되는지 확인
+        Assertions.assertThat(accommodationRepository.
+                findByRegionsCustom(null, null, "불당", startDate, endDate, null)).isNotEmpty();
 
         //startDate 와 endDate 사이에 예약이 되어있으면 검색에서 제외되는지 확인
         startDate = LocalDate.of(2019, 12, 31);
         endDate = LocalDate.of(2020, 01, 11);
         Assertions.assertThat(accommodationRepository.
-                findByRegionsCustom(null, null, "불당", startDate, endDate)).isEmpty();
+                findByRegionsCustom(null, null, "불당", startDate, endDate, 3)).isEmpty();
     }
 
     @Test
@@ -130,13 +137,18 @@ class AccommodationRepositoryTest {
         double testX = 127.073;
         double testY = 36.8037190756251;
 
-        Assertions.assertThat(accommodationRepository.findByLocationCustom(testX, testY, 3.042, startDate, endDate)).isNotEmpty();
-        Assertions.assertThat(accommodationRepository.findByLocationCustom(testX, testY, 3.040, startDate, endDate)).isEmpty();
+        Assertions.assertThat(accommodationRepository.findByLocationCustom(testX, testY, 3.042, startDate, endDate, 3)).isNotEmpty();
+        Assertions.assertThat(accommodationRepository.findByLocationCustom(testX, testY, 3.040, startDate, endDate, 3)).isEmpty();
+
+        //숙박 가능 인원이 4명이므로, 5인부터는 검색에서 제외되는지 확인
+        Assertions.assertThat(accommodationRepository.findByLocationCustom(testX, testY, 3.042, startDate, endDate, 5)).isEmpty();
+        //숙박 인원이 null일 때 검색되는지 확인
+        Assertions.assertThat(accommodationRepository.findByLocationCustom(testX, testY, 3.042, startDate, endDate, null)).isNotEmpty();
 
         //startDate 와 endDate 사이에 예약이 되어있으면 검색에서 제외되는지 확인
         startDate = LocalDate.of(2019, 12, 31);
         endDate = LocalDate.of(2020, 01, 11);
         Assertions.assertThat(accommodationRepository.
-                findByLocationCustom(testX, testY, 3.042, startDate, endDate)).isEmpty();
+                findByLocationCustom(testX, testY, 3.042, startDate, endDate, 3)).isEmpty();
     }
 }

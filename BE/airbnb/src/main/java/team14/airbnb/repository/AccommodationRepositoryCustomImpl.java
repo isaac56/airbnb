@@ -1,11 +1,14 @@
 package team14.airbnb.repository;
 
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.jpa.JPAQueryBase;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import team14.airbnb.domain.aggregate.accommodation.Accommodation;
 import team14.airbnb.domain.aggregate.accommodation.QAccommodation;
 import team14.airbnb.domain.aggregate.accommodation.QAccommodationAddress;
+import team14.airbnb.domain.aggregate.accommodation.QDetailCondition;
 import team14.airbnb.domain.aggregate.reservation.QReservation;
 import team14.airbnb.utils.LocationUtils;
 
@@ -25,10 +28,12 @@ public class AccommodationRepositoryCustomImpl implements AccommodationRepositor
         this.entityManager = entityManager;
     }
 
-    public List<Accommodation> findByRegionsCustom(String region1, String region2, String region3, LocalDate startDate, LocalDate endDate) {
+    public List<Accommodation> findByRegionsCustom(String region1, String region2, String region3,
+                                                   LocalDate startDate, LocalDate endDate, Integer numberOfPeople) {
         QAccommodation accommodation = QAccommodation.accommodation;
         QAccommodationAddress accommodationAddress = QAccommodationAddress.accommodationAddress;
         QReservation reservation = QReservation.reservation;
+        QDetailCondition detailCondition = QDetailCondition.detailCondition;
 
         BooleanBuilder regionCondition = new BooleanBuilder();
         if (region1 != null && !region1.isEmpty()) {
@@ -49,16 +54,21 @@ public class AccommodationRepositoryCustomImpl implements AccommodationRepositor
                                 .or(reservation.startDate.before(startDate).and(reservation.endDate.after(endDate)))
                 );
 
-        return jpaQueryFactory.selectFrom(accommodation)
+        JPAQueryBase jpaQueryBase = jpaQueryFactory.selectFrom(accommodation)
                 .innerJoin(accommodationAddress)
                 .on(regionCondition)
                 .leftJoin(reservation)
-                .on(reservationCondition)
-                .where(reservation.id.isNull())
-                .fetch();
+                .on(reservationCondition);
+
+        if (numberOfPeople != null) {
+            jpaQueryBase = jpaQueryBase.innerJoin(detailCondition)
+                    .on(detailCondition.maxOfPeople.gt(numberOfPeople).or(detailCondition.maxOfPeople.eq(numberOfPeople)));
+        }
+        return ((JPAQuery) jpaQueryBase.where(reservation.id.isNull())).fetch();
     }
 
-    public List<Accommodation> findByLocationCustom(double x, double y, double rangeKm, LocalDate startDate, LocalDate endDate) {
+    public List<Accommodation> findByLocationCustom(double x, double y, double rangeKm,
+                                                    LocalDate startDate, LocalDate endDate, Integer numberOfPeople) {
         String sql = "SELECT * " +
                 "FROM accommodation a " +
                 "JOIN accommodation_address b ON a.accommodation_address_id = b.id " +
@@ -69,8 +79,11 @@ public class AccommodationRepositoryCustomImpl implements AccommodationRepositor
                 ":start_date <= c.start_date AND c.start_date < :end_date) " +
                 "OR (:start_date <c.end_date AND c.end_date <= :end_date) " +
                 "OR (c.start_date < :start_date AND :end_date < c.end_date) " +
-                ") " +
-                "WHERE c.id IS NULL;";
+                ") ";
+        if (numberOfPeople != null) {
+            sql += "JOIN detail_condition d ON a.detail_condition_id = d.id AND d.max_of_people >= " + numberOfPeople + " ";
+        }
+        sql += "WHERE c.id IS NULL ";
 
         Rectangle2D rectangle2D = LocationUtils.getRectangle(x, y, rangeKm);
         double x1 = rectangle2D.getX();

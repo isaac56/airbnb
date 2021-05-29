@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AccommodationRepositoryCustom {
 
-    List<Accommodation> findByRegionsCustom(String region1, String region2, String region3, LocalDate startDate, LocalDate endDate);
+    List<Accommodation> findByRegionsCustom(String region1, String region2, String region3, LocalDate startDate, LocalDate endDate, Integer numberOfPeople);
 
-    List<Accommodation> findByLocationCustom(double x, double y, double rangeKm, LocalDate startDate, LocalDate endDate);
+    List<Accommodation> findByLocationCustom(double x, double y, double rangeKm, LocalDate startDate, LocalDate endDate, Integer numberOfPeople);
 }
