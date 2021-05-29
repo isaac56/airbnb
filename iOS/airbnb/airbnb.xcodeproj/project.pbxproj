@@ -24,6 +24,7 @@
 		224FF4E1265240820051259F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224FF4E0265240820051259F /* SearchViewController.swift */; };
 		224FF51126525B9E0051259F /* NetworkElements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 224FF51026525B9E0051259F /* NetworkElements.plist */; };
 		224FF51726525C7E0051259F /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 224FF51626525C7E0051259F /* Alamofire */; };
+		225AF66A2661E3C400C6ABEE /* PersonDataProcessingCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225AF6692661E3C400C6ABEE /* PersonDataProcessingCenter.swift */; };
 		226B808626608E9F002C6CB6 /* CustomTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226B808526608E9F002C6CB6 /* CustomTitleLabel.swift */; };
 		227E48EA2656668000603EB2 /* PriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227E48E92656668000603EB2 /* PriceViewController.swift */; };
 		2299C62D26536BE5007B01EE /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2299C62B26536BE5007B01EE /* CalendarCell.swift */; };
@@ -87,6 +88,7 @@
 		224FF4D126523B7D0051259F /* AirbnbRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirbnbRouter.swift; sourceTree = "<group>"; };
 		224FF4E0265240820051259F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		224FF51026525B9E0051259F /* NetworkElements.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = NetworkElements.plist; sourceTree = "<group>"; };
+		225AF6692661E3C400C6ABEE /* PersonDataProcessingCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDataProcessingCenter.swift; sourceTree = "<group>"; };
 		226B808526608E9F002C6CB6 /* CustomTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTitleLabel.swift; sourceTree = "<group>"; };
 		227E48E92656668000603EB2 /* PriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceViewController.swift; sourceTree = "<group>"; };
 		2299C62B26536BE5007B01EE /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
@@ -224,6 +226,14 @@
 				22479978265757D7005EDCE5 /* ViewModel */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		225AF6682661E3AA00C6ABEE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				225AF6692661E3C400C6ABEE /* PersonDataProcessingCenter.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		226200B32653CB7C009041FE /* ViewModel */ = {
@@ -374,6 +384,7 @@
 			isa = PBXGroup;
 			children = (
 				22EC554F265FD25D00F5C15A /* PersonViewController.swift */,
+				225AF6682661E3AA00C6ABEE /* ViewModel */,
 			);
 			path = Person;
 			sourceTree = "<group>";
@@ -542,6 +553,7 @@
 				220A0A1B265D0EFB0058350B /* ArroundSectionCell.swift in Sources */,
 				22DE05CF265B76ED0086B74B /* String+Date.swift in Sources */,
 				22FA3EA12656949F0073FB47 /* Selected.swift in Sources */,
+				225AF66A2661E3C400C6ABEE /* PersonDataProcessingCenter.swift in Sources */,
 				22DCA67B2652338000DDEDBE /* AppDelegate.swift in Sources */,
 				224FF4C126523AFA0051259F /* NSObject+ClassNameProtocol.swift in Sources */,
 				22DF010D2655225B00CEE483 /* CalendarYearMonthHeader.swift in Sources */,

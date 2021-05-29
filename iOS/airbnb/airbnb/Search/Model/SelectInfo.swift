@@ -14,16 +14,23 @@ class SelectInfo: Hashable {
     private(set) var minPrice: Int?
     private(set) var maxPrice: Int?
     private(set) var priceText: String?
-    private(set) var persons: Int?
+    private(set) var adult: Int?
+    private(set) var kid: Int?
+    private(set) var baby: Int?
+    var persons: Int {
+        return (adult ?? 0) + (kid ?? 0) + (baby ?? 0)
+    }
     
-    init(name: String, startDate: Date? = nil, endDate: Date? = nil, minPrice: Int? = nil, maxPrice: Int? = nil, priceText: String? = nil, persons: Int? = nil) {
+    init(name: String, startDate: Date? = nil, endDate: Date? = nil, minPrice: Int? = nil, maxPrice: Int? = nil, priceText: String? = nil, adult: Int? = nil, kid: Int? = nil, baby: Int? = nil) {
         self.address = name
         self.startDate = startDate
         self.endDate = endDate
         self.minPrice = minPrice
         self.maxPrice = maxPrice
         self.priceText = priceText
-        self.persons = persons
+        self.adult = adult
+        self.kid = kid
+        self.baby = baby
     }
     
     static func == (lhs: SelectInfo, rhs: SelectInfo) -> Bool {
@@ -53,5 +60,11 @@ class SelectInfo: Hashable {
         self.minPrice = min
         self.maxPrice = max
         self.priceText = text
+    }
+    
+    func setPersons(adult: Int, kid: Int, baby: Int) {
+        self.adult = adult
+        self.kid = kid
+        self.baby = baby
     }
 }

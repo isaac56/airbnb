@@ -30,6 +30,7 @@ class PriceViewController: UIViewController {
         self.priceDataProcessingCenter.pricePassingHandler = { priceText in
             self.selectInfo.setPrice(min: self.priceDataProcessingCenter.minPrice, max: self.priceDataProcessingCenter.maxPrice, text: priceText)
             self.priceRangeLabel.text = priceText
+            bottomSearchInfoVC.setWhetherEnableButtonOrNot(isWillEnable: true)
             bottomSearchInfoVC.writePriceLabel(of: priceText)
         }
         
