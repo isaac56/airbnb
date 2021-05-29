@@ -5,8 +5,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.TestPropertySource;
 import team14.airbnb.domain.aggregate.accommodation.Accommodation;
 import team14.airbnb.domain.aggregate.accommodation.AccommodationAddress;
 import team14.airbnb.domain.aggregate.accommodation.DetailCondition;
@@ -16,8 +17,9 @@ import team14.airbnb.domain.aggregate.user.User;
 
 import java.time.LocalDate;
 
-@SpringBootTest
-@Transactional
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@TestPropertySource("classpath:application-test.properties")
 class ReservationRepositoryTest {
     private final UserRepository userRepository;
     private final AccommodationRepository accommodationRepository;
@@ -54,7 +56,7 @@ class ReservationRepositoryTest {
     @DisplayName("SetUp에서 저장한 Reservation이 잘 저장되고 잘 찾아지는지 테스트")
     void findTest() {
         Reservation reservation = reservationRepository.findById(tempReservationId).orElseThrow(RuntimeException::new);
-        Assertions.assertThat(reservation.getAccommodation().getId()).isEqualTo(tempReservationId);
+        Assertions.assertThat(reservation.getAccommodation().getId()).isEqualTo(tempAccommodationId);
         Assertions.assertThat(reservation.getUser().getId()).isEqualTo(tempUserId);
     }
 }

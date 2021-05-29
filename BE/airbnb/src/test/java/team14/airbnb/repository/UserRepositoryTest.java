@@ -5,16 +5,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.TestPropertySource;
 import team14.airbnb.domain.aggregate.accommodation.Accommodation;
 import team14.airbnb.domain.aggregate.accommodation.AccommodationAddress;
 import team14.airbnb.domain.aggregate.accommodation.DetailCondition;
 import team14.airbnb.domain.aggregate.accommodation.RoomType;
 import team14.airbnb.domain.aggregate.user.User;
 
-@SpringBootTest
-@Transactional
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@TestPropertySource("classpath:application-test.properties")
 class UserRepositoryTest {
     private final UserRepository userRepository;
     private final AccommodationRepository accommodationRepository;
