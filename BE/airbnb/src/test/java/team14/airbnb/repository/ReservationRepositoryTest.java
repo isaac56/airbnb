@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.TestPropertySource;
 import team14.airbnb.domain.aggregate.accommodation.Accommodation;
 import team14.airbnb.domain.aggregate.accommodation.AccommodationAddress;
@@ -17,6 +18,7 @@ import team14.airbnb.domain.aggregate.user.User;
 
 import java.time.LocalDate;
 
+@ComponentScan("team14.airbnb")
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestPropertySource("classpath:application-test.properties")
