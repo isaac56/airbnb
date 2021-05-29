@@ -1,1 +1,1 @@
-INSERT INTO `airbnb`.`user` (`email`) VALUES ('temp@temp.com');
+INSERT INTO `user` (`email`) VALUES ('temp@temp.com');
