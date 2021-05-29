@@ -7,16 +7,22 @@ import team14.airbnb.domain.aggregate.accommodation.Accommodation;
 import team14.airbnb.domain.aggregate.accommodation.QAccommodation;
 import team14.airbnb.domain.aggregate.accommodation.QAccommodationAddress;
 import team14.airbnb.domain.aggregate.reservation.QReservation;
+import team14.airbnb.utils.LocationUtils;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.awt.geom.Rectangle2D;
 import java.time.LocalDate;
 import java.util.List;
 
 public class AccommodationRepositoryCustomImpl implements AccommodationRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
+    private final EntityManager entityManager;
 
     @Autowired
-    public AccommodationRepositoryCustomImpl(JPAQueryFactory jpaQueryFactory) {
+    public AccommodationRepositoryCustomImpl(JPAQueryFactory jpaQueryFactory, EntityManager entityManager) {
         this.jpaQueryFactory = jpaQueryFactory;
+        this.entityManager = entityManager;
     }
 
     public List<Accommodation> findByRegionsCustom(String region1, String region2, String region3, LocalDate startDate, LocalDate endDate) {
@@ -50,5 +56,36 @@ public class AccommodationRepositoryCustomImpl implements AccommodationRepositor
                 .on(reservationCondition)
                 .where(reservation.id.isNull())
                 .fetch();
+    }
+
+    public List<Accommodation> findByLocationCustom(double x, double y, double rangeKm, LocalDate startDate, LocalDate endDate) {
+        String sql = "SELECT * " +
+                "FROM accommodation a " +
+                "JOIN accommodation_address b ON a.accommodation_address_id = b.id " +
+                "AND MBRContains(ST_LINESTRINGFROMTEXT(CONCAT('LINESTRING(',:x1,' ',:y1,',',:x2,' ',:y2,')')),b.location) " +
+                "LEFT JOIN reservation c ON a.id = c.accommodation_id " +
+                "AND ( " +
+                "( " +
+                ":start_date <= c.start_date AND c.start_date < :end_date) " +
+                "OR (:start_date <c.end_date AND c.end_date <= :end_date) " +
+                "OR (c.start_date < :start_date AND :end_date < c.end_date) " +
+                ") " +
+                "WHERE c.id IS NULL;";
+
+        Rectangle2D rectangle2D = LocationUtils.getRectangle(x, y, rangeKm);
+        double x1 = rectangle2D.getX();
+        double y1 = rectangle2D.getY();
+        double x2 = x1 + rectangle2D.getWidth();
+        double y2 = y1 + rectangle2D.getHeight();
+
+        Query nativeQuery = entityManager.createNativeQuery(sql, Accommodation.class)
+                .setParameter("x1", x1)
+                .setParameter("y1", y1)
+                .setParameter("x2", x2)
+                .setParameter("y2", y2)
+                .setParameter("start_date", startDate)
+                .setParameter("end_date", endDate);
+
+        return nativeQuery.getResultList();
     }
 }
