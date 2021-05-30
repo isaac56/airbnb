@@ -31,4 +31,21 @@ public class ReservationRepositoryCustomImpl implements ReservationRepositoryCus
 
         return reservationExisting == null;
     }
+
+    public int countReservation(long accommodationId, LocalDate startDate, LocalDate endDate) {
+        QReservation reservation = QReservation.reservation;
+
+        long reservationCount = jpaQueryFactory.selectOne()
+                .from(reservation)
+                .where(reservation.accommodation.id.eq(accommodationId).and(reservation.deleted.isFalse())
+                        .and(
+                                reservation.startDate.between(startDate, endDate).and(reservation.startDate.ne(endDate))
+                                        .or(reservation.endDate.between(startDate, endDate).and(reservation.endDate.ne(startDate)))
+                                        .or(reservation.startDate.before(startDate).and(reservation.endDate.after(endDate)))
+                        )
+                )
+                .fetchCount();
+
+        return (int) reservationCount;
+    }
 }
