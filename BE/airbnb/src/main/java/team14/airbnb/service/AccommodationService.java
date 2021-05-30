@@ -6,7 +6,9 @@ import team14.airbnb.domain.aggregate.user.User;
 import team14.airbnb.domain.dto.request.accommodation.CreateDto;
 import team14.airbnb.domain.dto.request.accommodation.SearchByAddressDto;
 import team14.airbnb.domain.dto.request.accommodation.SearchByLocationDto;
+import team14.airbnb.domain.dto.response.accommodation.AccommodationDetailDto;
 import team14.airbnb.domain.dto.response.accommodation.AccommodationSimpleDto;
+import team14.airbnb.exception.NotFoundException;
 import team14.airbnb.repository.AccommodationRepository;
 
 import java.time.LocalDate;
@@ -66,5 +68,13 @@ public class AccommodationService {
                 .filter(accommodation -> accommodation.hasBetweenDailyFee(minFee, maxFee))
                 .map(accommodation -> AccommodationSimpleDto.of(accommodation, wishIdSet))
                 .collect(Collectors.toList());
+    }
+
+    public AccommodationDetailDto getDetailAccommodation(long id, LocalDate startDate, LocalDate endDate, User user) {
+        Accommodation accommodation = accommodationRepository.findById(id).
+                orElseThrow(() -> new NotFoundException(id + "에 해당하는 숙소가 없습니다."));
+        accommodation.setStartEndDate(startDate, endDate);
+
+        return AccommodationDetailDto.of(accommodation, user.getWishIdSet());
     }
 }
