@@ -1,19 +1,16 @@
 package team14.airbnb.controller;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import team14.airbnb.domain.aggregate.user.User;
+import team14.airbnb.domain.dto.request.reservation.AccommodationReservationDto;
 import team14.airbnb.domain.dto.response.ApiResult;
 import team14.airbnb.domain.dto.response.reservation.BookedAccommodationDto;
 import team14.airbnb.exception.NotFoundException;
 import team14.airbnb.repository.UserRepository;
 import team14.airbnb.service.ReservationService;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -36,10 +33,10 @@ public class ReservationController {
 
     @GetMapping("/possible")
     @ResponseStatus(HttpStatus.OK)
-    public ApiResult checkIfReservationPossible(
-            @NotNull(message = "숙소 id는 필수입니다.") Long accommodationId,
-            @NotNull(message = "체크인 시간은 필수입니다.") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
-            @NotNull(message = "체크아웃 시간은 필수입니다.") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
+    public ApiResult checkIfReservationPossible(@Valid AccommodationReservationDto accommodationReservationDto) {
+        long accommodationId = accommodationReservationDto.getAccommodationId();
+        LocalDate startDate = accommodationReservationDto.getStartDate();
+        LocalDate endDate = accommodationReservationDto.getEndDate();
 
         return ApiResult.succeed(reservationService.canMakeReservation(accommodationId, startDate, endDate));
     }
@@ -50,6 +47,18 @@ public class ReservationController {
         User user = getUser();
         List<BookedAccommodationDto> list = reservationService.getBookedAccommodations(user);
         return ApiResult.succeed(reservationService.getBookedAccommodations(user));
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ApiResult makeReservation(@RequestBody @Valid AccommodationReservationDto accommodationReservationDto) {
+        long accommodationId = accommodationReservationDto.getAccommodationId();
+        LocalDate startDate = accommodationReservationDto.getStartDate();
+        LocalDate endDate = accommodationReservationDto.getEndDate();
+        User user = getUser();
+
+        reservationService.makeReservation(accommodationId, startDate, endDate, user);
+        return ApiResult.ok();
     }
 
 }
