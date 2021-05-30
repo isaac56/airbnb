@@ -133,13 +133,16 @@ public class Accommodation {
 
         betweenFee += (totalDays / 7) * weekFee;
 
-        int startDayOfWeek = startDate.getDayOfWeek().getValue();
-        int endDayOfWeek = endDate.getDayOfWeek().getValue();
-        for (int dayOfWeek = startDayOfWeek; dayOfWeek < feeOfDayOfWeek.length; dayOfWeek++) {
-            betweenFee += feeOfDayOfWeek[dayOfWeek];
-        }
-        for (int dayOfWeek = startDayOfWeek; dayOfWeek < endDayOfWeek; dayOfWeek++) {
-            betweenFee += feeOfDayOfWeek[dayOfWeek];
+        int startDayOfWeek = startDate.getDayOfWeek().ordinal();
+        int endDayOfWeek = endDate.getDayOfWeek().ordinal();
+
+        if (totalDays % 7 > 0) {
+            for (int dayOfWeek = startDayOfWeek; dayOfWeek < feeOfDayOfWeek.length; dayOfWeek++) {
+                betweenFee += feeOfDayOfWeek[dayOfWeek];
+            }
+            for (int dayOfWeek = 0; dayOfWeek < endDayOfWeek; dayOfWeek++) {
+                betweenFee += feeOfDayOfWeek[dayOfWeek];
+            }
         }
 
         return betweenFee;
