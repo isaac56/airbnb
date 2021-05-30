@@ -5,32 +5,39 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.test.context.TestPropertySource;
 import team14.airbnb.domain.aggregate.accommodation.*;
+import team14.airbnb.domain.aggregate.reservation.Reservation;
 import team14.airbnb.domain.aggregate.user.User;
 
-import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
-@SpringBootTest
-@Transactional
+@ComponentScan("team14.airbnb")
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@TestPropertySource("classpath:application-test.properties")
 class AccommodationRepositoryTest {
     private UserRepository userRepository;
     private AccommodationRepository accommodationRepository;
+    private ReservationRepository reservationRepository;
 
     private Accommodation savedAccommodation;
 
     @Autowired
-    public AccommodationRepositoryTest(UserRepository userRepository, AccommodationRepository accommodationRepository) {
+    public AccommodationRepositoryTest(UserRepository userRepository, AccommodationRepository accommodationRepository, ReservationRepository reservationRepository) {
         this.userRepository = userRepository;
         this.accommodationRepository = accommodationRepository;
+        this.reservationRepository = reservationRepository;
     }
 
     @BeforeEach
     void setUp() {
-        User user = userRepository.save(new User("test@test.com"));
+        User user = userRepository.save(new User("test@test.com", "호스트닉네임"));
         Accommodation accommodation = new Accommodation("테스트 숙소", 65000, 85000, 10000,
                 null, "테스트용 숙소입니다.", user,
                 new DetailCondition(RoomType.ONE_ROOM, 4, 1, 1),
@@ -52,8 +59,11 @@ class AccommodationRepositoryTest {
         accommodation.addHashTag("테스트");
         accommodation.addHashTag("테스트");
         accommodation.addHashTag("확인");
-
         savedAccommodation = accommodationRepository.save(accommodation);
+
+        LocalDate startDate = LocalDate.of(2020, 01, 01);
+        LocalDate endDate = LocalDate.of(2020, 01, 10);
+        reservationRepository.save(new Reservation(startDate, endDate, 100000, user, accommodation));
     }
 
     @Test
@@ -81,5 +91,64 @@ class AccommodationRepositoryTest {
         Assertions.assertThat(hashTags.size()).isEqualTo(2);
 
         Assertions.assertThat(accommodation.getHost().getEmail()).isEqualTo("test@test.com");
+    }
+
+    @Test
+    @DisplayName("region_depth_name으로 검색하는 custom Query 테스트")
+    void findByRegionCustom() {
+        //예약된 날짜는 01/01~01/10이므로 아래 테스트는 지역 검색만 확인하기 위함
+        LocalDate startDate = LocalDate.of(2020, 01, 10);
+        LocalDate endDate = LocalDate.of(2020, 01, 20);
+        Assertions.assertThat(accommodationRepository.
+                findByRegionsCustom("충남", "천안시 서북구", "불당", startDate, endDate, 3)).isNotEmpty();
+        Assertions.assertThat(accommodationRepository.
+                findByRegionsCustom("충남", "천안시 서북구", "??", startDate, endDate, 3)).isEmpty();
+        Assertions.assertThat(accommodationRepository.
+                findByRegionsCustom("충남", null, null, startDate, endDate, 3)).isNotEmpty();
+        Assertions.assertThat(accommodationRepository.
+                findByRegionsCustom(null, "천안시 서북구", null, startDate, endDate, 3)).isNotEmpty();
+        Assertions.assertThat(accommodationRepository.
+                findByRegionsCustom(null, "??", null, startDate, endDate, 3)).isEmpty();
+        Assertions.assertThat(accommodationRepository.
+                findByRegionsCustom(null, null, "불당", startDate, endDate, 3)).isNotEmpty();
+
+        //숙박 가능 인원이 4명이므로, 5인부터는 검색에서 제외되는지 확인
+        Assertions.assertThat(accommodationRepository.
+                findByRegionsCustom(null, null, "불당", startDate, endDate, 5)).isEmpty();
+        //숙박 인원이 null일 때 검색되는지 확인
+        Assertions.assertThat(accommodationRepository.
+                findByRegionsCustom(null, null, "불당", startDate, endDate, null)).isNotEmpty();
+
+        //startDate 와 endDate 사이에 예약이 되어있으면 검색에서 제외되는지 확인
+        startDate = LocalDate.of(2019, 12, 31);
+        endDate = LocalDate.of(2020, 01, 11);
+        Assertions.assertThat(accommodationRepository.
+                findByRegionsCustom(null, null, "불당", startDate, endDate, 3)).isEmpty();
+    }
+
+    @Test
+    @DisplayName("location으로 검색하는 custom Query 테스트")
+    void findByLocationCustom() {
+        //예약된 날짜는 01/01~01/10이므로 아래 테스트는 지역 검색만 확인하기 위함
+        LocalDate startDate = LocalDate.of(2020, 01, 10);
+        LocalDate endDate = LocalDate.of(2020, 01, 20);
+        //testX = 127.073, testY = 36.8037190756251 는 기준 데이터 POINT(127.107163314206 36.8037190756251)와
+        //ST_DISTANCE_SPHERE 값으로 3041미터 차이나는 상태임
+        double testX = 127.073;
+        double testY = 36.8037190756251;
+
+        Assertions.assertThat(accommodationRepository.findByLocationCustom(testX, testY, 3.042, startDate, endDate, 3)).isNotEmpty();
+        Assertions.assertThat(accommodationRepository.findByLocationCustom(testX, testY, 3.040, startDate, endDate, 3)).isEmpty();
+
+        //숙박 가능 인원이 4명이므로, 5인부터는 검색에서 제외되는지 확인
+        Assertions.assertThat(accommodationRepository.findByLocationCustom(testX, testY, 3.042, startDate, endDate, 5)).isEmpty();
+        //숙박 인원이 null일 때 검색되는지 확인
+        Assertions.assertThat(accommodationRepository.findByLocationCustom(testX, testY, 3.042, startDate, endDate, null)).isNotEmpty();
+
+        //startDate 와 endDate 사이에 예약이 되어있으면 검색에서 제외되는지 확인
+        startDate = LocalDate.of(2019, 12, 31);
+        endDate = LocalDate.of(2020, 01, 11);
+        Assertions.assertThat(accommodationRepository.
+                findByLocationCustom(testX, testY, 3.042, startDate, endDate, 3)).isEmpty();
     }
 }
