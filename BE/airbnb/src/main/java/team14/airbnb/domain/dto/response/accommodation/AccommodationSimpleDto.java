@@ -7,7 +7,6 @@ import lombok.Getter;
 import team14.airbnb.domain.aggregate.accommodation.Accommodation;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
@@ -51,7 +50,7 @@ public class AccommodationSimpleDto {
     private AccommodationSimpleDto() {
     }
 
-    public static AccommodationSimpleDto of(Accommodation accommodation, Set<Long> wishSet) {
+    public static AccommodationSimpleDto of(Accommodation accommodation, boolean wished) {
 
         return builder()
                 .id(accommodation.getId())
@@ -70,7 +69,7 @@ public class AccommodationSimpleDto {
                 .options(accommodation.getAccommodationOptions().stream().map(x -> x.getName()).collect(Collectors.toList()))
                 .tags(accommodation.getHashTags().stream().map(x -> x.getName()).collect(Collectors.toList()))
                 .titleImage(accommodation.getTitleImageUrl())
-                .wished(wishSet.contains(accommodation.getId()))
+                .wished(wished)
                 .build();
     }
 }
