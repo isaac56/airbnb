@@ -1,1 +1,1 @@
-INSERT INTO `user` (`email`) VALUES ('temp@temp.com');
+INSERT INTO `user` (`email`, `nickname`) VALUES ('temp@temp.com', "이삭입니다");
