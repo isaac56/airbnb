@@ -9,6 +9,8 @@ import team14.airbnb.domain.aggregate.accommodation.Accommodation;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -34,5 +36,9 @@ public class User {
 
     public void addWish(Accommodation accommodation) {
         this.wishes.add(new Wish(accommodation));
+    }
+
+    public Set<Long> getWishIdSet() {
+        return wishes.stream().map(x -> x.getId()).collect(Collectors.toSet());
     }
 }
