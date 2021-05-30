@@ -1,5 +1,7 @@
 package team14.airbnb.domain.dto.response.accommodation;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import team14.airbnb.domain.aggregate.accommodation.Accommodation;
@@ -9,6 +11,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
 public class AccommodationSimpleDto {
     private long id;
@@ -44,7 +47,7 @@ public class AccommodationSimpleDto {
     private AccommodationSimpleDto() {
     }
 
-    public static AccommodationSimpleDto of(Accommodation accommodation, Set<Integer> wishSet) {
+    public static AccommodationSimpleDto of(Accommodation accommodation, Set<Long> wishSet) {
 
         return builder()
                 .id(accommodation.getId())
