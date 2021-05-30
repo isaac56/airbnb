@@ -31,9 +31,9 @@ public class AccommodationRepositoryCustomImpl implements AccommodationRepositor
     public List<Accommodation> findByRegionsCustom(String region1, String region2, String region3,
                                                    LocalDate startDate, LocalDate endDate, Integer numberOfPeople) {
         QAccommodation accommodation = QAccommodation.accommodation;
-        QAccommodationAddress accommodationAddress = QAccommodationAddress.accommodationAddress;
+        QAccommodationAddress accommodationAddress = accommodation.accommodationAddress;
         QReservation reservation = QReservation.reservation;
-        QDetailCondition detailCondition = QDetailCondition.detailCondition;
+        QDetailCondition detailCondition = accommodation.detailCondition;
 
         BooleanBuilder regionCondition = new BooleanBuilder();
         if (region1 != null && !region1.isEmpty()) {
@@ -61,7 +61,7 @@ public class AccommodationRepositoryCustomImpl implements AccommodationRepositor
                 .on(reservationCondition);
 
         if (numberOfPeople != null) {
-            jpaQueryBase = jpaQueryBase.innerJoin(detailCondition)
+            jpaQueryBase = jpaQueryBase.innerJoin(accommodation.detailCondition)
                     .on(detailCondition.maxOfPeople.gt(numberOfPeople).or(detailCondition.maxOfPeople.eq(numberOfPeople)));
         }
         return ((JPAQuery) jpaQueryBase.where(reservation.id.isNull())).fetch();
