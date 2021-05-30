@@ -67,6 +67,18 @@ public class Accommodation {
     @JoinColumn(name = "accommodation_id", nullable = false)
     private Set<HashTag> hashTags = new HashSet<>();
 
+    @Transient
+    private LocalDate startDate;
+
+    @Transient
+    private LocalDate endDate;
+
+    @Transient
+    private Integer totalFee;
+
+    @Transient
+    private Integer dailyFee;
+
     public Accommodation(String name, int basicFee, Integer weekendFee, Integer cleaningFee, String titleImageUrl, String description, User host
             , DetailCondition detailCondition, AccommodationAddress accommodationAddress) {
         this.name = name;
@@ -99,7 +111,14 @@ public class Accommodation {
         this.hashTags.add(new HashTag(name));
     }
 
-    public int getTotalFee(LocalDate startDate, LocalDate endDate) {
+    public void setStartEndDate(LocalDate startDate, LocalDate endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.totalFee = getTotalFee(startDate, endDate);
+        this.dailyFee = totalFee / (int) ChronoUnit.DAYS.between(startDate, endDate);
+    }
+
+    private int getTotalFee(LocalDate startDate, LocalDate endDate) {
         return getBetweenFee(startDate, endDate, basicFee, weekendFee);
     }
 
@@ -124,5 +143,61 @@ public class Accommodation {
         }
 
         return betweenFee;
+    }
+
+    public String getAddressName() {
+        if (accommodationAddress == null) {
+            return "주소 정보가 없습니다.";
+        }
+        return accommodationAddress.getAddressName();
+    }
+
+    public String getRoadAddressName() {
+        if (accommodationAddress == null) {
+            return "주소 정보가 없습니다.";
+        }
+        return accommodationAddress.getRoadAddressName();
+    }
+
+    public Double getX() {
+        if (accommodationAddress == null) {
+            return null;
+        }
+        return accommodationAddress.getLocation().getX();
+    }
+
+    public Double getY() {
+        if (accommodationAddress == null) {
+            return null;
+        }
+        return accommodationAddress.getLocation().getY();
+    }
+
+    public String getTypeName() {
+        if (detailCondition == null) {
+            return "숙소 상세 정보가 없습니다.";
+        }
+        return detailCondition.getRoomType().getKorean();
+    }
+
+    public Integer getMaxOfPerson() {
+        if (detailCondition == null) {
+            return null;
+        }
+        return detailCondition.getMaxOfPeople();
+    }
+
+    public Integer getNumberOfRoom() {
+        if (detailCondition == null) {
+            return null;
+        }
+        return detailCondition.getNumberOfRooms();
+    }
+
+    public Integer getNumberOfToilet() {
+        if (detailCondition == null) {
+            return null;
+        }
+        return detailCondition.getNumberOfToilet();
     }
 }
