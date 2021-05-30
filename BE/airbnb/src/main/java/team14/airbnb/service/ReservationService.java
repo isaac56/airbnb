@@ -7,6 +7,7 @@ import team14.airbnb.domain.aggregate.user.User;
 import team14.airbnb.domain.dto.response.reservation.BookedAccommodationDto;
 import team14.airbnb.exception.DuplicatedReservationException;
 import team14.airbnb.exception.NotFoundException;
+import team14.airbnb.exception.UnauthorizedException;
 import team14.airbnb.repository.AccommodationRepository;
 import team14.airbnb.repository.ReservationRepository;
 
@@ -52,5 +53,17 @@ public class ReservationService {
             reservationRepository.delete(reservation);
             throw new DuplicatedReservationException();
         }
+    }
+
+    public void cancelReservation(long reservationId, User user) {
+        Reservation reservation = reservationRepository.findById(reservationId).
+                orElseThrow(() -> new NotFoundException(reservationId + "번 예약은 존재하지 않습니다."));
+
+        if (reservation.getUserId() != user.getId()) {
+            throw new UnauthorizedException(reservationId + "번 예약을 취소할 권한이 없습니다.");
+        }
+
+        reservation.setDeleted(true);
+        reservationRepository.save(reservation);
     }
 }

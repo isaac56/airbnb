@@ -61,4 +61,12 @@ public class ReservationController {
         return ApiResult.ok();
     }
 
+    @DeleteMapping("/{reservationId}")
+    @ResponseStatus(HttpStatus.OK)
+    public ApiResult cancelReservation(@PathVariable long reservationId) {
+        User user = getUser();
+        
+        reservationService.cancelReservation(reservationId, user);
+        return ApiResult.ok();
+    }
 }
