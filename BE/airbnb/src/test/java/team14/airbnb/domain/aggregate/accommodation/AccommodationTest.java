@@ -37,5 +37,17 @@ class AccommodationTest {
         endDate = LocalDate.of(2021, 1, 13);
         accommodation.setStartEndDate(startDate, endDate);
         Assertions.assertThat(accommodation.getTotalFee()).isEqualTo(1282000);
+
+        //실제 자는 요일은 월,화,수 요금은 300000 + 2000 = 302000원 나와야함
+        startDate = LocalDate.of(2021, 1, 4);
+        endDate = LocalDate.of(2021, 1, 7);
+        accommodation.setStartEndDate(startDate, endDate);
+        Assertions.assertThat(accommodation.getTotalFee()).isEqualTo(302000);
+
+        //실제 자는 요일은 월,화,수,목,금,토,일,월,화 요금은 240000 + 700000 + 2000 = 942000원 나와야함
+        startDate = LocalDate.of(2021, 1, 4);
+        endDate = LocalDate.of(2021, 1, 13);
+        accommodation.setStartEndDate(startDate, endDate);
+        Assertions.assertThat(accommodation.getTotalFee()).isEqualTo(942000);
     }
 }
