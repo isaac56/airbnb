@@ -17,9 +17,9 @@ public class AccommodationSimpleDto {
 
     private String name;
 
-    private int totalFee;
+    private Integer totalFee;
 
-    private int dailyFee;
+    private Integer dailyFee;
 
     private int cleaningFee;
 
