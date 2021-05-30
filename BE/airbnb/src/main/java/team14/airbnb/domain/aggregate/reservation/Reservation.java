@@ -49,4 +49,18 @@ public class Reservation {
         this.createdTime = LocalDateTime.now();
         this.deleted = false;
     }
+
+    public Long getAccommodationId() {
+        if (this.accommodation == null) {
+            return null;
+        }
+        return accommodation.getId();
+    }
+
+    public Accommodation getAccommodation() {
+        if (accommodation != null) {
+            accommodation.setStartEndDate(this.startDate, this.endDate);
+        }
+        return this.accommodation;
+    }
 }
