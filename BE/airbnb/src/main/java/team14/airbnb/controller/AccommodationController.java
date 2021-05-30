@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import team14.airbnb.domain.aggregate.user.User;
 import team14.airbnb.domain.dto.request.accommodation.CreateDto;
+import team14.airbnb.domain.dto.request.accommodation.SearchByAddressDto;
 import team14.airbnb.domain.dto.request.accommodation.SearchByLocationDto;
 import team14.airbnb.domain.dto.response.ApiResult;
 import team14.airbnb.exception.NotFoundException;
@@ -37,10 +38,17 @@ public class AccommodationController {
         return ApiResult.ok();
     }
 
-    @GetMapping("/list")
+    @GetMapping("/list/location")
     @ResponseStatus(HttpStatus.OK)
     public ApiResult searchByLocation(@Valid SearchByLocationDto searchByLocationDto) {
         User user = getUser();
         return ApiResult.succeed(accommodationService.searchByLocation(searchByLocationDto, user));
+    }
+
+    @GetMapping("/list/region")
+    @ResponseStatus(HttpStatus.OK)
+    public ApiResult searchByDetailAddress(@Valid SearchByAddressDto searchByAddressDto) {
+        User user = getUser();
+        return ApiResult.succeed(accommodationService.searchByAddress(searchByAddressDto, user));
     }
 }

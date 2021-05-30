@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import team14.airbnb.domain.aggregate.accommodation.Accommodation;
 import team14.airbnb.domain.aggregate.user.User;
 import team14.airbnb.domain.dto.request.accommodation.CreateDto;
+import team14.airbnb.domain.dto.request.accommodation.SearchByAddressDto;
 import team14.airbnb.domain.dto.request.accommodation.SearchByLocationDto;
 import team14.airbnb.domain.dto.response.accommodation.AccommodationSimpleDto;
 import team14.airbnb.repository.AccommodationRepository;
@@ -41,15 +42,28 @@ public class AccommodationService {
         accommodationList.stream().forEach(accommodation -> accommodation.setStartEndDate(startDate, endDate));
 
         return accommodationList.stream()
-                .filter(accommodation -> {
-                    if (minFee != null && accommodation.getDailyFee() < minFee) {
-                        return false;
-                    }
-                    if (maxFee != null && accommodation.getDailyFee() > maxFee) {
-                        return false;
-                    }
-                    return true;
-                })
+                .filter(accommodation -> accommodation.hasBetweenDailyFee(minFee, maxFee))
+                .map(accommodation -> AccommodationSimpleDto.of(accommodation, wishIdSet))
+                .collect(Collectors.toList());
+    }
+
+    public List<AccommodationSimpleDto> searchByAddress(SearchByAddressDto searchByAddressDto, User user) {
+        String region1 = searchByAddressDto.getRegionDepth1();
+        String region2 = searchByAddressDto.getRegionDepth2();
+        String region3 = searchByAddressDto.getRegionDepth3();
+        LocalDate startDate = searchByAddressDto.getStartDate();
+        LocalDate endDate = searchByAddressDto.getEndDate();
+        Integer person = searchByAddressDto.getPerson();
+        Integer minFee = searchByAddressDto.getMinFee();
+        Integer maxFee = searchByAddressDto.getMaxFee();
+
+        Set<Long> wishIdSet = user.getWishIdSet();
+
+        List<Accommodation> accommodationList = accommodationRepository.findByRegionsCustom(region1, region2, region3, startDate, endDate, person);
+        accommodationList.stream().forEach(accommodation -> accommodation.setStartEndDate(startDate, endDate));
+
+        return accommodationList.stream()
+                .filter(accommodation -> accommodation.hasBetweenDailyFee(minFee, maxFee))
                 .map(accommodation -> AccommodationSimpleDto.of(accommodation, wishIdSet))
                 .collect(Collectors.toList());
     }
