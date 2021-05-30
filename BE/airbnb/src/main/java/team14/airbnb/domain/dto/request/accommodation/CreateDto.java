@@ -12,7 +12,7 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class AccommodationCreateDto {
+public class CreateDto {
     @NotEmpty(message = "숙소 이름은 필수입니다.")
     private String name;
 
