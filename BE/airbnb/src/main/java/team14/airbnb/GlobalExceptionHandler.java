@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import team14.airbnb.domain.dto.response.ApiResult;
 import team14.airbnb.exception.BadRequestException;
 import team14.airbnb.exception.NotFoundException;
+import team14.airbnb.exception.UnauthorizedException;
 
 
 @RestControllerAdvice
@@ -37,5 +38,11 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ApiResult notFoundException(NotFoundException notFoundException) {
         return ApiResult.fail(notFoundException);
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ApiResult unauthorizedException(UnauthorizedException unauthorizedException) {
+        return ApiResult.fail(unauthorizedException);
     }
 }
