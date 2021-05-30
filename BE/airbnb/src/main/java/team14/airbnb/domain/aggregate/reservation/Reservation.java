@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 import team14.airbnb.domain.aggregate.accommodation.Accommodation;
 import team14.airbnb.domain.aggregate.user.User;
 
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
+@Where(clause = "deleted = false")
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -25,6 +27,8 @@ public class Reservation {
     private LocalDate endDate;
 
     private int totalFee;
+
+    private boolean deleted;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -43,5 +47,6 @@ public class Reservation {
         this.user = user;
         this.accommodation = accommodation;
         this.createdTime = LocalDateTime.now();
+        this.deleted = false;
     }
 }

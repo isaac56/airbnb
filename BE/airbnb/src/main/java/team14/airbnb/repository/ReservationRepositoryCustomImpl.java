@@ -20,7 +20,7 @@ public class ReservationRepositoryCustomImpl implements ReservationRepositoryCus
 
         Integer reservationExisting = jpaQueryFactory.selectOne()
                 .from(reservation)
-                .where(reservation.accommodation.id.eq(accommodationId)
+                .where(reservation.accommodation.id.eq(accommodationId).and(reservation.deleted.isFalse())
                         .and(
                                 reservation.startDate.between(startDate, endDate).and(reservation.startDate.ne(endDate))
                                         .or(reservation.endDate.between(startDate, endDate).and(reservation.endDate.ne(startDate)))
