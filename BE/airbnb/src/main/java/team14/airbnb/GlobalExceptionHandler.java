@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import team14.airbnb.domain.dto.response.ApiResult;
+import team14.airbnb.exception.BadRequestException;
 import team14.airbnb.exception.NotFoundException;
 
 
@@ -24,6 +25,12 @@ public class GlobalExceptionHandler {
         return ApiResult.fail(exception.getAllErrors().stream().
                 map(x -> x.getDefaultMessage()).
                 reduce((a, b) -> a + System.lineSeparator() + b).orElse("유효성 검사 실패"));
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiResult badRequestException(BadRequestException badRequestException) {
+        return ApiResult.fail(badRequestException);
     }
 
     @ExceptionHandler(NotFoundException.class)
