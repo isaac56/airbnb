@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import GuestDiv from './GuestDiv';
 import theme from '../styles/theme';
 
-const GuestModal = () => {
+const GuestModal: React.FC = () => {
   const guestText = [
     ['성인', '만 13세 이상'],
     ['어린이', '만 2~12세'],

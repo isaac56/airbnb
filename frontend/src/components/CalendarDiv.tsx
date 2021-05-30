@@ -11,6 +11,7 @@ interface Idate {
 const CalendarDiv: React.FC<Idate> = props => {
   const baseDate: Date = new Date();
   baseDate.setMonth(baseDate.getMonth() + props.month);
+
   const firstDayIndex: number = new Date(
     baseDate.getFullYear(),
     baseDate.getMonth(),
@@ -35,8 +36,9 @@ const CalendarDiv: React.FC<Idate> = props => {
     useRecoilState<any>(filterDisplayAtom);
   const [filterData, setFilterData] = useRecoilState<any>(filterDataAtom);
 
-  const onClick = event => {
-    const today = parseInt(event.target.innerText);
+  const onClick = (event: React.MouseEvent<HTMLInputElement>) => {
+    const target = event.target as HTMLElement;
+    const today = parseInt(target.innerText);
     const todayString = `${baseDate.getMonth() + 1}월 ${today}일`;
     if (
       filterData.체크인 &&
@@ -74,7 +76,9 @@ const CalendarDiv: React.FC<Idate> = props => {
       </Week>
       <Day>
         {Array.from({ length: firstDayIndex }, (blank, i) => (
-          <p key={i}>&nbsp;</p>
+          <p className="blank" key={i}>
+            &nbsp;
+          </p>
         ))}
         {Array.from({ length: lastDayOfMonth }, (day, i) => {
           let className: null | string = '';
@@ -89,6 +93,8 @@ const CalendarDiv: React.FC<Idate> = props => {
 
           currentDay.valueOf() === filterData?.체크아웃?.valueOf() &&
             (className = 'checkOut');
+
+          currentDay < new Date() && (className = 'disabled');
 
           currentDay > filterData.체크인 &&
             currentDay < filterData.체크아웃 &&
@@ -151,6 +157,13 @@ const Day = styled.div`
     cursor: pointer;
     color: ${theme.colors.black};
     font-weight: bold;
+    &.blank {
+      pointer-events: none;
+    }
+    &.disabled {
+      pointer-events: none;
+      color: ${theme.colors.grey5};
+    }
     &.checkIn,
     &.checkOut {
       background-color: ${theme.colors.black};

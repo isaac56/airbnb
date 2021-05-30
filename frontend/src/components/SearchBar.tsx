@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Box } from '@material-ui/core';
 import { useRecoilValue } from 'recoil';
-import { filterDisplayAtom } from '../recoil/atom';
+import { filterDisplayAtom, guestsDataAtom } from '../recoil/atom';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import Icons from './Icons';
-import SearchBarFilterDiv from './SearchBarFilterDiv';
+import SearchBarDiv from './SearchBarDiv';
 import CalendarModal from './CalendarModal';
 import PriceModal from './PriceModal';
 import GuestModal from './GuestModal';
@@ -16,7 +16,7 @@ interface IisOpen {
   요금: boolean;
   인원: boolean;
 }
-//object의 property를 동적으로 접근하는 법 확인해서 중복 코드 삭제 필요
+
 const SearchBar: React.FC = () => {
   const [isOpen, setisOpen] = useState<IisOpen>({
     체크인: false,
@@ -24,20 +24,19 @@ const SearchBar: React.FC = () => {
     요금: false,
     인원: false,
   });
-  //duplicated code 1
+
   const detectListener = ({ target }: Event) => {
-    isOpen.체크인 &&
-      !(target as HTMLInputElement).closest('.calendar, .체크인') &&
-      changeIsOpen('체크인');
-    isOpen.체크아웃 &&
-      !(target as HTMLInputElement).closest('.calendar, .체크아웃') &&
-      changeIsOpen('체크아웃');
-    isOpen.요금 &&
-      !(target as HTMLInputElement).closest('.price, .요금') &&
-      changeIsOpen('요금');
-    isOpen.인원 &&
-      !(target as HTMLInputElement).closest('.guests, .인원') &&
-      changeIsOpen('인원');
+    Object.entries(isOpen).forEach(([key, value], i) => {
+      const classNames = {
+        체크인: 'calendar',
+        체크아웃: 'calendar',
+        요금: 'price',
+        인원: 'guests',
+      };
+      isOpen[`${key}`] &&
+        !(target as HTMLInputElement).closest(`.${classNames[key]}, .${key}`) &&
+        changeIsOpen(`${key}`);
+    });
   };
 
   useEffect(() => {
@@ -47,8 +46,7 @@ const SearchBar: React.FC = () => {
 
   const contents = useRecoilValue(filterDisplayAtom);
 
-  const changeIsOpen = (className: string): void => {
-    //duplicated code 2
+  const changeIsOpen = (className: string) => {
     const CopiedIsOpen = isOpen;
     CopiedIsOpen[`${className}`] = !CopiedIsOpen[`${className}`];
     setisOpen({
@@ -60,7 +58,7 @@ const SearchBar: React.FC = () => {
     });
   };
 
-  const onClick = (className: string): void => {
+  const onClick = (className: string) => {
     changeIsOpen(className);
   };
 
@@ -73,12 +71,7 @@ const SearchBar: React.FC = () => {
       <SearchBarWrapper>
         {Object.entries(contents).map(([key, value], i) => {
           return (
-            <SearchBarFilterDiv
-              key={i}
-              label={key}
-              text={value}
-              onClick={onClick}
-            />
+            <SearchBarDiv key={i} label={key} text={value} onClick={onClick} />
           );
         })}
         <SearchIconWrapper>

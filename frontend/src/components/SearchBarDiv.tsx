@@ -15,7 +15,7 @@ interface Ispan {
   onClick(className: string): void;
 }
 
-const SearchBarFilterDiv: React.FC<Ispan> = props => {
+const SearchBarDiv: React.FC<Ispan> = props => {
   const [filterDisplay, setFilterDisplay] =
     useRecoilState<any>(filterDisplayAtom);
   const [filterData, setFilterData] = useRecoilState<any>(filterDataAtom);
@@ -34,9 +34,7 @@ const SearchBarFilterDiv: React.FC<Ispan> = props => {
       filterDisplayCopy[`${props.label}`] = '입력 날짜';
       dataCopy[`${props.label}`] = null;
 
-      setFilterData({
-        ...dataCopy,
-      });
+      setFilterData({ ...dataCopy });
     } else if (props.label === '인원') {
       filterDisplayCopy[`${props.label}`] = '게스트 추가';
       Object.keys(guestsCopy).forEach(i => (guestsCopy[i] = 0));
@@ -112,4 +110,4 @@ const IconWrapper = styled.div`
   top: 25px;
 `;
 
-export default SearchBarFilterDiv;
+export default SearchBarDiv;

@@ -28,6 +28,7 @@ const GuestDiv: React.FC<IGuest> = props => {
     type === 'plus' &&
       guestsCopy[`${guest}`] < MAXIMUM_COUNT &&
       (guestsCopy[`${guest}`] += 1);
+
     type === 'minus' &&
       guestsCopy[`${guest}`] > MINIMUM_COUNT &&
       (guestsCopy[`${guest}`] -= 1);

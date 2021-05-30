@@ -39,7 +39,7 @@ const CalendarModal: React.FC = () => {
 
   const [monthCount, dispatch] = useReducer(reducer, 0);
 
-  const onTransitionEnd = type => {
+  const onTransitionEnd = () => {
     const myRef: HTMLDivElement | null = directionRef.current;
     if (myRef) {
       myRef.style.transition = 'none';

@@ -10,7 +10,7 @@ const filterDisplayAtom = atom({
   },
 });
 
-const filterDataAtom: RecoilState<any> = atom({
+const filterDataAtom = atom({
   key: 'datas',
   default: {
     체크인: null,
@@ -19,7 +19,7 @@ const filterDataAtom: RecoilState<any> = atom({
   },
 });
 
-const guestsDataAtom: RecoilState<any> = atom({
+const guestsDataAtom = atom({
   key: 'guests',
   default: {
     성인: 0,
