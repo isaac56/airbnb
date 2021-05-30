@@ -1,8 +1,6 @@
 package team14.airbnb.repository;
 
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.jpa.JPAQueryBase;
-import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import team14.airbnb.domain.aggregate.accommodation.Accommodation;
@@ -54,17 +52,20 @@ public class AccommodationRepositoryCustomImpl implements AccommodationRepositor
                                 .or(reservation.startDate.before(startDate).and(reservation.endDate.after(endDate)))
                 );
 
-        JPAQueryBase jpaQueryBase = jpaQueryFactory.selectFrom(accommodation)
-                .innerJoin(accommodationAddress)
-                .on(regionCondition)
-                .leftJoin(reservation)
-                .on(reservationCondition);
-
+        BooleanBuilder maxOfPersonCondition = new BooleanBuilder();
         if (numberOfPeople != null) {
-            jpaQueryBase = jpaQueryBase.innerJoin(accommodation.detailCondition)
-                    .on(detailCondition.maxOfPeople.gt(numberOfPeople).or(detailCondition.maxOfPeople.eq(numberOfPeople)));
+            maxOfPersonCondition.and(detailCondition.maxOfPeople.gt(numberOfPeople).or(detailCondition.maxOfPeople.eq(numberOfPeople)));
         }
-        return ((JPAQuery) jpaQueryBase.where(reservation.id.isNull())).fetch();
+
+        return jpaQueryFactory.selectFrom(accommodation)
+                .innerJoin(accommodation.accommodationOptions).fetchJoin()
+                .innerJoin(accommodationAddress).fetchJoin()
+                .innerJoin(detailCondition).fetchJoin()
+                .leftJoin(reservation)
+                .on(reservationCondition)
+                .where(reservation.id.isNull().and(regionCondition).and(maxOfPersonCondition))
+                .distinct()
+                .fetch();
     }
 
     public List<Accommodation> findByLocationCustom(double x, double y, double rangeKm,
