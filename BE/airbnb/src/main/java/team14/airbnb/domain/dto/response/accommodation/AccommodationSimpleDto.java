@@ -40,6 +40,8 @@ public class AccommodationSimpleDto {
 
     private List<String> options;
 
+    private List<String> tags;
+
     private String titleImage;
 
     private boolean wished;
@@ -63,6 +65,7 @@ public class AccommodationSimpleDto {
                 .numberOfRoom(accommodation.getNumberOfRoom())
                 .numberOfToilet(accommodation.getNumberOfToilet())
                 .options(accommodation.getAccommodationOptions().stream().map(x -> x.getName()).collect(Collectors.toList()))
+                .tags(accommodation.getHashTags().stream().map(x -> x.getName()).collect(Collectors.toList()))
                 .titleImage(accommodation.getTitleImageUrl())
                 .wished(wishSet.contains(accommodation.getId()))
                 .build();
