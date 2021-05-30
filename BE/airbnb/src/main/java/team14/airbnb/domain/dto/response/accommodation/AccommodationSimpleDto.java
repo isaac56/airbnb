@@ -60,7 +60,7 @@ public class AccommodationSimpleDto {
                 .y(accommodation.getY())
                 .type(accommodation.getTypeName())
                 .maxOfPeople(accommodation.getMaxOfPerson())
-                .numberOfRoom(accommodation.getMaxOfPerson())
+                .numberOfRoom(accommodation.getNumberOfRoom())
                 .numberOfToilet(accommodation.getNumberOfToilet())
                 .options(accommodation.getAccommodationOptions().stream().map(x -> x.getName()).collect(Collectors.toList()))
                 .titleImage(accommodation.getTitleImageUrl())
