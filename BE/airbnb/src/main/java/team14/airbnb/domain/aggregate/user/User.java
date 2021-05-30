@@ -26,7 +26,7 @@ public class User {
 
     private String nickname;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id", nullable = false)
     @MapKeyColumn(name = "accommodation_id")
     private Map<Long, Wish> wishMap = new HashMap<>();
@@ -40,7 +40,15 @@ public class User {
         this.wishMap.put(accommodation.getId(), new Wish(accommodation));
     }
 
+    public void removeWish(long accommodationId) {
+        this.wishMap.remove(accommodationId);
+    }
+
     public Set<Long> getWishIdSet() {
         return wishMap.keySet();
+    }
+
+    public boolean hasWishedAccommodationId(long accommodationId) {
+        return wishMap.containsKey(accommodationId);
     }
 }

@@ -54,16 +54,16 @@ public class Accommodation {
     @JoinColumn(name = "accommodation_address_id", nullable = false)
     private AccommodationAddress accommodationAddress;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "accommodation_id", nullable = false)
     @OrderBy("startDate asc")
     private List<SpecialFee> specialFees = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "accommodation_id", nullable = false)
     private List<AccommodationImage> accommodationImages = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "accommodation_id", nullable = false)
     private Set<HashTag> hashTags = new HashSet<>();
 
