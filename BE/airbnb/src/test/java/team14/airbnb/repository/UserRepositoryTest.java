@@ -51,6 +51,6 @@ class UserRepositoryTest {
         User user = userRepository.findById(this.tempUserId).orElseThrow(RuntimeException::new);
 
         Assertions.assertThat(user.getEmail()).isEqualTo("host@host.com");
-        Assertions.assertThat(user.getWishes().get(0).getAccommodation().getName()).isEqualTo("테스트");
+        Assertions.assertThat(user.getWishMap().get(tempAccommodationId).getAccommodation().getName()).isEqualTo("테스트");
     }
 }
