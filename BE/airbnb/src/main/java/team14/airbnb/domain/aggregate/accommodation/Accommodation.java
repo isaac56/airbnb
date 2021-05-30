@@ -7,6 +7,8 @@ import lombok.Setter;
 import team14.airbnb.domain.aggregate.user.User;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -95,5 +97,32 @@ public class Accommodation {
 
     public void addHashTag(String name) {
         this.hashTags.add(new HashTag(name));
+    }
+
+    public int getTotalFee(LocalDate startDate, LocalDate endDate) {
+        return getBetweenFee(startDate, endDate, basicFee, weekendFee);
+    }
+
+    private int getBetweenFee(LocalDate startDate, LocalDate endDate, int basicFee, Integer weekendFee) {
+        int weekendRealFee = weekendFee != null ? weekendFee : basicFee;
+
+        int[] feeOfDayOfWeek = new int[]{basicFee, basicFee, basicFee, basicFee, weekendRealFee, weekendRealFee, basicFee};
+        int weekFee = basicFee * 5 + weekendRealFee * 2;
+
+        int betweenFee = 0;
+        int totalDays = (int) ChronoUnit.DAYS.between(startDate, endDate);
+
+        betweenFee += (totalDays / 7) * weekFee;
+
+        int startDayOfWeek = startDate.getDayOfWeek().getValue();
+        int endDayOfWeek = endDate.getDayOfWeek().getValue();
+        for (int dayOfWeek = startDayOfWeek; dayOfWeek < feeOfDayOfWeek.length; dayOfWeek++) {
+            betweenFee += feeOfDayOfWeek[dayOfWeek];
+        }
+        for (int dayOfWeek = startDayOfWeek; dayOfWeek < endDayOfWeek; dayOfWeek++) {
+            betweenFee += feeOfDayOfWeek[dayOfWeek];
+        }
+
+        return betweenFee;
     }
 }
