@@ -45,7 +45,7 @@ public class AccommodationService {
 
         return accommodationList.stream()
                 .filter(accommodation -> accommodation.hasBetweenDailyFee(minFee, maxFee))
-                .map(accommodation -> AccommodationSimpleDto.of(accommodation, wishIdSet))
+                .map(accommodation -> AccommodationSimpleDto.of(accommodation, wishIdSet.contains(accommodation.getId())))
                 .collect(Collectors.toList());
     }
 
@@ -66,7 +66,7 @@ public class AccommodationService {
 
         return accommodationList.stream()
                 .filter(accommodation -> accommodation.hasBetweenDailyFee(minFee, maxFee))
-                .map(accommodation -> AccommodationSimpleDto.of(accommodation, wishIdSet))
+                .map(accommodation -> AccommodationSimpleDto.of(accommodation, wishIdSet.contains(accommodation.getId())))
                 .collect(Collectors.toList());
     }
 
@@ -75,6 +75,8 @@ public class AccommodationService {
                 orElseThrow(() -> new NotFoundException(id + "에 해당하는 숙소가 없습니다."));
         accommodation.setStartEndDate(startDate, endDate);
 
-        return AccommodationDetailDto.of(accommodation, user.getWishIdSet());
+        Set<Long> wishIdSet = user.getWishIdSet();
+
+        return AccommodationDetailDto.of(accommodation, wishIdSet.contains(accommodation.getId()));
     }
 }

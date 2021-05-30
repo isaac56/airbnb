@@ -45,7 +45,7 @@ public class AccommodationRepositoryCustomImpl implements AccommodationRepositor
         }
 
         BooleanBuilder reservationCondition = new BooleanBuilder();
-        reservationCondition.and(accommodation.id.eq(reservation.accommodation.id))
+        reservationCondition.and(accommodation.id.eq(reservation.accommodation.id).and(reservation.deleted.isFalse()))
                 .and(
                         reservation.startDate.between(startDate, endDate).and(reservation.startDate.ne(endDate))
                                 .or(reservation.endDate.between(startDate, endDate).and(reservation.endDate.ne(startDate)))
@@ -74,7 +74,7 @@ public class AccommodationRepositoryCustomImpl implements AccommodationRepositor
                 "FROM accommodation a " +
                 "JOIN accommodation_address b ON a.accommodation_address_id = b.id " +
                 "AND MBRContains(ST_LINESTRINGFROMTEXT(CONCAT('LINESTRING(',:x1,' ',:y1,',',:x2,' ',:y2,')')),b.location) " +
-                "LEFT JOIN reservation c ON a.id = c.accommodation_id " +
+                "LEFT JOIN reservation c ON a.id = c.accommodation_id AND c.deleted = 0 " +
                 "AND ( " +
                 "( " +
                 ":start_date <= c.start_date AND c.start_date < :end_date) " +

@@ -115,36 +115,55 @@ public class Accommodation {
         this.startDate = startDate;
         this.endDate = endDate;
         this.totalFee = getTotalFee(startDate, endDate);
-        this.dailyFee = totalFee / (int) ChronoUnit.DAYS.between(startDate, endDate);
+
+        this.dailyFee = (totalFee - cleaningFee) / (int) ChronoUnit.DAYS.between(startDate, endDate);
     }
 
     private int getTotalFee(LocalDate startDate, LocalDate endDate) {
-        return getBetweenFee(startDate, endDate, basicFee, weekendFee);
+        return getBetweenFee(startDate, endDate, basicFee, weekendFee) + cleaningFee;
     }
 
     private int getBetweenFee(LocalDate startDate, LocalDate endDate, int basicFee, Integer weekendFee) {
         int weekendRealFee = weekendFee != null ? weekendFee : basicFee;
-
-        int[] feeOfDayOfWeek = new int[]{basicFee, basicFee, basicFee, basicFee, weekendRealFee, weekendRealFee, basicFee};
         int weekFee = basicFee * 5 + weekendRealFee * 2;
+        int totalDays = (int) ChronoUnit.DAYS.between(startDate, endDate);
+        if (totalDays < 0) {
+            return -1;
+        }
 
         int betweenFee = 0;
-        int totalDays = (int) ChronoUnit.DAYS.between(startDate, endDate);
-
         betweenFee += (totalDays / 7) * weekFee;
 
         int startDayOfWeek = startDate.getDayOfWeek().ordinal();
         int endDayOfWeek = endDate.getDayOfWeek().ordinal();
 
-        if (totalDays % 7 > 0) {
-            for (int dayOfWeek = startDayOfWeek; dayOfWeek < feeOfDayOfWeek.length; dayOfWeek++) {
-                betweenFee += feeOfDayOfWeek[dayOfWeek];
-            }
-            for (int dayOfWeek = 0; dayOfWeek < endDayOfWeek; dayOfWeek++) {
-                betweenFee += feeOfDayOfWeek[dayOfWeek];
-            }
+        if (startDayOfWeek <= endDayOfWeek) {
+            betweenFee += getBetweenFeeInWeekend(startDayOfWeek, endDayOfWeek, basicFee, weekendRealFee);
+            return betweenFee;
         }
 
+        betweenFee += getBetweenFeeBeyondWeekend(startDayOfWeek, endDayOfWeek, basicFee, weekendRealFee);
+        return betweenFee;
+    }
+
+    private int getBetweenFeeInWeekend(int startDaysOfWeek, int endDayOfWeek, int basicFee, int weekendFee) {
+        int[] feeOfDayOfWeek = new int[]{basicFee, basicFee, basicFee, basicFee, weekendFee, weekendFee, basicFee};
+        int betweenFee = 0;
+        for (int dayOfWeek = startDaysOfWeek; dayOfWeek < endDayOfWeek; dayOfWeek++) {
+            betweenFee += feeOfDayOfWeek[dayOfWeek];
+        }
+        return betweenFee;
+    }
+
+    private int getBetweenFeeBeyondWeekend(int startDayOfWeek, int endDayOfWeek, int basicFee, int weekendFee) {
+        int[] feeOfDayOfWeek = new int[]{basicFee, basicFee, basicFee, basicFee, weekendFee, weekendFee, basicFee};
+        int betweenFee = 0;
+        for (int dayOfWeek = startDayOfWeek; dayOfWeek < feeOfDayOfWeek.length; dayOfWeek++) {
+            betweenFee += feeOfDayOfWeek[dayOfWeek];
+        }
+        for (int dayOfWeek = 0; dayOfWeek < endDayOfWeek; dayOfWeek++) {
+            betweenFee += feeOfDayOfWeek[dayOfWeek];
+        }
         return betweenFee;
     }
 

@@ -47,7 +47,7 @@ class ReservationRepositoryTest {
                         new AccommodationAddress("test", "test", "", "", "", 0, 0)));
 
         Reservation reservation = reservationRepository.save(
-                new Reservation(LocalDate.of(2021, 1, 1), LocalDate.of(2021, 1, 3), 100000, user, accommodation));
+                new Reservation(LocalDate.of(2021, 1, 15), LocalDate.of(2021, 1, 20), 100000, user, accommodation));
 
         this.tempUserId = user.getId();
         this.tempAccommodationId = accommodation.getId();
@@ -60,5 +60,29 @@ class ReservationRepositoryTest {
         Reservation reservation = reservationRepository.findById(tempReservationId).orElseThrow(RuntimeException::new);
         Assertions.assertThat(reservation.getAccommodation().getId()).isEqualTo(tempAccommodationId);
         Assertions.assertThat(reservation.getUser().getId()).isEqualTo(tempUserId);
+    }
+
+    @Test
+    @DisplayName("Accommodation이 예약 가능한지 확인하는 테스트")
+    void canMakeReservation() {
+        LocalDate startDate = LocalDate.of(2021, 1, 13);
+        LocalDate endDate = LocalDate.of(2021, 1, 15);
+        Assertions.assertThat(reservationRepository.canMakeReservation(tempAccommodationId, startDate, endDate)).isTrue();
+
+        startDate = LocalDate.of(2021, 1, 13);
+        endDate = LocalDate.of(2021, 1, 16);
+        Assertions.assertThat(reservationRepository.canMakeReservation(tempAccommodationId, startDate, endDate)).isFalse();
+
+        startDate = LocalDate.of(2021, 1, 20);
+        endDate = LocalDate.of(2021, 1, 21);
+        Assertions.assertThat(reservationRepository.canMakeReservation(tempAccommodationId, startDate, endDate)).isTrue();
+
+        startDate = LocalDate.of(2021, 1, 19);
+        endDate = LocalDate.of(2021, 1, 21);
+        Assertions.assertThat(reservationRepository.canMakeReservation(tempAccommodationId, startDate, endDate)).isFalse();
+
+        startDate = LocalDate.of(2021, 1, 13);
+        endDate = LocalDate.of(2021, 1, 21);
+        Assertions.assertThat(reservationRepository.canMakeReservation(tempAccommodationId, startDate, endDate)).isFalse();
     }
 }
