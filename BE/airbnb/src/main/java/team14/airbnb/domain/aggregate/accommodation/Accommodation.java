@@ -200,4 +200,18 @@ public class Accommodation {
         }
         return detailCondition.getNumberOfToilet();
     }
+
+    public boolean hasBetweenDailyFee(Integer minFee, Integer maxFee) {
+        if (this.dailyFee == null) {
+            return false;
+        }
+
+        if (minFee != null && dailyFee < minFee) {
+            return false;
+        }
+        if (maxFee != null && dailyFee > maxFee) {
+            return false;
+        }
+        return true;
+    }
 }
