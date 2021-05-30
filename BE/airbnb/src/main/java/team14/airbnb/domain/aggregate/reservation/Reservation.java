@@ -57,6 +57,13 @@ public class Reservation {
         return accommodation.getId();
     }
 
+    public Long getUserId() {
+        if (this.user == null) {
+            return null;
+        }
+        return user.getId();
+    }
+
     public Accommodation getAccommodation() {
         if (accommodation != null) {
             accommodation.setStartEndDate(this.startDate, this.endDate);
