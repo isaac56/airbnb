@@ -22,6 +22,8 @@ public class AccommodationSimpleDto {
 
     private int dailyFee;
 
+    private int cleaningFee;
+
     private String addressName;
 
     private String roadAddressName;
@@ -56,6 +58,7 @@ public class AccommodationSimpleDto {
                 .name(accommodation.getName())
                 .totalFee(accommodation.getTotalFee())
                 .dailyFee(accommodation.getDailyFee())
+                .cleaningFee(accommodation.getCleaningFee())
                 .addressName(accommodation.getAddressName())
                 .roadAddressName(accommodation.getRoadAddressName())
                 .x(accommodation.getX())

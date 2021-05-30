@@ -20,22 +20,22 @@ class AccommodationTest {
     @Test
     @DisplayName("기간 설정 후에 총 요금이 제대로 계산되는지 확인")
     void totalFeeTest() {
-        //실제 자는 요일은 금,토,일,월,화,수 요금은 240000 + 400000 = 640000원 나와야함
+        //실제 자는 요일은 금,토,일,월,화,수 요금은 240000 + 400000 + 2000 = 642000원 나와야함
         LocalDate startDate = LocalDate.of(2021, 1, 1);
         LocalDate endDate = LocalDate.of(2021, 1, 7);
         accommodation.setStartEndDate(startDate, endDate);
-        Assertions.assertThat(accommodation.getTotalFee()).isEqualTo(640000);
+        Assertions.assertThat(accommodation.getTotalFee()).isEqualTo(642000);
 
-        //실제 자는 요일은 금,토,일,월,화,수,목 요금은 240000 + 500000 = 740000원 나와야함
+        //실제 자는 요일은 금,토,일,월,화,수,목 요금은 240000 + 500000 + 2000 = 742000원 나와야함
         startDate = LocalDate.of(2021, 1, 1);
         endDate = LocalDate.of(2021, 1, 8);
         accommodation.setStartEndDate(startDate, endDate);
-        Assertions.assertThat(accommodation.getTotalFee()).isEqualTo(740000);
+        Assertions.assertThat(accommodation.getTotalFee()).isEqualTo(742000);
 
-        //실제 자는 요일은 금,토,일,월,화,수,목,금,토,일,월,화 요금은 480000 + 800000 = 1280000원 나와야함
+        //실제 자는 요일은 금,토,일,월,화,수,목,금,토,일,월,화 요금은 480000 + 800000 + 2000 = 1282000원 나와야함
         startDate = LocalDate.of(2021, 1, 1);
         endDate = LocalDate.of(2021, 1, 13);
         accommodation.setStartEndDate(startDate, endDate);
-        Assertions.assertThat(accommodation.getTotalFee()).isEqualTo(1280000);
+        Assertions.assertThat(accommodation.getTotalFee()).isEqualTo(1282000);
     }
 }

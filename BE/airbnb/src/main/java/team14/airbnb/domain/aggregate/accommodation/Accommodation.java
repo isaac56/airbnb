@@ -115,11 +115,12 @@ public class Accommodation {
         this.startDate = startDate;
         this.endDate = endDate;
         this.totalFee = getTotalFee(startDate, endDate);
-        this.dailyFee = totalFee / (int) ChronoUnit.DAYS.between(startDate, endDate);
+
+        this.dailyFee = (totalFee - cleaningFee) / (int) ChronoUnit.DAYS.between(startDate, endDate);
     }
 
     private int getTotalFee(LocalDate startDate, LocalDate endDate) {
-        return getBetweenFee(startDate, endDate, basicFee, weekendFee);
+        return getBetweenFee(startDate, endDate, basicFee, weekendFee) + cleaningFee;
     }
 
     private int getBetweenFee(LocalDate startDate, LocalDate endDate, int basicFee, Integer weekendFee) {
