@@ -7,10 +7,9 @@ import lombok.Setter;
 import team14.airbnb.domain.aggregate.accommodation.Accommodation;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -27,10 +26,10 @@ public class User {
 
     private String nickname;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id", nullable = false)
-    @OrderBy("createdTime desc")
-    private List<Wish> wishes = new ArrayList<>();
+    @MapKeyColumn(name = "accommodation_id")
+    private Map<Long, Wish> wishMap = new HashMap<>();
 
     public User(String email, String nickname) {
         this.email = email;
@@ -38,10 +37,18 @@ public class User {
     }
 
     public void addWish(Accommodation accommodation) {
-        this.wishes.add(new Wish(accommodation));
+        this.wishMap.put(accommodation.getId(), new Wish(accommodation));
+    }
+
+    public void removeWish(long accommodationId) {
+        this.wishMap.remove(accommodationId);
     }
 
     public Set<Long> getWishIdSet() {
-        return wishes.stream().map(x -> x.getId()).collect(Collectors.toSet());
+        return wishMap.keySet();
+    }
+
+    public boolean hasWishedAccommodationId(long accommodationId) {
+        return wishMap.containsKey(accommodationId);
     }
 }
