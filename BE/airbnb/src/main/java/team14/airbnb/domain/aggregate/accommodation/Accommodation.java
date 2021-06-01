@@ -181,6 +181,27 @@ public class Accommodation {
         return accommodationAddress.getRoadAddressName();
     }
 
+    public String getRegion1() {
+        if (accommodationAddress == null) {
+            return "주소 정보가 없습니다.";
+        }
+        return accommodationAddress.getRegion1DepthName();
+    }
+
+    public String getRegion2() {
+        if (accommodationAddress == null) {
+            return "주소 정보가 없습니다.";
+        }
+        return accommodationAddress.getRegion2DepthName();
+    }
+
+    public String getRegion3() {
+        if (accommodationAddress == null) {
+            return "주소 정보가 없습니다.";
+        }
+        return accommodationAddress.getRegion3DepthName();
+    }
+
     public Double getX() {
         if (accommodationAddress == null) {
             return null;
