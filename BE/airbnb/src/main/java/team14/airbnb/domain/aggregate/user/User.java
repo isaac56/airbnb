@@ -26,14 +26,17 @@ public class User {
 
     private String nickname;
 
+    private String oauthResourceServer;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id", nullable = false)
     @MapKeyColumn(name = "accommodation_id")
     private Map<Long, Wish> wishMap = new HashMap<>();
 
-    public User(String email, String nickname) {
+    public User(String email, String nickname, String oauthResourceServer) {
         this.email = email;
         this.nickname = nickname;
+        this.oauthResourceServer = oauthResourceServer;
     }
 
     public void addWish(Accommodation accommodation) {

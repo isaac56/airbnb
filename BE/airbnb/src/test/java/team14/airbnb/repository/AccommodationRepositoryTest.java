@@ -37,7 +37,7 @@ class AccommodationRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        User user = userRepository.save(new User("test@test.com", "호스트닉네임"));
+        User user = userRepository.save(new User("test@test.com", "호스트닉네임", null));
         Accommodation accommodation = new Accommodation("테스트 숙소", 65000, 85000, 10000,
                 null, "테스트용 숙소입니다.", user,
                 new DetailCondition(RoomType.ONE_ROOM, 4, 1, 1),
