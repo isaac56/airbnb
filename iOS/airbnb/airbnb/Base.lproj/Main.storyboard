@@ -722,6 +722,21 @@
             </objects>
             <point key="canvasLocation" x="4240.579710144928" y="118.52678571428571"/>
         </scene>
+        <!--Search Result View Controller-->
+        <scene sceneID="9DT-o2-Sqn">
+            <objects>
+                <viewController id="Ng3-8Y-6gs" customClass="SearchResultViewController" customModule="airbnb" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Khl-vi-xme">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="4S7-6u-xcZ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Cz-1Y-wzF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4983" y="119"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="uiX-H1-vYk">
             <objects>
@@ -739,6 +754,31 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BNf-b3-Xbo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="140.57971014492756" y="118.52678571428571"/>
+        </scene>
+        <!--Auth View Controller-->
+        <scene sceneID="uLC-b6-FWS">
+            <objects>
+                <viewController id="BRY-Pp-VSg" customClass="OAuthViewController" customModule="airbnb" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6Vh-bj-1eg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="93t-b3-3eb">
+                                <rect key="frame" x="184" y="433" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="i07-Ze-sUE"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="login" destination="93t-b3-3eb" id="Zn3-IF-oGg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fdP-dC-4ud" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="119" y="830"/>
         </scene>
         <!--Bottom Search Info View Controller-->
         <scene sceneID="nCK-kT-9Tk">

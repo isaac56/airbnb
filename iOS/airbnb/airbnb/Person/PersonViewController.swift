@@ -72,7 +72,7 @@ class PersonViewController: UIViewController {
         }
 
         bottomSearchInfoVC.nextHandler = {
-            guard let vc = self.storyboard?.instantiateViewController(identifier: PersonViewController.className) as? PersonViewController else { return }
+            guard let vc = self.storyboard?.instantiateViewController(identifier: SearchResultViewController.className) as? SearchResultViewController else { return }
             vc.setSelectInfo(self.selectInfo)
             self.navigationController?.pushViewController(vc, animated: true)
         }

@@ -31,6 +31,7 @@ class SearchViewController: UIViewController {
     
     func isFiltering() {
         //MARK: - 필터 적용
+        
     }
     
     func setCityInfoViewModel(cityInfoViewModel: CityInfoViewModel) {
