@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 
-const LogIn = () => {
+const NavBarLogIn = () => {
   return (
     <LoginWrapper>
       <Span>로그인</Span>
@@ -39,4 +39,4 @@ const Span = styled.div`
   color: #010101;
 `;
 
-export default LogIn;
+export default NavBarLogIn;

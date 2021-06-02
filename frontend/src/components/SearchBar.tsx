@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box } from '@material-ui/core';
 import { useRecoilValue } from 'recoil';
-import { filterDisplayAtom, guestsDataAtom } from '../recoil/atom';
+import { filterDisplayAtom } from '../recoil/atom';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import Icons from './Icons';
@@ -9,6 +9,7 @@ import SearchBarDiv from './SearchBarDiv';
 import CalendarModal from './CalendarModal';
 import PriceModal from './PriceModal';
 import GuestModal from './GuestModal';
+import { Link } from 'react-router-dom';
 
 interface IisOpen {
   체크인: boolean;
@@ -65,6 +66,7 @@ const SearchBar: React.FC = () => {
   return (
     <Box
       display="flex"
+      position="sticky"
       flexDirection="column"
       justifyContent="center"
       alignItems="center">
@@ -74,10 +76,12 @@ const SearchBar: React.FC = () => {
             <SearchBarDiv key={i} label={key} text={value} onClick={onClick} />
           );
         })}
-        <SearchIconWrapper>
-          <Icons type="basicSearch" />
-          {/* <Icons type="completedSearch" /> */}
-        </SearchIconWrapper>
+        <Link to="/SearchResult">
+          <SearchIconWrapper>
+            <Icons type="basicSearch" />
+            {/* <Icons type="completedSearch" /> */}
+          </SearchIconWrapper>
+        </Link>
       </SearchBarWrapper>
       <ModalWrapper>
         {(isOpen.체크인 || isOpen.체크아웃) && <CalendarModal />}
@@ -97,6 +101,7 @@ const SearchBarWrapper = styled.div`
   background-color: ${theme.colors.white};
   align-content: stretch;
   width: 916px;
+  border: 1px solid #bdbdbd;
   & > :not(:last-child, :first-child, :hover):after {
     content: '';
     position: absolute;

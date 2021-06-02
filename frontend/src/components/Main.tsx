@@ -10,7 +10,6 @@ const Main = () => {
         <img alt="hero_image" src={`http://localhost:3000/hero_image.webp`} />
       </HeroImage>
       <NavBar />
-      <SearchBar />
     </>
   );
 };

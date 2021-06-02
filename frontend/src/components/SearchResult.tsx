@@ -2,37 +2,49 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import NavBar from './NavBar';
-import Map from './Map';
+import SearchResultMap from './SearchResultMap';
 import { useRecoilValue } from 'recoil';
-import { filterDisplayAtom } from '../recoil/atom';
+import { filterDataAtom, guestsDataAtom } from '../recoil/atom';
+import useFetch from './UseFetch';
 
 const SearchResult = () => {
-  const contents = useRecoilValue(filterDisplayAtom);
+  const filterData = useRecoilValue(filterDataAtom);
+  const guests = useRecoilValue(guestsDataAtom);
 
+  let foo = '';
   const miniSearchBar = () => {
     return <MiniSearchBarWrapper></MiniSearchBarWrapper>;
   };
 
-  let foo = '';
-  const { isLoading, error, data, isFetching } = useQuery('repoData', () =>
-    fetch(
-      'http://3.35.85.246:8080/api/accommodation/list/location?x=127.073&y=36.8037190756251&range=4&startDate=2021-01-01&endDate=2021-01-07&minFee=0&maxFee=110000&person=3'
-    ).then(res => res.json())
-  );
+  const { isLoading, data, error, isFetching } = useFetch({
+    checkIn: filterData.체크인,
+    checkOut: filterData.체크아웃,
+    price: filterData.요금,
+    guests: Object.values(guests).reduce((a, b) => (a || 0) + (b || 0), 0),
+  });
 
   if (isLoading) foo = 'Loading...';
 
   if (error) foo = 'An error has occurred: ';
+
+  console.log(data);
 
   return (
     <div>
       <NavBarWrapper>
         <NavBar />
       </NavBarWrapper>
-      <ListsWrapper></ListsWrapper>
-      <MapWrapper>
-        <Map />
-      </MapWrapper>
+      <div>
+        <ListsWrapper>
+          {data &&
+            data.data.map((v, i) => {
+              return <p key={i}>{v.id}</p>;
+            })}
+        </ListsWrapper>
+        <MapWrapper>
+          <SearchResultMap />
+        </MapWrapper>
+      </div>
     </div>
   );
 };
@@ -52,8 +64,6 @@ const MapWrapper = styled.div`
 `;
 
 const MiniSearchBarWrapper = styled.div`
-  /* Auto Layout */
-
   display: flex;
 
   align-items: center;
@@ -65,8 +75,6 @@ const MiniSearchBarWrapper = styled.div`
   top: 24.47%;
   bottom: 24.47%;
 
-  /* White */
-
   background: #ffffff;
   /* Gray 4 */
 
@@ -76,8 +84,8 @@ const MiniSearchBarWrapper = styled.div`
 `;
 
 const ListsWrapper = styled.div`
-  width: 684px;
-  height: 200px;
+  width: 50%;
+  height: 20%;
 
   margin: 24px 0px;
 `;

@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from '../styles/theme';
+import PriceSlider from './PriceSlider';
 
 const PriceModal = () => {
   return (
     <Div className="price">
       <PriceTitle>가격 범위</PriceTitle>
+      <PriceSlider min={10} max={1000} />
     </Div>
   );
 };
@@ -19,6 +21,7 @@ const Div = styled.div`
   box-shadow: 0px 4px 10px rgba(51, 51, 51, 0.1),
     0px 0px 4px rgba(51, 51, 51, 0.05);
   border-radius: 40px;
+  z-index: -1000;
 `;
 
 const PriceTitle = styled.div`
