@@ -8,6 +8,11 @@
 import Foundation
 
 class SelectInfo: Hashable {
+    enum DateKind {
+        case startDate
+        case endDate
+    }
+    
     private(set) var address: String
     private(set) var x: Double?
     private(set) var y: Double?

@@ -24,4 +24,10 @@ extension Date {
         guard let firstDayOfMonth = calendar.date(from: calendar.dateComponents([.year, .month], from: self)) else { return nil }
         return calendar.component(.weekday, from: firstDayOfMonth)
     }
+    
+    func getString() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: self)
+    }
 }

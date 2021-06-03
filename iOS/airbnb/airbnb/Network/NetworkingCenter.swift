@@ -36,6 +36,28 @@ final class NetworkingCenter {
             }
         })
     }
+    
+    func searchRequest(selectInfo: SelectInfo, completion: @escaping ((Result<SearchByRegionData, AFError>) -> ())) {
+        let parameters: Parameters = [
+            "x": selectInfo.x!,
+            "y": selectInfo.y!,
+            "range": 8,
+            "startDate": selectInfo.startDate!.getString(),
+            "endDate": selectInfo.endDate!.getString(),
+            "minFee": selectInfo.minPrice!,
+            "maxFee": selectInfo.maxPrice!,
+            "person": selectInfo.persons
+        ]
+        
+        AF.request("http://3.35.85.246:8080/api/accommodation/list/location", parameters: parameters).validate().responseDecodable(of: SearchByRegionData.self, completionHandler: { (response) in
+            switch response.result {
+            case .success(let searchByRegionData):
+                completion(.success(searchByRegionData))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        })
+    }
 }
 
 extension NetworkingCenter {
