@@ -1,5 +1,8 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
+import theme from '../styles/theme';
+import { useRecoilState } from 'recoil';
+import { filterDisplayData, priceData } from '../recoil/atom';
 
 interface Islider {
   min: number;
@@ -7,11 +10,18 @@ interface Islider {
 }
 
 const PriceSlider: React.FC<Islider> = ({ min, max }) => {
-  const [minVal, setMinVal] = useState(min);
-  const [maxVal, setMaxVal] = useState(max);
+  const [minVal, setMinVal] = useState(0);
+  const [maxVal, setMaxVal] = useState(0);
   const minValRef = useRef(min);
   const maxValRef = useRef(max);
   const range = useRef<HTMLInputElement>(null);
+  const [price, setPrice] = useRecoilState<any>(priceData);
+  const [filterDisplay, setFilterDisplay] =
+    useRecoilState<any>(filterDisplayData);
+  const priceDisplay = `${minVal.toLocaleString('en')}~${maxVal.toLocaleString(
+    'en'
+  )}`;
+  const guestsCopy = { ...price };
 
   // Convert to percentage
   const getPercent = useCallback(
@@ -19,10 +29,21 @@ const PriceSlider: React.FC<Islider> = ({ min, max }) => {
     [min, max]
   );
 
+  useEffect(() => {
+    setMinVal(min);
+    setMaxVal(max);
+  }, [min, max]);
+
   // Set width of the range to decrease from the left side
   useEffect(() => {
     const minPercent = getPercent(minVal);
     const maxPercent = getPercent(maxValRef.current);
+    guestsCopy.최저가 = minVal;
+    setPrice({ ...guestsCopy });
+    setFilterDisplay({
+      ...filterDisplay,
+      요금: priceDisplay,
+    });
 
     if (range.current) {
       range.current.style.left = `${minPercent}%`;
@@ -34,6 +55,12 @@ const PriceSlider: React.FC<Islider> = ({ min, max }) => {
   useEffect(() => {
     const minPercent = getPercent(minValRef.current);
     const maxPercent = getPercent(maxVal);
+    guestsCopy.최고가 = maxVal;
+    setPrice({ ...guestsCopy });
+    setFilterDisplay({
+      ...filterDisplay,
+      요금: priceDisplay,
+    });
 
     if (range.current) {
       range.current.style.width = `${maxPercent - minPercent}%`;
@@ -95,16 +122,16 @@ const Container = styled.div`
     pointer-events: none;
     position: absolute;
     height: 0;
-    width: 200px;
+    width: 400px;
     outline: none;
   }
 
   /* For Chrome browsers */
   .thumb::-webkit-slider-thumb {
-    background-color: red;
+    background-color: ${theme.colors.primary};
     border: none;
     border-radius: 50%;
-    box-shadow: 0 0 1px 1px red;
+    box-shadow: 0 0 1px 1px ${theme.colors.primary};
     cursor: pointer;
     height: 18px;
     width: 18px;
@@ -124,7 +151,7 @@ const Container = styled.div`
 
 const Slider = styled.div`
   position: relative;
-  width: 200px;
+  width: 400px;
 
   .slider__track,
   .slider__range,
@@ -140,13 +167,13 @@ const Slider = styled.div`
   }
 
   .slider__track {
-    background-color: blue;
+    background-color: ${theme.colors.grey5};
     width: 100%;
     z-index: 1;
   }
 
   .slider__range {
-    background-color: green;
+    background-color: ${theme.colors.primary};
     z-index: 2;
   }
 

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Icons from './Icons';
 import theme from '../styles/theme';
 import { useRecoilState } from 'recoil';
-import { filterDisplayAtom, guestsDataAtom } from '../recoil/atom';
+import { filterDisplayData, guestsData } from '../recoil/atom';
 
 interface IGuest {
   label: string;
@@ -11,12 +11,12 @@ interface IGuest {
 }
 
 const GuestDiv: React.FC<IGuest> = props => {
-  const [guestsData, setguestsData] = useRecoilState<any>(guestsDataAtom);
+  const [guests, setGuests] = useRecoilState<any>(guestsData);
   const [filterDisplay, setFilterDisplay] =
-    useRecoilState<any>(filterDisplayAtom);
+    useRecoilState<any>(filterDisplayData);
 
   const onClick = (type: string, guest: string): void => {
-    const guestsCopy = { ...guestsData };
+    const guestsCopy = { ...guests };
     const MAXIMUM_COUNT = 8;
     const MINIMUM_COUNT = 0;
 
@@ -40,7 +40,7 @@ const GuestDiv: React.FC<IGuest> = props => {
           }명`
         : `게스트 ${guestsCopy.성인 + guestsCopy.어린이}명 `;
 
-    setguestsData({
+    setGuests({
       ...guestsCopy,
     });
     setFilterDisplay({
@@ -63,7 +63,7 @@ const GuestDiv: React.FC<IGuest> = props => {
             }}>
             <Icons type="minus-circle" />
           </div>
-          <Span>{guestsData[`${props.label}`]}</Span>
+          <Span>{guests[`${props.label}`]}</Span>
           <div
             onClick={event => {
               onClick('plus', props.label);
@@ -121,7 +121,7 @@ const Span = styled.div`
   display: flex;
   align-items: center;
 
-  color: ${theme.colors.grey1}; ;
+  color: ${theme.colors.grey1};
 `;
 
 export default GuestDiv;

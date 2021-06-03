@@ -1,33 +1,32 @@
 import React from 'react';
-import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import NavBar from './NavBar';
 import SearchResultMap from './SearchResultMap';
 import { useRecoilValue } from 'recoil';
-import { filterDataAtom, guestsDataAtom } from '../recoil/atom';
+import { checkInOutData, priceData, guestsData } from '../recoil/atom';
 import useFetch from './UseFetch';
 
 const SearchResult = () => {
-  const filterData = useRecoilValue(filterDataAtom);
-  const guests = useRecoilValue(guestsDataAtom);
+  const dates = useRecoilValue(checkInOutData);
+  const guests = useRecoilValue(guestsData);
+  const prices = useRecoilValue(priceData);
 
   let foo = '';
-  const miniSearchBar = () => {
-    return <MiniSearchBarWrapper></MiniSearchBarWrapper>;
-  };
+  // const miniSearchBar = () => {
+  //   return <MiniSearchBarWrapper></MiniSearchBarWrapper>;
+  // };
 
-  const { isLoading, data, error, isFetching } = useFetch({
-    checkIn: filterData.체크인,
-    checkOut: filterData.체크아웃,
-    price: filterData.요금,
+  const { isLoading, data, error } = useFetch({
+    checkIn: dates.체크인,
+    checkOut: dates.체크아웃,
+    minPrice: prices.최저가,
+    maxPrice: prices.최고가,
     guests: Object.values(guests).reduce((a, b) => (a || 0) + (b || 0), 0),
   });
 
   if (isLoading) foo = 'Loading...';
 
   if (error) foo = 'An error has occurred: ';
-
-  console.log(data);
 
   return (
     <div>
@@ -37,7 +36,7 @@ const SearchResult = () => {
       <div>
         <ListsWrapper>
           {data &&
-            data.data.map((v, i) => {
+            data.map((v, i) => {
               return <p key={i}>{v.id}</p>;
             })}
         </ListsWrapper>
@@ -54,6 +53,7 @@ const NavBarWrapper = styled.div`
   box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5),
     0px 2px 4px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(4px);
+  height: 200px;
 `;
 
 const MapWrapper = styled.div`
@@ -64,6 +64,7 @@ const MapWrapper = styled.div`
 `;
 
 const MiniSearchBarWrapper = styled.div`
+  //supposed to modify...
   display: flex;
 
   align-items: center;

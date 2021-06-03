@@ -1,17 +1,62 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Button } from '@material-ui/core';
 import Icons from './Icons';
 import NavBarLogin from './NavBarLogin';
-import { useRecoilValue } from 'recoil';
-import { filterDisplayAtom } from '../recoil/atom';
 import SearchBar from './SearchBar';
 
+interface IisOpen {
+  [key: string]: boolean;
+}
+
 const Navbar: React.FC = () => {
+  const [isOpen, setisOpen] = useState<IisOpen>({
+    체크인: false,
+    체크아웃: false,
+    요금: false,
+    인원: false,
+    메뉴: false,
+  });
+
   const classes = useStyles();
   const menus: string[] = ['숙소', '체험', '온라인'];
 
-  const contents = useRecoilValue(filterDisplayAtom);
+  const detectListener = ({ target }: Event) => {
+    Object.entries(isOpen).forEach(([key, value], i) => {
+      const classNames = {
+        체크인: 'calendar',
+        체크아웃: 'calendar',
+        요금: 'price',
+        인원: 'guests',
+        메뉴: 'login',
+      };
+      isOpen[`${key}`] &&
+        !(target as HTMLInputElement).closest(`.${classNames[key]}, .${key}`) &&
+        changeIsOpen(`${key}`);
+    });
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', detectListener);
+    return () => document.removeEventListener('mousedown', detectListener);
+  });
+
+  const changeIsOpen = (className: string) => {
+    const CopiedIsOpen = isOpen;
+    CopiedIsOpen[`${className}`] = !CopiedIsOpen[`${className}`];
+    setisOpen({
+      ...isOpen,
+      체크인: CopiedIsOpen.체크인,
+      체크아웃: CopiedIsOpen.체크아웃,
+      요금: CopiedIsOpen.요금,
+      인원: CopiedIsOpen.인원,
+      메뉴: CopiedIsOpen.메뉴,
+    });
+  };
+
+  const onClick = (className: string) => {
+    changeIsOpen(className);
+  };
 
   return (
     <>
@@ -28,15 +73,17 @@ const Navbar: React.FC = () => {
             })}
           </div>
 
-          <div className={classes.account}>
+          <div
+            onClick={() => onClick('메뉴')}
+            className={`${classes.account} 메뉴`}>
             <Icons type="menu" width="30px" margin="3px 5px" />
             <div className={classes.iconBackground}>
               <Icons type="user" width="30px" />
             </div>
           </div>
-          <NavBarLogin />
+          {isOpen.메뉴 && <NavBarLogin />}
         </Toolbar>
-        <SearchBar />
+        <SearchBar changeModalStatus={onClick} isOpen={isOpen} />
       </AppBar>
     </>
   );

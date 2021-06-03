@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import NavBar from './NavBar';
-import SearchBar from './SearchBar';
 
 const Main = () => {
   return (

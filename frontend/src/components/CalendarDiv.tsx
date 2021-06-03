@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import { useRecoilState } from 'recoil';
-import { filterDisplayAtom, filterDataAtom } from '../recoil/atom';
+import { filterDisplayData, checkInOutData } from '../recoil/atom';
 
 interface Idate {
   month: number;
@@ -33,24 +33,24 @@ const CalendarDiv: React.FC<Idate> = props => {
   const weekdays: string[] = ['일', '월', '화', '수', '목', '금', '토'];
 
   const [filterDisplay, setFilterDisplay] =
-    useRecoilState<any>(filterDisplayAtom);
-  const [filterData, setFilterData] = useRecoilState<any>(filterDataAtom);
+    useRecoilState<any>(filterDisplayData);
+  const [dates, setDates] = useRecoilState<any>(checkInOutData);
 
   const onClick = (event: React.MouseEvent<HTMLInputElement>) => {
     const target = event.target as HTMLElement;
     const today = parseInt(target.innerText);
     const todayString = `${baseDate.getMonth() + 1}월 ${today}일`;
     if (
-      filterData.체크인 &&
+      dates.체크인 &&
       new Date(baseDate.getFullYear(), baseDate.getMonth(), today) >=
-        filterData.체크인
+        dates.체크인
     ) {
       setFilterDisplay({
         ...filterDisplay,
         체크아웃: todayString,
       });
-      setFilterData({
-        ...filterData,
+      setDates({
+        ...dates,
         체크아웃: new Date(baseDate.getFullYear(), baseDate.getMonth(), today),
       });
       return;
@@ -60,8 +60,8 @@ const CalendarDiv: React.FC<Idate> = props => {
       ...filterDisplay,
       체크인: todayString,
     });
-    setFilterData({
-      ...filterData,
+    setDates({
+      ...dates,
       체크인: new Date(baseDate.getFullYear(), baseDate.getMonth(), today),
     });
   };
@@ -88,16 +88,16 @@ const CalendarDiv: React.FC<Idate> = props => {
             i + 1
           );
 
-          currentDay.valueOf() === filterData?.체크인?.valueOf() &&
+          currentDay.valueOf() === dates?.체크인?.valueOf() &&
             (className = 'checkIn');
 
-          currentDay.valueOf() === filterData?.체크아웃?.valueOf() &&
+          currentDay.valueOf() === dates?.체크아웃?.valueOf() &&
             (className = 'checkOut');
 
           currentDay < new Date() && (className = 'disabled');
 
-          currentDay > filterData.체크인 &&
-            currentDay < filterData.체크아웃 &&
+          currentDay > dates.체크인 &&
+            currentDay < dates.체크아웃 &&
             (className = 'staying');
 
           return (

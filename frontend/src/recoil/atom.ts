@@ -1,6 +1,6 @@
 import { atom, RecoilState } from 'recoil';
 
-const filterDisplayAtom = atom({
+const filterDisplayData = atom({
   key: 'display',
   default: {
     체크인: '입력 날짜',
@@ -10,16 +10,23 @@ const filterDisplayAtom = atom({
   },
 });
 
-const filterDataAtom = atom({
-  key: 'datas',
+const checkInOutData = atom({
+  key: 'dates',
   default: {
     체크인: null,
     체크아웃: null,
-    요금: null,
   },
 });
 
-const guestsDataAtom = atom({
+const priceData = atom({
+  key: 'prices',
+  default: {
+    최고가: 0,
+    최저가: 0,
+  },
+});
+
+const guestsData = atom({
   key: 'guests',
   default: {
     성인: 0,
@@ -28,4 +35,4 @@ const guestsDataAtom = atom({
   },
 });
 
-export { filterDisplayAtom, filterDataAtom, guestsDataAtom };
+export { filterDisplayData, checkInOutData, priceData, guestsData };

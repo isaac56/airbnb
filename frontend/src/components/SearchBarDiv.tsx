@@ -4,9 +4,10 @@ import styled from 'styled-components';
 import Icons from './Icons';
 import { useRecoilState } from 'recoil';
 import {
-  filterDisplayAtom,
-  filterDataAtom,
-  guestsDataAtom,
+  filterDisplayData,
+  checkInOutData,
+  priceData,
+  guestsData,
 } from '../recoil/atom';
 
 interface Ispan {
@@ -17,29 +18,36 @@ interface Ispan {
 
 const SearchBarDiv: React.FC<Ispan> = props => {
   const [filterDisplay, setFilterDisplay] =
-    useRecoilState<any>(filterDisplayAtom);
-  const [filterData, setFilterData] = useRecoilState<any>(filterDataAtom);
-  const [guestsData, setguestsData] = useRecoilState<any>(guestsDataAtom);
+    useRecoilState<any>(filterDisplayData);
+  const [dates, setDates] = useRecoilState<any>(checkInOutData);
+  const [prices, setPrices] = useRecoilState<any>(priceData);
+  const [guests, setGuests] = useRecoilState<any>(guestsData);
 
   const resetDates = () => {
     const filterDisplayCopy = { ...filterDisplay };
-    const dataCopy = { ...filterData };
-    const guestsCopy = { ...guestsData };
+    const dataCopy = { ...dates };
+    const priceCopy = { ...prices };
+    const guestsCopy = { ...guests };
 
-    if (
-      props.label === '체크인' ||
-      props.label === '체크아웃' ||
-      props.label === '요금'
-    ) {
-      filterDisplayCopy[`${props.label}`] = '입력 날짜';
-      dataCopy[`${props.label}`] = null;
-
-      setFilterData({ ...dataCopy });
-    } else if (props.label === '인원') {
-      filterDisplayCopy[`${props.label}`] = '게스트 추가';
-      Object.keys(guestsCopy).forEach(i => (guestsCopy[i] = 0));
-
-      setguestsData({ ...guestsCopy });
+    switch (props.label) {
+      case '체크인':
+      case '체크아웃':
+        filterDisplayCopy[`${props.label}`] = '입력 날짜';
+        dataCopy[`${props.label}`] = null;
+        setDates({ ...dataCopy });
+        break;
+      case '요금':
+        filterDisplayCopy[`${props.label}`] = '금액대 설정';
+        Object.keys(priceCopy).forEach(i => (priceCopy[i] = 0));
+        setPrices({ ...priceCopy });
+        break;
+      case '인원':
+        filterDisplayCopy[`${props.label}`] = '게스트 추가';
+        Object.keys(guestsCopy).forEach(i => (guestsCopy[i] = 0));
+        setGuests({ ...guestsCopy });
+        break;
+      default:
+        break;
     }
 
     setFilterDisplay({
@@ -58,9 +66,10 @@ const SearchBarDiv: React.FC<Ispan> = props => {
         <Label>{props.label}</Label>
         <Text>{props.text}</Text>
       </Input>
-      {((props.label === '체크인' && filterData.체크인) ||
-        (props.label === '체크아웃' && filterData.체크아웃) ||
-        (props.label === '인원' && guestsData.성인 > 0)) && (
+      {((props.label === '체크인' && dates.체크인) ||
+        (props.label === '체크아웃' && dates.체크아웃) ||
+        (props.label === '요금' && prices.최저가) ||
+        (props.label === '인원' && guests.성인 > 0)) && (
         <IconWrapper className="x-circle" onClick={resetDates}>
           <Icons type="x-circle" />
         </IconWrapper>
@@ -71,7 +80,7 @@ const SearchBarDiv: React.FC<Ispan> = props => {
 
 const Div = styled.div`
   position: relative;
-  padding: 0 0 0 4%;
+  padding: 0 5% 0 4%;
   display: flex;
   flex-direction: flex-start;
   cursor: pointer;
@@ -82,7 +91,11 @@ const Div = styled.div`
   }
   &.인원 > .x-circle {
     position: absolute;
-    right: -20px;
+    right: 15px;
+  }
+  &.요금 > .x-circle {
+    position: absolute;
+    right: 13px;
   }
 `;
 

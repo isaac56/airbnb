@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box } from '@material-ui/core';
 import { useRecoilValue } from 'recoil';
-import { filterDisplayAtom } from '../recoil/atom';
+import { filterDisplayData } from '../recoil/atom';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import Icons from './Icons';
@@ -12,56 +12,15 @@ import GuestModal from './GuestModal';
 import { Link } from 'react-router-dom';
 
 interface IisOpen {
-  체크인: boolean;
-  체크아웃: boolean;
-  요금: boolean;
-  인원: boolean;
+  isOpen: {
+    [key: string]: boolean;
+  };
+
+  changeModalStatus(key: string): void;
 }
 
-const SearchBar: React.FC = () => {
-  const [isOpen, setisOpen] = useState<IisOpen>({
-    체크인: false,
-    체크아웃: false,
-    요금: false,
-    인원: false,
-  });
-
-  const detectListener = ({ target }: Event) => {
-    Object.entries(isOpen).forEach(([key, value], i) => {
-      const classNames = {
-        체크인: 'calendar',
-        체크아웃: 'calendar',
-        요금: 'price',
-        인원: 'guests',
-      };
-      isOpen[`${key}`] &&
-        !(target as HTMLInputElement).closest(`.${classNames[key]}, .${key}`) &&
-        changeIsOpen(`${key}`);
-    });
-  };
-
-  useEffect(() => {
-    document.addEventListener('mousedown', detectListener);
-    return () => document.removeEventListener('mousedown', detectListener);
-  });
-
-  const contents = useRecoilValue(filterDisplayAtom);
-
-  const changeIsOpen = (className: string) => {
-    const CopiedIsOpen = isOpen;
-    CopiedIsOpen[`${className}`] = !CopiedIsOpen[`${className}`];
-    setisOpen({
-      ...isOpen,
-      체크인: CopiedIsOpen.체크인,
-      체크아웃: CopiedIsOpen.체크아웃,
-      요금: CopiedIsOpen.요금,
-      인원: CopiedIsOpen.인원,
-    });
-  };
-
-  const onClick = (className: string) => {
-    changeIsOpen(className);
-  };
+const SearchBar: React.FC<IisOpen> = props => {
+  const contents = useRecoilValue(filterDisplayData);
 
   return (
     <Box
@@ -73,7 +32,12 @@ const SearchBar: React.FC = () => {
       <SearchBarWrapper>
         {Object.entries(contents).map(([key, value], i) => {
           return (
-            <SearchBarDiv key={i} label={key} text={value} onClick={onClick} />
+            <SearchBarDiv
+              key={i}
+              label={key}
+              text={value}
+              onClick={() => props.changeModalStatus(key)}
+            />
           );
         })}
         <Link to="/SearchResult">
@@ -84,9 +48,9 @@ const SearchBar: React.FC = () => {
         </Link>
       </SearchBarWrapper>
       <ModalWrapper>
-        {(isOpen.체크인 || isOpen.체크아웃) && <CalendarModal />}
-        {isOpen.요금 && <PriceModal />}
-        {isOpen.인원 && <GuestModal />}
+        {(props.isOpen.체크인 || props.isOpen.체크아웃) && <CalendarModal />}
+        {props.isOpen.요금 && <PriceModal />}
+        {props.isOpen.인원 && <GuestModal />}
       </ModalWrapper>
     </Box>
   );
@@ -105,7 +69,7 @@ const SearchBarWrapper = styled.div`
   & > :not(:last-child, :first-child, :hover):after {
     content: '';
     position: absolute;
-    transform: translate(-55px, 15px);
+    transform: translate(-47px, 15px);
     width: 1px;
     height: 50px;
     background-color: ${theme.colors.grey5};
@@ -120,7 +84,6 @@ const SearchIconWrapper = styled.div`
   width: 100px;
   display: flex;
   justify-content: flex-end;
-  padding-right: 20px;
 `;
 
 const ModalWrapper = styled.div`
