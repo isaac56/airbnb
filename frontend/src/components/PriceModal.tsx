@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import theme from '../styles/theme';
 import PriceSlider from './PriceSlider';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { makeStyles } from '@material-ui/core/styles';
 import { useRecoilValue } from 'recoil';
 import { checkInOutData, priceData } from '../recoil/atom';
 import useFetch from './UseFetch';
@@ -11,6 +13,7 @@ const PriceModal = () => {
   const [maxPrice, setMaxPrice] = useState(0);
   const prices = useRecoilValue(priceData);
   const dates = useRecoilValue(checkInOutData);
+  const classes = useStyles();
 
   const { isLoading, data, error, isFetching } = useFetch({
     checkIn: dates.체크인,
@@ -32,16 +35,32 @@ const PriceModal = () => {
   }, [pricesByDates]);
 
   return (
-    <PriceWrapper className="price">
-      <PriceTitle>가격 범위</PriceTitle>
-      <PriceDisplay>
-        ₩{prices.최저가.toLocaleString('en')}~₩
-        {prices.최고가.toLocaleString('en')}
-      </PriceDisplay>
-      <PriceSlider min={minPrice} max={maxPrice} />
-    </PriceWrapper>
+    <>
+      <PriceWrapper className="price">
+        <PriceTitle>가격 범위</PriceTitle>
+        <PriceDisplay>
+          ₩{prices.최저가.toLocaleString('en')}~₩
+          {prices.최고가.toLocaleString('en')}
+        </PriceDisplay>
+        {isLoading && (
+          <div className={classes.root}>
+            <CircularProgress />
+          </div>
+        )}
+        <PriceSlider min={minPrice} max={maxPrice} />
+      </PriceWrapper>
+    </>
   );
 };
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+    '& > * + *': {
+      marginLeft: theme.spacing(2),
+    },
+  },
+}));
 
 const PriceWrapper = styled.div`
   width: 493px;

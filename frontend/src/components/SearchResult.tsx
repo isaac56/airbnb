@@ -4,14 +4,16 @@ import NavBar from './NavBar';
 import SearchResultMap from './SearchResultMap';
 import { useRecoilValue } from 'recoil';
 import { checkInOutData, priceData, guestsData } from '../recoil/atom';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { makeStyles } from '@material-ui/core/styles';
 import useFetch from './UseFetch';
 
 const SearchResult = () => {
   const dates = useRecoilValue(checkInOutData);
   const guests = useRecoilValue(guestsData);
   const prices = useRecoilValue(priceData);
+  const classes = useStyles();
 
-  let foo = '';
   // const miniSearchBar = () => {
   //   return <MiniSearchBarWrapper></MiniSearchBarWrapper>;
   // };
@@ -24,9 +26,9 @@ const SearchResult = () => {
     guests: Object.values(guests).reduce((a, b) => (a || 0) + (b || 0), 0),
   });
 
-  if (isLoading) foo = 'Loading...';
-
-  if (error) foo = 'An error has occurred: ';
+  const markerPositions = data?.reduce((acc, cur) => {
+    return [...acc, [cur.x, cur.y]];
+  }, []);
 
   return (
     <div>
@@ -35,6 +37,11 @@ const SearchResult = () => {
       </NavBarWrapper>
       <div>
         <ListsWrapper>
+          {isLoading && (
+            <div className={classes.root}>
+              <CircularProgress />
+            </div>
+          )}
           {data &&
             data.map((data: { [key: string]: any }, i: number) => {
               return (
@@ -79,6 +86,15 @@ const SearchResult = () => {
     </div>
   );
 };
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+    '& > * + *': {
+      marginLeft: theme.spacing(2),
+    },
+  },
+}));
 
 const NavBarWrapper = styled.div`
   background-color: white;
@@ -130,7 +146,7 @@ const DetailWrapper = styled.div`
 
 const Region = styled.div`
   font-size: 12px;
-  margin: 8px 0px;
+  margin: 8px 0px 4px 0px;
 
   /* Gray 3 */
 
