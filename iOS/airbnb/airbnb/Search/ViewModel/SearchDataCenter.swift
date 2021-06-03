@@ -6,21 +6,35 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 class SearchDataCenter {
-    private(set) var addressBook: [SelectInfo]
+    @Published private(set) var addressBook: [SelectInfo]
+    private(set) var networkCenter: NetworkingCenter
     
     init() {
         self.addressBook = [SelectInfo]()
-        self.makeDummyAddressBook()
+        self.networkCenter = NetworkingCenter()
     }
     
-    func makeDummyAddressBook() {
-        var fakeAddressBook = [SelectInfo]()
-        let fakeAdministrativeDistrict = ["원당", "양재", "영주", "용산", "양진", "양조동", "양진", "영산", "울진", "울주", "울산", "옹진", "양화", "영선", "서울", "분당", "합정", "복정", "성남", "모란", "성북", "노원", "석계", "회기", "창동", "도봉"]
-        for city in fakeAdministrativeDistrict {
-            fakeAddressBook.append(SelectInfo(name: city))
+    func requestQuery(query: String) {
+        self.networkCenter.request(query: query) { (result) in
+            switch result {
+            case .success(let searchResult):
+                self.addressBook = self.makeSelectInfo(searchResult: searchResult)
+            case .failure(let error):
+                print(error)
+            }
         }
-        self.addressBook = fakeAddressBook
+    }
+    
+    func makeSelectInfo(searchResult: SearchResult) -> [SelectInfo] {
+        var addressBook = [SelectInfo]()
+        for document in searchResult.documents {
+            let selectInfo = SelectInfo(name: document.addressName)
+            selectInfo.setcoordinator(x: Double(document.x), y: Double(document.y))
+            addressBook.append(selectInfo)
+        }
+        return addressBook
     }
 }

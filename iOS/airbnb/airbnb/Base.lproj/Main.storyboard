@@ -737,6 +737,21 @@
             </objects>
             <point key="canvasLocation" x="4983" y="119"/>
         </scene>
+        <!--Map Result View Controller-->
+        <scene sceneID="d9X-Wx-Xn8">
+            <objects>
+                <viewController id="Nx5-lV-SYd" customClass="MapResultViewController" customModule="airbnb" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gco-RY-4Ry">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="PFo-8h-ojI"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4ni-D1-hh7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5754" y="119"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="uiX-H1-vYk">
             <objects>

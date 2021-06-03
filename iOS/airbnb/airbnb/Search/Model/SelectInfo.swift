@@ -9,6 +9,8 @@ import Foundation
 
 class SelectInfo: Hashable {
     private(set) var address: String
+    private(set) var x: Double?
+    private(set) var y: Double?
     private(set) var startDate: Date?
     private(set) var endDate: Date?
     private(set) var minPrice: Int?
@@ -21,8 +23,10 @@ class SelectInfo: Hashable {
         return (adult ?? 0) + (kid ?? 0) + (baby ?? 0)
     }
     
-    init(name: String, startDate: Date? = nil, endDate: Date? = nil, minPrice: Int? = nil, maxPrice: Int? = nil, priceText: String? = nil, adult: Int? = nil, kid: Int? = nil, baby: Int? = nil) {
+    init(name: String, x: Double? = nil, y: Double? = nil, startDate: Date? = nil, endDate: Date? = nil, minPrice: Int? = nil, maxPrice: Int? = nil, priceText: String? = nil, adult: Int? = nil, kid: Int? = nil, baby: Int? = nil) {
         self.address = name
+        self.x = x
+        self.y = y
         self.startDate = startDate
         self.endDate = endDate
         self.minPrice = minPrice
@@ -66,5 +70,10 @@ class SelectInfo: Hashable {
         self.adult = adult
         self.kid = kid
         self.baby = baby
+    }
+    
+    func setcoordinator(x: Double?, y: Double?) {
+        self.x = x
+        self.y = y
     }
 }

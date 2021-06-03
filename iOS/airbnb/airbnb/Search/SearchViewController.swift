@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class SearchViewController: UIViewController {
     enum Section {
@@ -17,6 +18,7 @@ class SearchViewController: UIViewController {
     private var cityInfoViewModel: CityInfoViewModel!
     private lazy var dataSource = makeDataSource()
     private var searchController = UISearchController(searchResultsController: nil)
+    private var cancelBag = Set<AnyCancellable>()
     typealias DataSource = UICollectionViewDiffableDataSource<Section, SelectInfo>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Section, SelectInfo>
     
@@ -25,8 +27,15 @@ class SearchViewController: UIViewController {
         self.searchDataCenter = SearchDataCenter()
         self.registerCell()
         self.setupSearchController()
-        self.applySnapshot(query: nil)
+        self.applySnapshot(addressBook: [SelectInfo]())
         self.focusSearchBarWhenViewDidLoad()
+        self.bind()
+    }
+    
+    func bind() {
+        self.searchDataCenter.$addressBook.sink { (selectInfos) in
+            self.applySnapshot(addressBook: selectInfos)
+        }.store(in: &cancelBag)
     }
     
     func isFiltering() {
@@ -61,8 +70,7 @@ class SearchViewController: UIViewController {
         }
     }
     
-    private func applySnapshot(query: String?, animatingDifferences: Bool = true) {
-        let addressBook = self.searchDataCenter.addressBook.filter({ $0.address.hasPrefix(query ?? "") })
+    private func applySnapshot(addressBook: [SelectInfo], animatingDifferences: Bool = true) {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(addressBook, toSection: .main)
@@ -110,7 +118,6 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
 extension SearchViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let query = searchController.searchBar.text
-        //MARK: - 이 위치에 네트워크 get 추정
-        self.applySnapshot(query: query)
+        self.searchDataCenter.requestQuery(query: query ?? "")
     }
 }
