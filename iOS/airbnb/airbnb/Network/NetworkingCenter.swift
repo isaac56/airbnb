@@ -26,7 +26,7 @@ final class NetworkingCenter {
     func request(query: String, completion: @escaping ((Result<SearchResult, AFError>) -> ())) {
         let url = "https://dapi.kakao.com/v2/local/search/address.json"
         let parameters = ["query": query]
-        let headers: HTTPHeaders = ["Authorization": "KakaoAK d3e878a1f79282780e1352824479f2b6"]
+        let headers: HTTPHeaders = ["Authorization": self.getAuthrization()]
         AF.request(url, parameters: parameters, headers: headers).validate().responseDecodable(of: SearchResult.self, completionHandler: { (response) in
             switch response.result {
             case .success(let searchResult):
@@ -35,5 +35,14 @@ final class NetworkingCenter {
                 completion(.failure(error))
             }
         })
+    }
+}
+
+extension NetworkingCenter {
+    private func getAuthrization() -> String {
+        guard let path = Bundle.main.path(forResource: "NetworkElements", ofType: "plist") else { return "" }
+        let plist = NSDictionary(contentsOfFile: path)
+        guard let key = plist?.object(forKey: "Authorization") as? String else { return "" }
+        return key
     }
 }

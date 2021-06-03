@@ -93,6 +93,7 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectInfo = self.searchDataCenter.addressBook[indexPath.row]
+        print(selectInfo.address, selectInfo.x)
         guard let vc = self.storyboard?.instantiateViewController(identifier: CalendarViewController.className) as? CalendarViewController else { return }
         vc.setSelectInfo(selectInfo)
         self.navigationController?.pushViewController(vc, animated: true)
