@@ -36,8 +36,40 @@ const SearchResult = () => {
       <div>
         <ListsWrapper>
           {data &&
-            data.map((v, i) => {
-              return <p key={i}>{v.id}</p>;
+            data.map((data: { [key: string]: any }, i: number) => {
+              return (
+                <ListWrapper key={i}>
+                  <TitleImage
+                    style={{ backgroundImage: `url(${data.title_image})` }}
+                  />
+                  <DetailWrapper>
+                    <Region>
+                      {data.region1} {data.region2}의 아파트 전체
+                    </Region>
+                    <Name>{data.name}</Name>
+                    <Others>
+                      최대 인원 {data.max_of_people}∙{data.type}∙침대
+                      {data.number_of_room}개∙욕실{data.number_of_toilet}개
+                    </Others>
+                    <Others>
+                      {data.options.map((option: string, i: number) => {
+                        return (
+                          <>
+                            <span>{option}</span>
+                            {i < option.length - 2 && <span>∙</span>}
+                          </>
+                        );
+                      })}
+                    </Others>
+                    <Prices>
+                      <DailyFee>
+                        ₩{data.daily_fee.toLocaleString('en')} / 박
+                      </DailyFee>
+                      <TotalFee>총액 ₩{data.total_fee}</TotalFee>
+                    </Prices>
+                  </DetailWrapper>
+                </ListWrapper>
+              );
             })}
         </ListsWrapper>
         <MapWrapper>
@@ -59,8 +91,100 @@ const NavBarWrapper = styled.div`
 const MapWrapper = styled.div`
   position: absolute;
   right: 0px;
-  top: 103px;
+  width: 50%;
+  /* top: 103px; */
   z-index: -1;
+`;
+
+const ListsWrapper = styled.div`
+  position: absolute;
+  width: 50%;
+  left: 0px;
+  padding: 2%;
+  z-index: -2;
+  display: flex;
+  flex-direction: column;
+  /* height: 20%; */
+`;
+const ListWrapper = styled.div`
+  display: flex;
+
+  margin-bottom: 24px;
+`;
+
+const TitleImage = styled.div`
+  width: 330px;
+  height: 200px;
+  border-radius: 10px;
+  background-size: cover;
+`;
+
+const DetailWrapper = styled.div`
+  position: relative;
+  display: flex;
+  width: 60%;
+  flex-direction: column;
+  margin-left: 24px;
+  /* padding-left: 10px; */
+`;
+
+const Region = styled.div`
+  font-size: 12px;
+  margin: 8px 0px;
+
+  /* Gray 3 */
+
+  color: #828282;
+`;
+
+const Name = styled.div`
+  font-size: 14px;
+
+  /* Gray 1 */
+
+  color: #333333;
+
+  margin: 8px 0px;
+`;
+
+const Others = styled.div`
+  font-size: 12px;
+
+  /* Gray 3 */
+
+  color: #828282;
+
+  margin: 4px 0px;
+`;
+
+const Prices = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  right: 10px;
+  bottom: 30px;
+`;
+
+const DailyFee = styled.div`
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 6px;
+  text-align: right;
+
+  /* Gray 1 */
+
+  color: #333333;
+`;
+
+const TotalFee = styled.div`
+  font-size: 12px;
+
+  text-align: right;
+  text-decoration-line: underline;
+
+  /* Gray 3 */
+
+  color: #828282;
 `;
 
 const MiniSearchBarWrapper = styled.div`
@@ -82,13 +206,6 @@ const MiniSearchBarWrapper = styled.div`
   border: 1px solid #bdbdbd;
   box-sizing: border-box;
   border-radius: 30px;
-`;
-
-const ListsWrapper = styled.div`
-  width: 50%;
-  height: 20%;
-
-  margin: 24px 0px;
 `;
 
 export default SearchResult;

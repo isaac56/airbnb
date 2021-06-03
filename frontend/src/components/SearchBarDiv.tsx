@@ -25,7 +25,7 @@ const SearchBarDiv: React.FC<Ispan> = props => {
 
   const resetDates = () => {
     const filterDisplayCopy = { ...filterDisplay };
-    const dataCopy = { ...dates };
+    const dateCopy = { ...dates };
     const priceCopy = { ...prices };
     const guestsCopy = { ...guests };
 
@@ -33,8 +33,8 @@ const SearchBarDiv: React.FC<Ispan> = props => {
       case '체크인':
       case '체크아웃':
         filterDisplayCopy[`${props.label}`] = '입력 날짜';
-        dataCopy[`${props.label}`] = null;
-        setDates({ ...dataCopy });
+        dateCopy[`${props.label}`] = null;
+        setDates({ ...dateCopy });
         break;
       case '요금':
         filterDisplayCopy[`${props.label}`] = '금액대 설정';

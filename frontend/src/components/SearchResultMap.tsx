@@ -30,7 +30,7 @@ const SearchResultMap = () => {
   return (
     <>
       <Div>
-        <div id="map" style={{ width: '708px', height: '1024px' }} />
+        <div id="map" style={{ width: '50vw', height: '1024px' }} />
       </Div>
       <ZoomControlWrapper>
         <div onClick={zoomIn}>
@@ -49,7 +49,7 @@ const Div = styled.div``;
 const ZoomControlWrapper = styled.div`
   position: absolute;
   right: 30px;
-  top: 120px;
+  top: 45px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
