@@ -41,7 +41,7 @@ final class NetworkingCenter {
         let parameters: Parameters = [
             "x": selectInfo.x!,
             "y": selectInfo.y!,
-            "range": 10,
+            "range": 20,
             "startDate": selectInfo.startDate!.getString(), 
             "endDate": selectInfo.endDate!.getString(),
             "minFee": selectInfo.minPrice!,
