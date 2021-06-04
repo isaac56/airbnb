@@ -38,11 +38,6 @@ class SearchViewController: UIViewController {
         }.store(in: &cancelBag)
     }
     
-    func isFiltering() {
-        //MARK: - 필터 적용
-        
-    }
-    
     func setCityInfoViewModel(cityInfoViewModel: CityInfoViewModel) {
         self.cityInfoViewModel = cityInfoViewModel
     }
@@ -93,20 +88,9 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectInfo = self.searchDataCenter.addressBook[indexPath.row]
-        print(selectInfo.address, selectInfo.x)
         guard let vc = self.storyboard?.instantiateViewController(identifier: CalendarViewController.className) as? CalendarViewController else { return }
         vc.setSelectInfo(selectInfo)
         self.navigationController?.pushViewController(vc, animated: true)
-    }
-}
-
-extension SearchViewController: UISearchControllerDelegate {
-    func didPresentSearchController(_ searchController: UISearchController) {
-        //MARK: - 누르기 전과 후의 데이터를 다르게
-    }
-    
-    func didDismissSearchController(_ searchController: UISearchController) {
-        
     }
 }
 

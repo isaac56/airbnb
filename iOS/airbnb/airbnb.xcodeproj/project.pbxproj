@@ -68,9 +68,7 @@
 		22BC502E266909610027BCA3 /* MapResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BC502D266909610027BCA3 /* MapResultViewModel.swift */; };
 		22BC503A2669BAF80027BCA3 /* ResultListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BC50382669BAF80027BCA3 /* ResultListCollectionViewCell.swift */; };
 		22BC503B2669BAF80027BCA3 /* ResultListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22BC50392669BAF80027BCA3 /* ResultListCollectionViewCell.xib */; };
-		22CB499626651AD000FF7E75 /* OAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CB499526651AD000FF7E75 /* OAuthViewController.swift */; };
 		22CB499C26651C2E00FF7E75 /* OctoKit in Frameworks */ = {isa = PBXBuildFile; productRef = 22CB499B26651C2E00FF7E75 /* OctoKit */; };
-		22CB49A126651C8500FF7E75 /* OAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CB49A026651C8500FF7E75 /* OAuthManager.swift */; };
 		22CC4BA42666481600FF7981 /* SearchByRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC4BA32666481600FF7981 /* SearchByRegion.swift */; };
 		22CC4BA92666486000FF7981 /* SearchByRegionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC4BA82666486000FF7981 /* SearchByRegionData.swift */; };
 		22CC4BAE26664A7C00FF7981 /* DetailAccommodationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC4BAD26664A7C00FF7981 /* DetailAccommodationData.swift */; };
@@ -194,8 +192,6 @@
 		22BC502D266909610027BCA3 /* MapResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapResultViewModel.swift; sourceTree = "<group>"; };
 		22BC50382669BAF80027BCA3 /* ResultListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultListCollectionViewCell.swift; sourceTree = "<group>"; };
 		22BC50392669BAF80027BCA3 /* ResultListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultListCollectionViewCell.xib; sourceTree = "<group>"; };
-		22CB499526651AD000FF7E75 /* OAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthViewController.swift; sourceTree = "<group>"; };
-		22CB49A026651C8500FF7E75 /* OAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthManager.swift; sourceTree = "<group>"; };
 		22CC4BA32666481600FF7981 /* SearchByRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchByRegion.swift; sourceTree = "<group>"; };
 		22CC4BA82666486000FF7981 /* SearchByRegionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchByRegionData.swift; sourceTree = "<group>"; };
 		22CC4BAD26664A7C00FF7981 /* DetailAccommodationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAccommodationData.swift; sourceTree = "<group>"; };
@@ -489,23 +485,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		22CB499426651ABD00FF7E75 /* OAuth */ = {
-			isa = PBXGroup;
-			children = (
-				22CB499526651AD000FF7E75 /* OAuthViewController.swift */,
-				22CB49A526651C8700FF7E75 /* Model */,
-			);
-			path = OAuth;
-			sourceTree = "<group>";
-		};
-		22CB49A526651C8700FF7E75 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				22CB49A026651C8500FF7E75 /* OAuthManager.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		22CC4BA22666470600FF7981 /* DTO */ = {
 			isa = PBXGroup;
 			children = (
@@ -571,7 +550,6 @@
 			isa = PBXGroup;
 			children = (
 				22DCA6B02652370D00DDEDBE /* AppCycle */,
-				22CB499426651ABD00FF7E75 /* OAuth */,
 				22DCA6B12652375900DDEDBE /* Main */,
 				224FF4DF265240710051259F /* Search */,
 				22DE05C2265B6EA20086B74B /* BottomSearchInfo */,
@@ -868,13 +846,11 @@
 				220A609A2667946300978D2E /* SearchResultDocuments.swift in Sources */,
 				220A60AD26679B1C00978D2E /* SearchResultMeta.swift in Sources */,
 				22EC5541265FCBC700F5C15A /* UIImage.swift in Sources */,
-				22CB49A126651C8500FF7E75 /* OAuthManager.swift in Sources */,
 				226B808626608E9F002C6CB6 /* CustomTitleLabel.swift in Sources */,
 				22CC4BA92666486000FF7981 /* SearchByRegionData.swift in Sources */,
 				224FF4E1265240820051259F /* SearchViewController.swift in Sources */,
 				220A0A1B265D0EFB0058350B /* ArroundSectionCell.swift in Sources */,
 				22DE05CF265B76ED0086B74B /* String+Date.swift in Sources */,
-				22CB499626651AD000FF7E75 /* OAuthViewController.swift in Sources */,
 				22FA3EA12656949F0073FB47 /* Selected.swift in Sources */,
 				225AF66A2661E3C400C6ABEE /* PersonDataProcessingCenter.swift in Sources */,
 				22DCA67B2652338000DDEDBE /* AppDelegate.swift in Sources */,
