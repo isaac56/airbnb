@@ -51,7 +51,6 @@ class SearchViewController: UIViewController {
     private func setupSearchController() {
         self.navigationItem.searchController = self.searchController
         self.navigationItem.searchController?.searchResultsUpdater = self
-        self.navigationItem.searchController?.delegate = self
         self.navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
         self.navigationItem.title = "숙소 찾기"
         self.navigationItem.hidesSearchBarWhenScrolling = false

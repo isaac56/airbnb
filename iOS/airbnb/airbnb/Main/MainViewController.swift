@@ -26,7 +26,6 @@ class MainViewController: UIViewController {
         self.setLivingNowCollectionViewDelegate()
         self.registerNib()
         self.setDecelerationRate()
-        self.setScrollViewHeight()
     }
     
     override func viewWillAppear(_ animated: Bool) {
