@@ -48,3 +48,12 @@ import Combine
 //        })
 //    }
 //}
+//
+//extension OAuthManager {
+//    func getClientID() -> String {
+//        guard let path = Bundle.main.path(forResource: "NetworkElements", ofType: "plist") else { return "" }
+//        let plist = NSDictionary(contentsOfFile: path)
+//        guard let key = plist?.object(forKey: "ClientID") as? String else { return "" }
+//        return key
+//    }
+//}

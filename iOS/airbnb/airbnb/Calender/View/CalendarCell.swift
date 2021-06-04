@@ -7,10 +7,16 @@
 
 import UIKit
 
+protocol SelectedRecognizable: class {
+    func didSelectedFirstDayAndSecondDay() -> Bool
+}
+
 class CalendarCell: UICollectionViewCell {
+    @IBOutlet private var circleBackgroundView: UIView!
     @IBOutlet private weak var dayLabel: UILabel!
     @IBOutlet private weak var leftHalfView: UIView!
     @IBOutlet private weak var rightHalfView: UIView!
+    weak var delegate: SelectedRecognizable?
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -18,24 +24,17 @@ class CalendarCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.dayLabel.font = .systemFont(ofSize: 14, weight: .bold)
-        self.dayLabel.backgroundColor = .white
         self.dayLabel.textColor = .black
         self.rightHalfView.backgroundColor = .white
-        self.layer.cornerRadius = 0
+        self.circleBackgroundView.backgroundColor = .white
+        self.circleBackgroundView.layer.cornerRadius = 0
+        self.rightHalfView.backgroundColor = .clear
+        self.leftHalfView.backgroundColor = .clear
     }
     
     func configure(dayMetadata: Day) {
         selected(dayMetaData: dayMetadata)
         setText(dayMetadata: dayMetadata)
-        halfBackGround(dayMetaData: dayMetadata)
-    }
-    
-    func halfBackGround(dayMetaData: Day) {
-        if dayMetaData.isFirstSelected {
-            self.rightHalfView.backgroundColor = .systemGray2
-        } else if dayMetaData.isSecondSelected {
-            self.leftHalfView.backgroundColor = .systemGray2
-        }
     }
     
     func setText(dayMetadata: Day) {
@@ -48,14 +47,23 @@ class CalendarCell: UICollectionViewCell {
     
     func selected(dayMetaData: Day) {
         if dayMetaData.isFirstSelected || dayMetaData.isSecondSelected {
-            self.dayLabel.backgroundColor = .black
             self.dayLabel.textColor = .white
-            self.layer.cornerRadius = 5
-            self.layer.masksToBounds = true
+            self.circleBackgroundView.backgroundColor = .black
+            self.circleBackgroundView.layer.masksToBounds = false
+            self.circleBackgroundView.layer.cornerRadius = self.frame.width / 2
         }
         
         if dayMetaData.midRange {
-            self.dayLabel.backgroundColor = .systemGray5
+            self.circleBackgroundView.backgroundColor = .systemGray5
+        }
+        
+        guard let delegate = delegate else { return }
+        if delegate.didSelectedFirstDayAndSecondDay() {
+            if dayMetaData.isFirstSelected {
+                self.rightHalfView.backgroundColor = .systemGray5
+            } else {
+                self.leftHalfView.backgroundColor = .systemGray5
+            }
         }
     }
 

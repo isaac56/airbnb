@@ -67,7 +67,7 @@ class CalendarViewController: UIViewController {
 
 extension CalendarViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.view.frame.width / 7.0, height: self.view.frame.width / 7.0)
+        return CGSize(width: floor(self.view.frame.width / 7.0), height: self.view.frame.width / 7.0)
     }
 }
 
@@ -107,7 +107,14 @@ extension CalendarViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CalendarCell.className, for: indexPath) as? CalendarCell else { return UICollectionViewCell() }
         guard let days = self.calendarBusinessCenter.calendarList.first(where: { $0.key.index == indexPath.section })?.value else { return cell }
+        cell.delegate = self
         cell.configure(dayMetadata: days[indexPath.row])
         return cell
+    }
+}
+
+extension CalendarViewController: SelectedRecognizable {
+    func didSelectedFirstDayAndSecondDay() -> Bool {
+        return self.calendarBusinessCenter.firstSelected != nil && self.calendarBusinessCenter.secondSelected != nil
     }
 }
