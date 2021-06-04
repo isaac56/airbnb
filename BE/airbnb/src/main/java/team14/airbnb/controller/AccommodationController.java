@@ -15,6 +15,7 @@ import team14.airbnb.service.AccommodationService;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/accommodation")
@@ -31,6 +32,15 @@ public class AccommodationController {
     //로그인 구현 전까지 사용하기 위한 임시 코드
     private User getUser() {
         return userRepository.findById(1l).orElseThrow(() -> new NotFoundException(User.NOT_FOUND_MESSAGE));
+    }
+
+    @PostMapping("/list")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ApiResult createAll(@RequestBody List<CreateDto> createDtoList) {
+        User user = getUser(); //로그인 구현 전까지 사용하기 위한 임시 코드
+
+        createDtoList.stream().forEach(x -> accommodationService.create(x, user));
+        return ApiResult.ok();
     }
 
     @PostMapping
