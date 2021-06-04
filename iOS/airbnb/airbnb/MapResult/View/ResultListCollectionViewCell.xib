@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ResultListCollectionViewCell" reuseIdentifier="ResultListCollectionViewCell" id="gTV-IL-0wX" customClass="ResultListCollectionViewCell" customModule="airbnb" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="400" height="140"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="400" height="140"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZTr-FK-L07">
+                        <rect key="frame" x="10" y="10" width="380" height="120"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bcN-dJ-1pr">
+                                <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="bcN-dJ-1pr" secondAttribute="height" id="Cac-tg-UYu"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gAM-EO-jKr">
+                                <rect key="frame" x="135" y="15" width="230" height="90"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spacious and Comfortable cozy ..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LRL-t8-oJk">
+                                        <rect key="frame" x="0.0" y="0.0" width="230" height="60"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jar-JT-AIO">
+                                        <rect key="frame" x="0.0" y="60" width="230" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="o3k-Oh-Tdu"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vh8-Wm-HCD">
+                                <rect key="frame" x="340" y="10" width="30" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="1Gi-zE-ybL"/>
+                                    <constraint firstAttribute="width" constant="30" id="Bo3-Xk-3Ge"/>
+                                </constraints>
+                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="suit.heart" catalog="system" symbolScale="large"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="bcN-dJ-1pr" firstAttribute="leading" secondItem="ZTr-FK-L07" secondAttribute="leading" id="1qz-Ur-jW4"/>
+                            <constraint firstAttribute="bottom" secondItem="bcN-dJ-1pr" secondAttribute="bottom" id="61s-eX-sfy"/>
+                            <constraint firstItem="gAM-EO-jKr" firstAttribute="top" secondItem="ZTr-FK-L07" secondAttribute="top" constant="15" id="6kO-ga-mQ0"/>
+                            <constraint firstAttribute="trailing" secondItem="gAM-EO-jKr" secondAttribute="trailing" constant="15" id="DDS-ws-kGa"/>
+                            <constraint firstAttribute="trailing" secondItem="Vh8-Wm-HCD" secondAttribute="trailing" constant="10" id="Eht-LI-SCf"/>
+                            <constraint firstItem="Vh8-Wm-HCD" firstAttribute="top" secondItem="ZTr-FK-L07" secondAttribute="top" constant="10" id="SCd-ta-IyQ"/>
+                            <constraint firstAttribute="bottom" secondItem="gAM-EO-jKr" secondAttribute="bottom" constant="15" id="bhu-ZQ-Y1u"/>
+                            <constraint firstItem="bcN-dJ-1pr" firstAttribute="top" secondItem="ZTr-FK-L07" secondAttribute="top" id="gYV-I1-aMZ"/>
+                            <constraint firstItem="gAM-EO-jKr" firstAttribute="leading" secondItem="bcN-dJ-1pr" secondAttribute="trailing" constant="15" id="vUT-xC-cHI"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="ZTr-FK-L07" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="2BK-1p-Rxq"/>
+                <constraint firstItem="ZTr-FK-L07" firstAttribute="trailing" secondItem="gTV-IL-0wX" secondAttribute="trailing" constant="-10" id="5Vz-rO-8uj"/>
+                <constraint firstItem="ZTr-FK-L07" firstAttribute="bottom" secondItem="gTV-IL-0wX" secondAttribute="bottom" constant="-10" id="MQK-Il-9q6"/>
+                <constraint firstAttribute="top" secondItem="ZTr-FK-L07" secondAttribute="top" constant="-10" id="vTj-47-8XK"/>
+            </constraints>
+            <size key="customSize" width="300" height="92"/>
+            <connections>
+                <outlet property="priceLabel" destination="jar-JT-AIO" id="9TQ-FX-11y"/>
+                <outlet property="roomImage" destination="bcN-dJ-1pr" id="W6Q-y8-hCe"/>
+                <outlet property="roomTitle" destination="LRL-t8-oJk" id="aJv-Sp-3dk"/>
+                <outlet property="view" destination="ZTr-FK-L07" id="2c5-nf-edx"/>
+                <outlet property="wishButton" destination="Vh8-Wm-HCD" id="ITW-8a-42z"/>
+            </connections>
+            <point key="canvasLocation" x="321.73913043478262" y="104.46428571428571"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="suit.heart" catalog="system" width="128" height="109"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

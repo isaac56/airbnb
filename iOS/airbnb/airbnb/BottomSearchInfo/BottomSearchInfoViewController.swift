@@ -36,7 +36,7 @@ class BottomSearchInfoViewController: UIViewController {
         self.location.text = info.address
         self.duration.text = info.displayDuration
         self.price.text = info.priceText == nil ? "" : info.priceText
-        self.persons.text = info.persons == nil ? "" : "\(info.persons ?? 0)명"
+        self.persons.text = info.persons == 0 ? "" : "\(info.persons)명"
     }
     
     func drawTopBorder() {

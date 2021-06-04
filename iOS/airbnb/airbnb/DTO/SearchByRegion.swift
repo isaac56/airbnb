@@ -42,4 +42,10 @@ struct SearchByRegion: Codable {
         case titleImageURL = "title_image"
     }
     
+    func stringTotalFee() -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        let stringFee = "₩" + numberFormatter.string(from: NSNumber(value: self.totalFee))!
+        return stringFee
+    }
 }

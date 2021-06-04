@@ -41,14 +41,13 @@ final class NetworkingCenter {
         let parameters: Parameters = [
             "x": selectInfo.x!,
             "y": selectInfo.y!,
-            "range": 8,
-            "startDate": selectInfo.startDate!.getString(),
+            "range": 10,
+            "startDate": selectInfo.startDate!.getString(), 
             "endDate": selectInfo.endDate!.getString(),
             "minFee": selectInfo.minPrice!,
             "maxFee": selectInfo.maxPrice!,
             "person": selectInfo.persons
         ]
-        
         AF.request("http://3.35.85.246:8080/api/accommodation/list/location", parameters: parameters).validate().responseDecodable(of: SearchByRegionData.self, completionHandler: { (response) in
             switch response.result {
             case .success(let searchByRegionData):
