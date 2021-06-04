@@ -1,5 +1,6 @@
 package team14.airbnb;
 
+import io.jsonwebtoken.JwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -44,5 +45,11 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ApiResult unauthorizedException(UnauthorizedException unauthorizedException) {
         return ApiResult.fail(unauthorizedException);
+    }
+
+    @ExceptionHandler(JwtException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ApiResult signatureException(JwtException exception) {
+        return ApiResult.fail("유효한 access token 이 아닙니다.");
     }
 }

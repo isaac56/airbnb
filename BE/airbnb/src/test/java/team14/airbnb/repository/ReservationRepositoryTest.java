@@ -39,7 +39,7 @@ class ReservationRepositoryTest {
 
     @BeforeEach
     void SetUp() {
-        User user = userRepository.save(new User("host@host.com", "호스트닉네임"));
+        User user = userRepository.save(new User("host@host.com", "호스트닉네임", null));
 
         Accommodation accommodation = accommodationRepository.save(
                 new Accommodation("테스트", 0, 0, 0, null, "", user,

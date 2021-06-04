@@ -13,7 +13,8 @@ class AccommodationTest {
 
     @BeforeEach
     void setUp() {
-        accommodation = new Accommodation("테스트", 100000, 120000, 2000, "imageurl", "설명", new User("test", "test"),
+        accommodation = new Accommodation("테스트", 100000, 120000, 2000, "imageurl",
+                "설명", new User("test", "test", null),
                 new DetailCondition(RoomType.ONE_ROOM, 3, 1, 1), null);
     }
 

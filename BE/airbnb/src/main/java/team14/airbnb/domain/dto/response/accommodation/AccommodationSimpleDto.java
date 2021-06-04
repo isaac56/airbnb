@@ -27,6 +27,12 @@ public class AccommodationSimpleDto {
 
     private String roadAddressName;
 
+    private String region1;
+
+    private String region2;
+
+    private String region3;
+
     private Double x;
 
     private Double y;
@@ -60,6 +66,9 @@ public class AccommodationSimpleDto {
                 .cleaningFee(accommodation.getCleaningFee())
                 .addressName(accommodation.getAddressName())
                 .roadAddressName(accommodation.getRoadAddressName())
+                .region1(accommodation.getRegion1())
+                .region2(accommodation.getRegion2())
+                .region3(accommodation.getRegion3())
                 .x(accommodation.getX())
                 .y(accommodation.getY())
                 .type(accommodation.getTypeName())
