@@ -3,9 +3,14 @@ import styled from 'styled-components';
 import theme from '../styles/theme';
 
 const NavBarLogIn = () => {
+  const url =
+    'https://github.com/login/oauth/authorize?client_id=1047430c9be66344ceb2&scope=user:email&redirect_uri=http://localhost:3000/oauth/login';
+
   return (
     <LoginWrapper className="login">
-      <Span>로그인</Span>
+      <a href={url}>
+        <Span>로그인</Span>
+      </a>
     </LoginWrapper>
   );
 };

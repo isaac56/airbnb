@@ -15,7 +15,7 @@ const PriceModal = () => {
   const dates = useRecoilValue(checkInOutData);
   const classes = useStyles();
 
-  const { isLoading, data, error, isFetching } = useFetch({
+  const { isLoading, data, error } = useFetch('userFilter', {
     checkIn: dates.체크인,
     checkOut: dates.체크아웃,
   });

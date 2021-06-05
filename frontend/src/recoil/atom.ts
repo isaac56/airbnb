@@ -35,4 +35,9 @@ const guestsData = atom({
   },
 });
 
-export { filterDisplayData, checkInOutData, priceData, guestsData };
+const mapData = atom({
+  key: 'maps',
+  default: {},
+});
+
+export { filterDisplayData, checkInOutData, priceData, guestsData, mapData };

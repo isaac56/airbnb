@@ -122,7 +122,7 @@ const Container = styled.div`
     pointer-events: none;
     position: absolute;
     height: 0;
-    width: 400px;
+    width: 300px;
     outline: none;
   }
 
@@ -151,7 +151,7 @@ const Container = styled.div`
 
 const Slider = styled.div`
   position: relative;
-  width: 400px;
+  width: 300px;
 
   .slider__track,
   .slider__range,

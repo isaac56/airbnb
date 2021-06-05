@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import NavBar from './NavBar';
 import SearchResultMap from './SearchResultMap';
-import { useRecoilValue } from 'recoil';
-import { checkInOutData, priceData, guestsData } from '../recoil/atom';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { checkInOutData, priceData, guestsData, mapData } from '../recoil/atom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import useFetch from './UseFetch';
@@ -12,13 +12,12 @@ const SearchResult = () => {
   const dates = useRecoilValue(checkInOutData);
   const guests = useRecoilValue(guestsData);
   const prices = useRecoilValue(priceData);
+  const [maps, setMaps] = useRecoilState(mapData);
+  const [markerPositions, setMarkerPositions] = useState([]);
+
   const classes = useStyles();
 
-  // const miniSearchBar = () => {
-  //   return <MiniSearchBarWrapper></MiniSearchBarWrapper>;
-  // };
-
-  const { isLoading, data, error } = useFetch({
+  const { isLoading, data, error } = useFetch('userFilter', {
     checkIn: dates.체크인,
     checkOut: dates.체크아웃,
     minPrice: prices.최저가,
@@ -26,12 +25,20 @@ const SearchResult = () => {
     guests: Object.values(guests).reduce((a, b) => (a || 0) + (b || 0), 0),
   });
 
-  const markerPositions = data?.reduce((acc, cur) => {
-    return [...acc, [cur.x, cur.y]];
-  }, []);
+  useEffect(() => {
+    const markerPositions = data?.reduce((acc, cur, i) => {
+      return [...acc, { title: cur.name, lat: cur.y, lng: cur.x }];
+    }, []);
+    setMarkerPositions(markerPositions);
+    // setMaps(markerPositions);
+  }, [data, maps]);
+
+  // const miniSearchBar = () => {
+  //   return <MiniSearchBarWrapper></MiniSearchBarWrapper>;
+  // };
 
   return (
-    <div>
+    <Div>
       <NavBarWrapper>
         <NavBar />
       </NavBarWrapper>
@@ -61,10 +68,10 @@ const SearchResult = () => {
                     <Others>
                       {data.options.map((option: string, i: number) => {
                         return (
-                          <>
+                          <div key={i}>
                             <span>{option}</span>
                             {i < option.length - 2 && <span>∙</span>}
-                          </>
+                          </div>
                         );
                       })}
                     </Others>
@@ -80,12 +87,18 @@ const SearchResult = () => {
             })}
         </ListsWrapper>
         <MapWrapper>
-          <SearchResultMap />
+          {markerPositions && markerPositions.length > 0 && (
+            <SearchResultMap markerPositions={markerPositions} />
+          )}
         </MapWrapper>
       </div>
-    </div>
+    </Div>
   );
 };
+
+const Div = styled.div`
+  max-height: 100vh;
+`;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -106,9 +119,9 @@ const NavBarWrapper = styled.div`
 
 const MapWrapper = styled.div`
   position: absolute;
+  height: 100%;
   right: 0px;
   width: 50%;
-  /* top: 103px; */
   z-index: -1;
 `;
 
@@ -120,11 +133,11 @@ const ListsWrapper = styled.div`
   z-index: -2;
   display: flex;
   flex-direction: column;
-  /* height: 20%; */
+  overflow: scroll;
+  height: 100%;
 `;
 const ListWrapper = styled.div`
   display: flex;
-
   margin-bottom: 24px;
 `;
 
