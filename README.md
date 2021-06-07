@@ -24,4 +24,4 @@
 
 ## WEB 구동 화면(gif)
 
-![web page](https://i.ibb.co/Lz6PcWP/Jun-07-2021-14-23-00.gif)
+<img src="https://i.ibb.co/Lz6PcWP/Jun-07-2021-14-23-00.gif">
